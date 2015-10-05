@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector"
+    android:gravity="center"
+    android:minHeight="?android:listPreferredItemHeight"
+    android:paddingLeft="50.0dip"
+    android:paddingRight="50.0dip"
+    android:textAppearance="?android:textAppearanceLarge"
+    android:textColor="#ffad61d2" />
+<!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/purple_list_elements.xml -->

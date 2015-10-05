@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF5D7" >
+
+    <RelativeLayout
+        android:id="@+id/noteHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/noteredline"
+        android:paddingRight="20dp" >
+    </RelativeLayout>
+
+    <view
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/notePadBody"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/noteHeader"
+        android:layout_toRightOf="@+id/noteLeft"
+        class="hu.blogspot.limarapeksege.shape.NotePadLine"
+        android:background="@android:color/transparent"
+        android:fadingEdge="vertical"
+        android:gravity="top"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:scrollbars="vertical"
+        android:textSize="20sp"
+        android:typeface="monospace" />
+
+    <RelativeLayout
+        android:id="@+id/noteLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/notecircles"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/activity_note_pad.xml -->

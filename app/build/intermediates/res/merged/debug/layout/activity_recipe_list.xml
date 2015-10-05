@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f7dbe3" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:divider="@null"
+        android:dividerHeight="1.5dip"
+        android:listSelector="@drawable/selector" />
+
+</RelativeLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/activity_recipe_list.xml -->

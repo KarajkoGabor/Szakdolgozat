@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/categoryPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/imageString" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@+id/categoryPic"
+        android:gravity="left|center"
+        android:minHeight="?android:listPreferredItemHeight"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#ff040404"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/imageString"
+        android:src="@drawable/arrow" />
+
+</RelativeLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/list_row_category.xml -->

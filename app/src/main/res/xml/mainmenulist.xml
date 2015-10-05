@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MainMenuListItem>
+
+    <Item value="Online Receptkönyv" >
+Online Receptkönyv
+    </Item>
+    <Item value="Lementett receptek" >
+Lementett receptek
+    </Item>
+    <Item value="Kedvenc receptek" >
+Kedvenc receptek
+    </Item>
+    <Item value="Vekni formázása" >
+Vekni formázása
+    </Item>
+    <Item value="Recept keresése" >
+Recept keresése
+    </Item>
+    <Item value="Friss bejegyzések" >
+Legújabb bejegyzések
+    </Item>
+
+</MainMenuListItem>

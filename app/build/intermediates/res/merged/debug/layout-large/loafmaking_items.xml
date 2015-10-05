@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:fillViewport="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dip" >
+
+        <TextView
+            android:id="@+id/step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:shadowColor="#ffffffff"
+            android:shadowRadius="1.0"
+            android:textColor="#803a3a"
+            android:textSize="38.0sp" />
+
+        <ImageView
+            android:id="@+id/loaf_image"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="1.0dip"
+            android:layout_weight="1"
+            android:contentDescription="@string/loafImage" />
+        <!-- android:layout_below="@id/step" -->
+
+        <TextView
+            android:id="@+id/loaf_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:shadowColor="#ffffffff"
+            android:textColor="#803a3a"
+            android:shadowRadius="1.0"
+            android:textSize="28.0sp" />
+        <!-- android:layout_below="@id/loaf_image" -->
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout-large/loafmaking_items.xml -->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pageLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <WebView
+        android:id="@+id/recipeWv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="false"
+        android:fitsSystemWindows="true" />
+
+</LinearLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/activity_recipe_page.xml -->

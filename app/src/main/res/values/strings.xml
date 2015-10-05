@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LimaraPeksege</string>
+    <string name="limara">Limara Péksége</string>
+    <string name="loafImage">Vekni készítéséhez képek</string>
+    <string name="imageString">Kezdő kép</string>
+
+    <string-array name="mainPageMenus">
+        <item>Receptek online böngészése</item>
+        <item>Elmentett receptek</item>
+    </string-array>
+
+    <string name="categories_download">Kategóriák letöltése</string>
+    <string name="recipes_download">Receptek letöltése</string>
+    <string name="load_recipe">Recept betöltése</string>
+    <string name="recipe_save">Recept mentése</string>
+    <string name="note_pad_saveButton">NotePadSaveButton</string>
+    <string name="note_pad_deleteButton">NotePadDeleteButton</string>
+    
+    <string name="wifi_connected_dialog_content">WiFi kapcsolatot észleltem és az elsődleges beállítások még nem történtek meg. A beállítások szükségesek az alkalmazás gyors és zavartalan működéshez, elvégezzem ezeket most? FIGYELEM: a műveletsorozat akár több másodercet is igénybe vehet! </string>
+	<string name="app_id">535320333226754</string>
+    <string name="yes">Igen</string>
+    <string name="no">Ne</string>
+    <string name="not_now">Most nem</string>
+    <string name="close">Bezár</string>
+	<string name="prepare_settings">Beállítások elvégzése</string>
+	<string name="refresh_recipes">Receptek frissítése</string>
+    <string name="loaf_making_step"> / 9. lépés</string>
+    
+	<!-- Toast messages -->
+    <string name="noSaved">Nincs mentett recept!</string>
+    <string name="no_connection">Nincs internet kapcsolat</string>
+    <string name="no_new_recipes">Nincs új recept</string>
+    <string name="share_cancelled">Megosztás megszakítva</string>
+    <string name="share_error">Hiba történt megosztás közben</string>
+    <string name="note_saved">Jegyzet elmentve</string>
+    <string name="common_error">Hiba történt, próbálja újra!</string>
+    <string name="note_deleted">Jegyzet törölve!</string>
+    <string name="update_finished">Frissítés befejezve</string>
+	
+	<!-- Menu strings -->
+	
+    <string name="menu_save">Mentés</string>
+    <string name="menu_delete">Törlés</string>
+    <string name="menu_favorite">Kedvencek</string>
+    <string name="menu_note">Jegyzet</string>
+    <string name="menu_refresh">Frissítés</string>
+    <string name="menu_settings">Settings</string>
+	<string name="menu_share">Megosztás!</string>
+	<string name="menu_about">Névjegy</string>
+	
+	<!-- Activity titles -->
+
+    <string name="title_activity_main_page">Limara Péksége</string>
+    <string name="title_activity_fresh_news">Friss bejegyzések</string>
+    <string name="title_activity_recipe_search">Recept keresése</string>
+    <string name="title_activity_recipe_category">Kategóriák</string>
+    <string name="title_activity_recipe_list">RecipeList</string>
+    <string name="title_activity_recipe_page">RecipePage</string>
+    <string name="title_activity_saved_recipes">Elmentett receptek</string>
+    <string name="title_activity_loaf_making_tutorial">Vekni formázásáról</string>
+    <string name="title_activity_note_pad">NotePad</string>
+
+
+    <string-array name="nav_drawer_items">
+        <item >Kezdőlap</item>
+        <item >Recept keresése</item>
+        <item >Kategóriák</item>
+    </string-array>
+	
+    <!-- Image descriptions -->
+    
+    <string name="main_page_icon_descp">MainPageIcon</string>
+    
+    <!--  new recipes dialog box -->
+    
+    <string name="new_recipes_dialog_title">Receptek frissítése</string>
+    <string name="new_recipes_dialog_message">Új receptek érhetők el</string>
+    
+    <!-- about dialog box -->
+    
+	<string name="about_text">Copyright Karajkó Gábor \nKészítette: Karajkó Gábor \nBlog-tulajdonos: Libor Mária \nweb: www.limarapeksege.hu \ne-mail: limara.peksege.app@gmail.com \n2013</string>
+    <string name="about_title">Névjegy</string>
+    
+    <!-- delete dialog box -->
+    
+    <string name="confirm_delete">Biztosan töröljük ?</string>
+    <string name="delete_title"> törlése</string>
+    
+    <!-- prepare recipes dialog box -->
+    <string name="prepare_recipes">Receptek előkészítése</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+	
+</resources>

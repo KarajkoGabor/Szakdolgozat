@@ -1,0 +1,151 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Risky Project Location:
+-----------------------
+The tools *should* handle project locations in any directory. However,
+due to bugs, placing projects in directories containing spaces in the
+path, or characters like ", ' and &, have had issues. We're working to
+eliminate these bugs, but to save yourself headaches you may want to
+move your project to a location where this is not a problem.
+E:\Egyetem\Android projects
+                  -        
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .codepro\
+* .codepro\deadCodeEntryPoints.xml
+* .gitignore
+* .metadata\
+* .metadata\.lock
+* .metadata\.plugins\
+* .metadata\.plugins\org.eclipse.core.resources\
+* .metadata\.plugins\org.eclipse.core.resources\.root\
+* .metadata\.plugins\org.eclipse.core.resources\.root\.indexes\
+* .metadata\.plugins\org.eclipse.core.resources\.root\.indexes\history.version
+* .metadata\.plugins\org.eclipse.core.resources\.root\.indexes\properties.index
+* .metadata\.plugins\org.eclipse.core.resources\.root\.indexes\properties.version
+* .metadata\.plugins\org.eclipse.core.resources\.root\1.tree
+* .metadata\.plugins\org.eclipse.core.resources\.safetable\
+* .metadata\.plugins\org.eclipse.core.resources\.safetable\org.eclipse.core.resources
+* .metadata\.plugins\org.eclipse.core.runtime\
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\com.android.ide.eclipse.adt.prefs
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\org.eclipse.core.resources.prefs
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\org.eclipse.jdt.ui.prefs
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\org.eclipse.ui.ide.prefs
+* .metadata\.plugins\org.eclipse.core.runtime\.settings\org.eclipse.ui.prefs
+* .metadata\.plugins\org.eclipse.e4.workbench\
+* .metadata\.plugins\org.eclipse.e4.workbench\workbench.xmi
+* .metadata\.plugins\org.eclipse.jdt.core\
+* .metadata\.plugins\org.eclipse.jdt.core\invalidArchivesCache
+* .metadata\.plugins\org.eclipse.jdt.core\nonChainingJarsCache
+* .metadata\.plugins\org.eclipse.jdt.core\variablesAndContainers.dat
+* .metadata\.plugins\org.eclipse.jdt.ui\
+* .metadata\.plugins\org.eclipse.jdt.ui\OpenTypeHistory.xml
+* .metadata\.plugins\org.eclipse.jdt.ui\QualifiedTypeNameHistory.xml
+* .metadata\.plugins\org.eclipse.jdt.ui\dialog_settings.xml
+* .metadata\.plugins\org.eclipse.ui.workbench\
+* .metadata\.plugins\org.eclipse.ui.workbench\dialog_settings.xml
+* .metadata\.plugins\org.eclipse.ui.workbench\workingsets.xml
+* .metadata\version.ini
+* pom.xml
+* proguard-project.txt
+* target\
+* target\classes\
+* target\classes\hu\
+* target\classes\hu\blogspot\
+* target\classes\hu\blogspot\limarapeksege\
+* target\classes\hu\blogspot\limarapeksege\activity\
+* target\classes\hu\blogspot\limarapeksege\activity\FreshNews$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\FreshNews.class
+* target\classes\hu\blogspot\limarapeksege\activity\LoafMakingActivity.class
+* target\classes\hu\blogspot\limarapeksege\activity\MainPage$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\MainPage$2.class
+* target\classes\hu\blogspot\limarapeksege\activity\MainPage$3.class
+* target\classes\hu\blogspot\limarapeksege\activity\MainPage.class
+* target\classes\hu\blogspot\limarapeksege\activity\NotePad.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeCategory$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeCategory.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeList$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeList.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipePage$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipePage$2.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipePage.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeSearch$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeSearch$2.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeSearch$3.class
+* target\classes\hu\blogspot\limarapeksege\activity\RecipeSearch.class
+* target\classes\hu\blogspot\limarapeksege\activity\SavedRecipes$1.class
+* target\classes\hu\blogspot\limarapeksege\activity\SavedRecipes.class
+* target\classes\hu\blogspot\limarapeksege\adapters\
+* target\classes\hu\blogspot\limarapeksege\adapters\CategoryPageGridAdapter$TempHolder.class
+* target\classes\hu\blogspot\limarapeksege\adapters\CategoryPageGridAdapter.class
+* target\classes\hu\blogspot\limarapeksege\adapters\LoafMakingPageAdapter.class
+* target\classes\hu\blogspot\limarapeksege\adapters\RecipeCategoryListAdapter.class
+* target\classes\hu\blogspot\limarapeksege\adapters\SavedListAdapter.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncFileCopy.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncLastModified.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncPrepareRecipeDatas.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncRecipeCategoryClass.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncRecipeListClass.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncRecipeRefresher.class
+* target\classes\hu\blogspot\limarapeksege\asyncs\AsyncRecipeSaveClass.class
+* target\classes\hu\blogspot\limarapeksege\interfaces\
+* target\classes\hu\blogspot\limarapeksege\interfaces\IAsyncResponseAccess.class
+* target\classes\hu\blogspot\limarapeksege\model\
+* target\classes\hu\blogspot\limarapeksege\model\Category.class
+* target\classes\hu\blogspot\limarapeksege\model\GridItem.class
+* target\classes\hu\blogspot\limarapeksege\model\Note.class
+* target\classes\hu\blogspot\limarapeksege\model\Recipe.class
+* target\classes\hu\blogspot\limarapeksege\shape\
+* target\classes\hu\blogspot\limarapeksege\shape\NotePadLine.class
+* target\classes\hu\blogspot\limarapeksege\util\
+* target\classes\hu\blogspot\limarapeksege\util\GlobalStaticVariables.class
+* target\classes\hu\blogspot\limarapeksege\util\RecipeCategoryGridMaker.class
+* target\classes\hu\blogspot\limarapeksege\util\SqliteHelper.class
+* target\classes\hu\blogspot\limarapeksege\util\XmlParser.class
+* target\classes\hu\blogspot\limarapeksege\util\handlers\
+* target\classes\hu\blogspot\limarapeksege\util\handlers\file\
+* target\classes\hu\blogspot\limarapeksege\util\handlers\file\FileHandler.class
+* target\classes\hu\blogspot\limarapeksege\util\handlers\image\
+* target\classes\hu\blogspot\limarapeksege\util\handlers\image\ImageHandler.class
+* target\classes\hu\blogspot\limarapeksege\util\handlers\note\
+* target\classes\hu\blogspot\limarapeksege\util\handlers\note\NoteHandler.class
+* target\classes\hu\blogspot\limarapeksege\util\handlers\recipe\
+* target\classes\hu\blogspot\limarapeksege\util\handlers\recipe\RecipeActionsHandler.class
+* target\classes\hu\blogspot\limarapeksege\util\ourWebViewClient.class
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets\
+* libs\android-support-v13.jar => app\libs\android-support-v13.jar
+* libs\jsoup-1.7.1.jar => app\libs\jsoup-1.7.1.jar
+* libs\opencsv-3.4.jar => app\libs\opencsv-3.4.jar
+* lint.xml => app\lint.xml
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

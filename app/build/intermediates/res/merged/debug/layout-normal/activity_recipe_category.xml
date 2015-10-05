@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f7dbe3"
+    android:baselineAligned="false" >
+
+    <GridView
+        android:id="@+id/categoryGrid"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="20dip"
+        android:layout_marginBottom="20dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:listSelector="@drawable/selector"
+        android:horizontalSpacing="10dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dip" />
+
+</LinearLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout-normal/activity_recipe_category.xml -->

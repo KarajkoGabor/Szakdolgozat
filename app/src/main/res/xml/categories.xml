@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Categories>
+
+    <Item value="leves" name="Levesek">
+        <Name>
+            Levesek
+        </Name>
+    </Item>
+    <Item value="salata" name="Saláták, előételek">
+        <Name>
+            Saláták, előételek
+        </Name>
+    </Item>
+    <Item value="husetelek" name="Húsételek">
+        <Name>
+            Húsételek
+        </Name>
+    </Item>
+    <Item value="zoldseg" name="Zöldségételek">
+        <Name>
+            Zöldségételek
+        </Name>
+    </Item>
+    <Item value="teszta" name="Tészták">
+        <Name>
+            Tészták
+        </Name>
+    </Item>
+    <Item value="koret" name="Köretek">
+        <Name>
+            Köretek
+        </Name>
+    </Item>
+    <Item value="egytaletel" name="Egytálételek">
+        <Name>
+            Egytálételek
+        </Name>
+    </Item>
+    <Item value="kenyer" name="Kenyerek">
+        <Name>
+            Kenyerek
+        </Name>
+    </Item>
+    <Item value="peksutemenyek" name="Péksütemények">
+        <Name>
+            Péksütemények
+        </Name>
+    </Item>
+    <Item value="kalacs" name="Kalácsok">
+        <Name>
+            Kalácsok
+        </Name>
+    </Item>
+    <Item value="keltteszta" name="Kelttészták">
+        <Name>
+            Kelttészták
+        </Name>
+    </Item>
+    <Item value="sos" name="Sósság">
+        <Name>
+            Sósság
+        </Name>
+    </Item>
+    <Item value="edes sutemenyek" name="Édes sütemények">
+        <Name>
+            Édes sütemények
+        </Name>
+    </Item>
+    <Item value="edesseg" name="Édességek">
+        <Name>
+            Édességek
+        </Name>
+    </Item>
+    <Item value="torta" name="Torták">
+        <Name>
+            Torták
+        </Name>
+    </Item>
+    <Item value="befozes" name="Befőzés, tartósítás">
+        <Name>
+            Befőzés, tartósítás
+        </Name>
+    </Item>
+    <Item value="ital" name="Italok">
+        <Name>
+            Italok
+        </Name>
+    </Item>
+    <Item value="glutenmentes" name="Gluténmentes ételek">
+        <Name>
+            Gluténmentes ételek
+        </Name>
+    </Item>
+</Categories>

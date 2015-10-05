@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="hu.blogspot.limarapeksege.test">
+
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="18" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="hu.blogspot.limarapeksege"
+                     android:handleProfiling="false"
+                     android:functionalTest="false"
+                     android:label="Tests for hu.blogspot.limarapeksege"/>
+</manifest>

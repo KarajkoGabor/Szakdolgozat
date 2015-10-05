@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#f7dbe3"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dip" >
+
+        <ImageView
+            android:id="@+id/headerPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dip"
+            android:contentDescription="@string/imageString"
+            android:src="@drawable/logo" />
+
+        <TableLayout
+            android:id="@+id/mainGrid"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dip"
+            android:layout_marginRight="50dip"
+            android:layout_marginTop="50dip"
+            android:numColumns="3" >
+
+            <TableRow android:background="@drawable/selector" >
+
+                <TextView
+                    android:id="@+id/mainTextOnline"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_span="3"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/online_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="42sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dip" >
+
+                <TextView
+                    android:id="@+id/mainTextSaved"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dip"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/saved_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:padding="10dip"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/mainTextFavorites"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dip"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/favorite_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:padding="10dip"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/mainTextLoaf"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/loaf_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:padding="10dip"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="25dip" >
+
+                <TextView
+                    android:id="@+id/mainTextSearch"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dip"
+                    android:layout_span="2"
+                    android:layout_weight="0.65"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/search_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:padding="10dip"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/mainTextNews"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawablePadding="15dip"
+                    android:drawableTop="@drawable/news_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:padding="10dip"
+                    android:paddingBottom="15dip"
+                    android:paddingTop="15dip"
+                    android:textColor="#803a3a"
+                    android:textSize="20sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout-large/activity_main_page.xml -->
