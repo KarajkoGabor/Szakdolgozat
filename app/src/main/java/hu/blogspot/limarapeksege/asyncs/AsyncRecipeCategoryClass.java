@@ -33,14 +33,10 @@ public class AsyncRecipeCategoryClass extends
 	@Override
 	protected ArrayList<Category> doInBackground(Object... params) {
 		RecipeActionsHandler util = new RecipeActionsHandler(context);
-		String urlName = (String) params[1];
 		recipeCategoryGridMaker = (RecipeCategoryGridMaker) params[2];
 		grid = (GridView) params[3];
 
-		ArrayList<Category> parserList = new ArrayList<Category>(); // végsõ
-																// lista
-
-		parserList = util.categoryParser(urlName);
+		ArrayList<Category> parserList = util.categoryParser();
 
 		return parserList;
 	}

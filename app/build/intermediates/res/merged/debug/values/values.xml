@@ -381,7 +381,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="about_text">Copyright Karajkó Gábor \nKészítette: Karajkó Gábor \nBlog-tulajdonos: Libor Mária \nweb: www.limarapeksege.hu \ne-mail: limara.peksege.app@gmail.com \n2013</string>
+    <string name="about_text">Copyright Karajkó Gábor \nKészítette: Karajkó Gábor \nBlog-tulajdonos: Tóthné Libor Mária \nweb: www.limarapeksege.hu \ne-mail: limara.peksege.app@gmail.com</string>
     <string name="about_title">Névjegy</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
@@ -450,6 +450,7 @@
     <string name="menu_save">Mentés</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_share">Megosztás!</string>
+    <string name="nav_drawer_item_about">Kapcsolat</string>
     <string name="nav_drawer_item_kezdolap">Kezdőlap</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Log;
 
+import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.model.Category;
 
 public class XmlParser {

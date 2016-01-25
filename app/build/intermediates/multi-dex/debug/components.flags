@@ -17,6 +17,10 @@
     void attachBaseContext(android.content.Context);
 }
 
+-keep class hu.blogspot.limarapeksege.activity.SplashActivity {
+    <init>();
+}
+
 -keep class hu.blogspot.limarapeksege.activity.MainPage {
     <init>();
 }
@@ -53,11 +57,11 @@
     <init>();
 }
 
--keep class com.facebook.LoginActivity {
+-keep class hu.blogspot.limarapeksege.activity.BaseActivity {
     <init>();
 }
 
--keep class hu.blogspot.limarapeksege.activity.BaseActivity {
+-keep class hu.blogspot.limarapeksege.activity.AboutActivity {
     <init>();
 }
 

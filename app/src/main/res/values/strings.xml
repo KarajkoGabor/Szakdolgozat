@@ -72,6 +72,7 @@
     </string-array>
 
     <string name="nav_drawer_item_kezdolap">Kezdőlap</string>
+    <string name="nav_drawer_item_about">Kapcsolat</string>
 
     <!-- Image descriptions -->
 
@@ -84,7 +85,7 @@
 
     <!-- about dialog box -->
 
-    <string name="about_text">Copyright Karajkó Gábor \nKészítette: Karajkó Gábor \nBlog-tulajdonos: Libor Mária \nweb: www.limarapeksege.hu \ne-mail: limara.peksege.app@gmail.com \n2013</string>
+    <string name="about_text">Copyright Karajkó Gábor \nKészítette: Karajkó Gábor \nBlog-tulajdonos: Tóthné Libor Mária \nweb: www.limarapeksege.hu \ne-mail: limara.peksege.app@gmail.com</string>
     <string name="about_title">Névjegy</string>
 
     <!-- delete dialog box -->

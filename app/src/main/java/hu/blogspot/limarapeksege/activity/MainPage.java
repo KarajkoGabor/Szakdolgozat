@@ -1,23 +1,6 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
-import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
-import hu.blogspot.limarapeksege.util.AnalyticsTracker;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.XmlParser;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.xmlpull.v1.XmlPullParser;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,35 +13,38 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import org.xmlpull.v1.XmlPullParser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
+import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.XmlParser;
+
 @SuppressLint("NewApi")
 public class MainPage extends BaseActivity implements OnClickListener {
 
-	protected static final String LIMARA_URL = "http://limarapeksegetartalom.blogspot.hu/";
 	private Bitmap onlineIcon;
 	private Bitmap savedIcon;
 	private Bitmap favoritesIcon;
 	private Bitmap loafIcon;
 	private Bitmap searchIcon;
 	private Bitmap newsIcon;
-	private final String USER_AGENT = "Mozilla/5.0";
 	private Tracker tracker;
 	
 	@Override
@@ -66,16 +52,14 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-		DrawerListItem drawerListItem = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
+		DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
+		DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.about_icon);
 		List<DrawerListItem> items = new ArrayList<>();
-		items.add(drawerListItem);
+		items.add(drawerListItemHome);
+		items.add(drawerListItemAbout);
 
         super.onCreateDrawer(items, getLocalClassName());
 		List<String> mainMenuList; // men� lista
-
-		if (isWifiConnected() && !isAllRecipesPreDownloaded()) {
-			wifiDialogBox(MainPage.this);
-		}
 
 		setIcons();
 
@@ -269,49 +253,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
 		return activeNetworkInfo != null;
-	}
-
-	private boolean isWifiConnected() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo wifi = null;
-		wifi = connectivityManager
-				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		if (wifi.isConnected()) {
-			return true;
-		} else {
-			return true;
-		}
-
-	}
-
-	private void wifiDialogBox(final Context context) {
-		AlertDialog.Builder wifiConnectedBuilder = new AlertDialog.Builder(
-				context);
-
-		wifiConnectedBuilder.setTitle(R.string.prepare_recipes);
-
-		wifiConnectedBuilder.setMessage(R.string.wifi_connected_dialog_content);
-		wifiConnectedBuilder.setPositiveButton(R.string.yes,
-				new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-						new AsyncPrepareRecipeDatas(context,MainPage.this
-								).execute(MainPage.LIMARA_URL);
-						setAllRecipesDownloadedSettings();
-					}
-				});
-
-		wifiConnectedBuilder.setNegativeButton(R.string.not_now,
-				new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
-
-		AlertDialog dialog = wifiConnectedBuilder.create();
-		dialog.show();
-
 	}
 
 	private void setAllRecipesDownloadedSettings() {

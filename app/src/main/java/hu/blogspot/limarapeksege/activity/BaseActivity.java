@@ -104,12 +104,16 @@ public class BaseActivity extends Activity {
                     case 0:
                         intent = new Intent(BaseActivity.this, MainPage.class);
                         break;
+//                    case 1:
+//                        intent = new Intent(BaseActivity.this, RecipeCategory.class);
+//                        break;
+//                    case 2:
+//                        intent = new Intent(BaseActivity.this, RecipeSearch.class);
+//                        break;
                     case 1:
-                        intent = new Intent(BaseActivity.this, RecipeCategory.class);
+                        intent = new Intent(BaseActivity.this, AboutActivity.class);
                         break;
-                    case 4:
-                        intent = new Intent(BaseActivity.this, RecipeSearch.class);
-                        break;
+
 
                     default :
                         intent = new Intent(BaseActivity.this, MainPage.class); // Activity_0 as default

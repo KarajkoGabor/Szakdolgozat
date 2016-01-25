@@ -8,6 +8,10 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\categories.xml"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\splashloadingmessages.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\splashloadingmessages.xml"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\loafmaking.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\loafmaking.xml"
     },

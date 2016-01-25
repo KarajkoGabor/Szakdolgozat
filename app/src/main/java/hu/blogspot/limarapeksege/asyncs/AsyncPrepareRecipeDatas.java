@@ -1,8 +1,10 @@
 package hu.blogspot.limarapeksege.asyncs;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.activity.MainPage;
 import hu.blogspot.limarapeksege.model.Category;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.XmlParser;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 import java.util.ArrayList;
@@ -11,15 +13,22 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class AsyncPrepareRecipeDatas extends AsyncTask<Object, String, Boolean> {
+import org.w3c.dom.Text;
+import org.xmlpull.v1.XmlPullParser;
+
+public class AsyncPrepareRecipeDatas extends AsyncTask {
 
 	private Context context;
 	private SqliteHelper db;
 	private RecipeActionsHandler util;
 	private ProgressDialog progDialog;
+	private TextView splashMessage;
 	private Activity activity;
 
 	public AsyncPrepareRecipeDatas(Context context, Activity activity) {
@@ -31,12 +40,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask<Object, String, Boolean> 
 	protected void onPreExecute() {
 		// TODO Auto-generated method stub
 		super.onPreExecute();
-		progDialog = new ProgressDialog(context);
-		progDialog.setCancelable(false);
-		progDialog.setMax(100);
-		progDialog.setProgress(0);
-		progDialog.setTitle(R.string.prepare_settings);
-		progDialog.show();
+		splashMessage = (TextView) activity.findViewById(R.id.splashMessage);
 		activity.getWindow().addFlags(
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
@@ -44,22 +48,22 @@ public class AsyncPrepareRecipeDatas extends AsyncTask<Object, String, Boolean> 
 	@Override
 	protected Boolean doInBackground(Object... params) {
 		// TODO Auto-generated method stub
-		ArrayList<Category> categories = new ArrayList<Category>();
-		List<Category> categoriesTemp = new ArrayList<Category>();
+		ArrayList<Category> categories;
+		ArrayList<String> loadingMessages = setLoadingMessages();
 		int i = 1;
+		int index = 0;
 		util = new RecipeActionsHandler(this.context);
 		db = SqliteHelper.getInstance(context);
 
-		if (db.getAllCategories().size() == 0 || db.getRecipesByCategoryID(
-				db.getCategoryByName(categoriesTemp.get(i).getName())
-						.getId()).size() == 0) { // ha még nincsenek a receptek
+		if (db.getAllCategories().size() == 0) { // ha még nincsenek a receptek
 													// letöltve
-			categories = util.categoryParser((String) params[0]);
+			categories = util.categoryParser();
 
 			for(Category category : categories){
-				publishProgress(category.getName()
-						+ " kateg?ria bet?lt?se " + i + "/"
-						+ categories.size());
+				if(i%2 == 1){
+					publishProgress(loadingMessages.get(index));
+					index++;
+				}
 				i++;
 				int categoryID = db.getCategoryByName(category.getName()).getId();
 				util.gatherRecipeData(category.getLabel(), categoryID);
@@ -70,20 +74,35 @@ public class AsyncPrepareRecipeDatas extends AsyncTask<Object, String, Boolean> 
 	}
 
 	@Override
-	protected void onPostExecute(Boolean result) {
-		// TODO Auto-generated method stub
-		super.onPostExecute(result);
-		progDialog.dismiss();
+	protected void onPostExecute(Object o) {
+		super.onPostExecute(o);
 		activity.getWindow().clearFlags(
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+		Intent intent = new Intent(activity, MainPage.class);
+		activity.startActivity(intent);
+		activity.finish();
 	}
 
 	@Override
-	protected void onProgressUpdate(String... values) {
-		// TODO Auto-generated method stub
+	protected void onProgressUpdate(Object[] values) {
 		super.onProgressUpdate(values);
-		progDialog.setMessage(values[0]);
+		splashMessage.setText(values[0].toString());
 	}
+
+	private ArrayList<String> setLoadingMessages() {
+		ArrayList<String> loadingMessages = new ArrayList<String>();
+		try {
+			XmlParser parser = new XmlParser();
+			XmlPullParser xpp = activity.getResources().getXml(R.xml.splashloadingmessages);
+			loadingMessages = (ArrayList<String>) parser.parseXml(xpp,"splash_loading_messages");
+		} catch (Throwable t) {
+			Toast.makeText(activity, "Request failed: " + t.toString(),
+					Toast.LENGTH_LONG).show();
+		}
+
+		return loadingMessages;
+	}
+
 
 }

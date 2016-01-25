@@ -64,6 +64,7 @@ com/google/api/client/json/webtoken/JsonWebToken$Payload.class
 com/google/common/base/package-info.class
 com/google/api/client/googleapis/json/GoogleJsonErrorContainer.class
 android/support/v4/view/ViewCompat.class
+hu/blogspot/limarapeksege/asyncs/AsyncPrepareRecipeDatas.class
 android/support/annotation/StringDef.class
 android/support/annotation/RequiresPermission.class
 com/google/common/annotations/GwtIncompatible.class
@@ -82,7 +83,6 @@ com/google/api/services/blogger/model/PostList.class
 com/google/api/services/blogger/Blogger$Comments$RemoveContent.class
 com/google/android/gms/analytics/HitBuilders$HitBuilder.class
 com/google/common/collect/StandardTable.class
-hu/blogspot/limarapeksege/activity/MainPage$2.class
 hu/blogspot/limarapeksege/adapters/SavedListAdapter.class
 javax/annotation/meta/TypeQualifierValidator.class
 com/google/android/gms/analytics/HitBuilders$AppViewBuilder.class
@@ -90,6 +90,7 @@ com/google/android/gms/analytics/internal/zzd.class
 com/fasterxml/jackson/core/Version.class
 com/google/common/hash/package-info.class
 hu/blogspot/limarapeksege/activity/NotePad.class
+hu/blogspot/limarapeksege/activity/SplashActivity.class
 android/support/v4/widget/MaterialProgressDrawable.class
 com/google/api/services/blogger/model/Comment$InReplyTo.class
 com/google/common/cache/LocalCache$ReferenceEntry.class
@@ -129,6 +130,7 @@ com/google/common/collect/ImmutableEntry.class
 com/google/android/gms/measurement/internal/zzv.class
 com/google/api/client/http/HttpRequest.class
 com/google/common/reflect/MutableTypeToInstanceMap.class
+hu/blogspot/limarapeksege/activity/AboutActivity.class
 com/google/api/services/blogger/model/CommentList.class
 com/google/api/client/googleapis/json/GoogleJsonError.class
 javax/annotation/concurrent/GuardedBy.class
@@ -309,7 +311,6 @@ android/support/v7/widget/LinearLayoutCompat$OrientationMode.class
 android/support/annotation/Size.class
 com/google/api/client/auth/oauth2/CredentialStoreRefreshListener.class
 android/support/annotation/MenuRes.class
-hu/blogspot/limarapeksege/activity/MainPage$3.class
 com/google/common/reflect/Types$ClassOwnership$1.class
 com/google/common/reflect/Types.class
 com/google/api/services/blogger/BloggerRequest.class

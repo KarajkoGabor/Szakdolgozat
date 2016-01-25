@@ -65,12 +65,9 @@ public class RecipeActionsHandler {
 	/**
 	 * Recept kateg�ri�k list�z�sra j�
 	 * 
-	 * @param urlName
-	 *            az URL amit megvizsg�lunk
-	 * 
 	 * @return a lista amit a vizsg�lat sor�n kaptunk
 	 */
-	public ArrayList<Category> categoryParser(String urlName) {
+	public ArrayList<Category> categoryParser() {
 
 		// TODO ez az eg�sz cucc mehet resource fileba is
 
