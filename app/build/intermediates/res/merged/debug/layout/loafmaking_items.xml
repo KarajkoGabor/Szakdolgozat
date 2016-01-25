@@ -44,4 +44,4 @@
         <!-- android:layout_below="@id/loaf_image" -->
     </LinearLayout>
 
-</ScrollView><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/loafmaking_items.xml -->
+</ScrollView>

@@ -1,7 +1,9 @@
 package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
 import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.XmlParser;
 
@@ -43,8 +45,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 @SuppressLint("NewApi")
-public class MainPage extends Activity implements OnClickListener {
+public class MainPage extends BaseActivity implements OnClickListener {
 
 	protected static final String LIMARA_URL = "http://limarapeksegetartalom.blogspot.hu/";
 	private Bitmap onlineIcon;
@@ -54,28 +59,32 @@ public class MainPage extends Activity implements OnClickListener {
 	private Bitmap searchIcon;
 	private Bitmap newsIcon;
 	private final String USER_AGENT = "Mozilla/5.0";
+	private Tracker tracker;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_main_page);
 
-		List<String> mainMenuList; // menü lista
+		DrawerListItem drawerListItem = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
+		List<DrawerListItem> items = new ArrayList<>();
+		items.add(drawerListItem);
+
+        super.onCreateDrawer(items, getLocalClassName());
+		List<String> mainMenuList; // menï¿½ lista
 
 		if (isWifiConnected() && !isAllRecipesPreDownloaded()) {
 			wifiDialogBox(MainPage.this);
 		}
-
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
 		setIcons();
 
 		mainMenuList = setMainMenuList();
 		setTextViews(mainMenuList);
 
-		Log.w(GlobalStaticVariables.LOG_TAG, "dpi "
-				+ getResources().getDisplayMetrics().densityDpi);
+		AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
+		tracker = trackerApp.getDefaultTracker();
+
 	}
 
 	private void setTextViews(List<String> mainMenuList) {
@@ -162,6 +171,13 @@ public class MainPage extends Activity implements OnClickListener {
 		}
 	}
 
+	private void sendTrackerEvent(String eventCategoryName, String eventActionName){
+		tracker.send(new HitBuilders.EventBuilder()
+				.setCategory(eventCategoryName)
+				.setAction(eventActionName)
+				.build());
+	}
+
 	private void startNewActivity(String className, int position) {
 		Bundle sendData = new Bundle();
 		Class<?> newClass = null;
@@ -175,21 +191,10 @@ public class MainPage extends Activity implements OnClickListener {
 		sendData.putInt("position", position);
 
 		openRecipeCategory.putExtras(sendData);
+
+		sendTrackerEvent(className, getString(R.string.analytics_choose_main_menu));
+
 		this.startActivity(openRecipeCategory);
-	}
-
-	private List<String> setMainMenuList() {
-		ArrayList<? extends Object> mainMenuList = new ArrayList<String>();
-		try {
-			XmlParser parser = new XmlParser();
-			XmlPullParser xpp = getResources().getXml(R.xml.mainmenulist);
-			mainMenuList = parser.parseXml(xpp,"main_menu");
-		} catch (Throwable t) {
-			Toast.makeText(this, "Request failed: " + t.toString(),
-					Toast.LENGTH_LONG).show();
-		}
-
-		return (List<String>) mainMenuList;
 	}
 
 	private void setIcons() {
@@ -207,6 +212,20 @@ public class MainPage extends Activity implements OnClickListener {
 		newsIcon = BitmapFactory.decodeResource(getResources(),
 				R.drawable.news_icon);
 
+	}
+
+	private List<String> setMainMenuList() {
+		ArrayList<? extends Object> mainMenuList = new ArrayList<String>();
+		try {
+			XmlParser parser = new XmlParser();
+			XmlPullParser xpp = getResources().getXml(R.xml.mainmenulist);
+			mainMenuList = parser.parseXml(xpp,"main_menu");
+		} catch (Throwable t) {
+			Toast.makeText(this, "Request failed: " + t.toString(),
+					Toast.LENGTH_LONG).show();
+		}
+
+		return (List<String>) mainMenuList;
 	}
 
 	@Override
@@ -245,7 +264,7 @@ public class MainPage extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
-	private boolean isNetworkAvailable() { // ellenõrizzük van-e internet elérés
+	private boolean isNetworkAvailable() { // ellenï¿½rizzï¿½k van-e internet elï¿½rï¿½s
 		ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
@@ -307,6 +326,8 @@ public class MainPage extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker.setScreenName(getString(R.string.analytics_main_page_screen));
+		tracker.send(new HitBuilders.ScreenViewBuilder().build());
 	}
 
 	@Override

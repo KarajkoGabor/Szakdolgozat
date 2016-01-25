@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 17
+    compileSdkVersion 22
     buildToolsVersion "23.0.1"
 
     compileOptions.encoding = 'windows-1251'
@@ -12,8 +13,9 @@ android {
 
     defaultConfig {
         applicationId "hu.blogspot.limarapeksege"
-        minSdkVersion 8
-        targetSdkVersion 18
+        minSdkVersion 9
+        targetSdkVersion 22
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -25,9 +27,11 @@ android {
 }
 
 dependencies {
-    compile files('libs/android-support-v13.jar')
+//    compile files('libs/android-support-v13.jar')
     compile files('libs/jsoup-1.7.1.jar')
     compile files('libs/opencsv-3.4.jar')
     compile 'com.google.apis:google-api-services-blogger:v3-rev48-1.20.0'
-    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:support-v4:22.0.1'
+    compile 'com.google.android.gms:play-services-analytics:8.3.0'
 }

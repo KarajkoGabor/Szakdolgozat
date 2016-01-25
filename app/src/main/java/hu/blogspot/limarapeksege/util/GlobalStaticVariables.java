@@ -20,6 +20,7 @@ public class GlobalStaticVariables {
 	public static final String MAIN_DIRECTORY = "/LimaraPeksege";
 	public static final String SAVED_RECIPE_PATH = "/LimaraPeksege/SavedRecipes/";
 	public static final String FAVORITE_RECIPE_PATH = "/LimaraPeksege/FavoriteRecipes/";
+	public static final String NOTES_PATH = "/LimaraPeksege/FavoriteRecipes/Notes";
 
 	public static final String RECIPE_LIST_DIRECTORY = "RecipeLists";
 

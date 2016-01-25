@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.SavedListAdapter;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
@@ -14,12 +15,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class SavedRecipes extends ListActivity {
 
@@ -28,16 +33,18 @@ public class SavedRecipes extends ListActivity {
 	private RecipeActionsHandler util;
 	private int mainPosition;
 	private static final File savedRecipesDirectory = new File(
-			Environment.getExternalStorageDirectory() + "/LimaraPeksege",
-			"SavedRecipes");
+			Environment.getExternalStorageDirectory() + GlobalStaticVariables.SAVED_RECIPE_PATH);
 	private static final File favoriteRecipesDirectory = new File(
-			Environment.getExternalStorageDirectory() + "/LimaraPeksege",
-			"FavoriteRecipes");
+			Environment.getExternalStorageDirectory() + GlobalStaticVariables.FAVORITE_RECIPE_PATH);
+	private Tracker tracker;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saved_recipes);
+
+		AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
+		tracker = trackerApp.getDefaultTracker();
 
 		ListView lv = (ListView) findViewById(android.R.id.list);
 		Bundle mainPositionBundle = getIntent().getExtras();
@@ -52,7 +59,8 @@ public class SavedRecipes extends ListActivity {
 						.show();
 
 			}
-			setTitle("Lementett receptek");
+			sendTrackerScreenInfo(getString(R.string.title_saved_recipes));
+			setTitle(getString(R.string.title_saved_recipes));
 		} else if (mainPosition == 2) {
 			try {
 				savedRecipeTitles = getSavedRecipeTitlesFromDirectory(favoriteRecipesDirectory);
@@ -61,7 +69,8 @@ public class SavedRecipes extends ListActivity {
 						.show();
 
 			}
-			setTitle("Kedvenc receptek");
+			sendTrackerScreenInfo(getString(R.string.title_favorite_recipes));
+			setTitle(getString(R.string.title_favorite_recipes));
 		}
 
 		util.listSorter(savedRecipeTitles);
@@ -83,12 +92,12 @@ public class SavedRecipes extends ListActivity {
 				}
 
 				temp = savedRecipeTitles.get(arg2).toString();
-				Log.w("LimaraPeksege", temp);
+				Log.w(GlobalStaticVariables.LOG_TAG, temp);
 
 				for (File fs : recipeDirectory.listFiles()) {
 					if (fs.isFile()) {
 						if (fs.getName().equals(temp)) {
-							Log.w("LimaraPeksege", "File megtal�lva");
+							Log.w(GlobalStaticVariables.LOG_TAG, "File megtal�lva");
 							startRecipePageActivity(mainPosition, temp,
 									pushData);
 						}
@@ -124,7 +133,7 @@ public class SavedRecipes extends ListActivity {
 		for (int i = 0; i < recipeTitles.size(); i++) {
 			String storeImage = recipeTitles.get(i) + "0" + ".jpg";
 			storeImage = storeImagePath + storeImage;
-			Log.w("LimaraPeksege", storeImage);
+			Log.w(GlobalStaticVariables.LOG_TAG, storeImage);
 			try {
 				Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
 				icons.add(tempBitmap);
@@ -165,6 +174,11 @@ public class SavedRecipes extends ListActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+	}
+
+	private void sendTrackerScreenInfo(String screenName){
+		tracker.setScreenName(screenName);
+		tracker.send(new HitBuilders.ScreenViewBuilder().build());
 	}
 
 }

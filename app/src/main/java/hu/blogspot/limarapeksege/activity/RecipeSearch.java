@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
@@ -25,99 +26,118 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 public class RecipeSearch extends ListActivity {
 
-	private SqliteHelper db;
-	private ArrayAdapter<String> adapter;
+    private SqliteHelper db;
+    private ArrayAdapter<String> adapter;
+    private Tracker tracker;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recipe_search);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_search);
 
-		final ListView list = (ListView) findViewById(android.R.id.list);
-		final EditText input = (EditText) findViewById(R.id.search_field);
-		Button delete_filter = (Button) findViewById(R.id.search_delete);
-		ArrayList<String> recipeNames = new ArrayList<String>();
+        final ListView list = (ListView) findViewById(android.R.id.list);
+        final EditText input = (EditText) findViewById(R.id.search_field);
 
-		db = SqliteHelper.getInstance(RecipeSearch.this);
+        AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
+        tracker = trackerApp.getDefaultTracker();
 
-		List<Recipe> recipesList = db.getAllRecipes();
-		for (int i = 0; i < recipesList.size(); i++) {
-			recipeNames.add(recipesList.get(i).getRecipeName());
+        Button delete_filter = (Button) findViewById(R.id.search_delete);
+        ArrayList<String> recipeNames = new ArrayList<String>();
 
-		}
-		RecipeActionsHandler util = new RecipeActionsHandler(this);
-		recipeNames = (ArrayList<String>) util.listSorter(recipeNames);
-		adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, recipeNames);
-		list.setAdapter(adapter);
+        db = SqliteHelper.getInstance(RecipeSearch.this);
 
-		input.addTextChangedListener(new TextWatcher() {
+        List<Recipe> recipesList = db.getAllRecipes();
+        for (int i = 0; i < recipesList.size(); i++) {
+            recipeNames.add(recipesList.get(i).getRecipeName());
 
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
+        }
+        RecipeActionsHandler util = new RecipeActionsHandler(this);
+        recipeNames = (ArrayList<String>) util.listSorter(recipeNames);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, recipeNames);
+        list.setAdapter(adapter);
 
-				RecipeSearch.this.adapter.getFilter().filter(s);
+        input.addTextChangedListener(new TextWatcher() {
 
-			}
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
 
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
+                RecipeSearch.this.adapter.getFilter().filter(s);
 
-			}
+            }
 
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-				// TODO Auto-generated method stub
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
 
-			}
+            }
 
-		});
+            public void beforeTextChanged(CharSequence arg0, int arg1,
+                                          int arg2, int arg3) {
+                // TODO Auto-generated method stub
 
-		list.setOnItemClickListener(new OnItemClickListener() {
+            }
 
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+        });
 
-				String recipeName = (String) list.getItemAtPosition(arg2);
+        list.setOnItemClickListener(new OnItemClickListener() {
 
-				Class<?> selectedRecipePage = null;
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
 
-				try {
-					selectedRecipePage = Class
-							.forName(GlobalStaticVariables.RECIPE_PAGE_CLASS);
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                String recipeName = (String) list.getItemAtPosition(arg2);
 
-				Intent openRecipe = new Intent(RecipeSearch.this,
-						selectedRecipePage);
-				Bundle recipeBundle = new Bundle();
-				recipeBundle.putString("name", db.getRecipeByName(recipeName)
-						.getRecipeName());
+                Class<?> selectedRecipePage = null;
 
-				String recipePage = db.getRecipeByName(recipeName)
-						.getRecipeURL();
-				recipeBundle.putString("href", recipePage);
-				Log.w("LimaraPéksége", recipePage);
-				openRecipe.putExtras(recipeBundle);
-				Log.w("LimaraPéksége", "new activity starting");
-				db.closeDatabase();
-				startActivity(openRecipe);
+                try {
+                    selectedRecipePage = Class
+                            .forName(GlobalStaticVariables.RECIPE_PAGE_CLASS);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-			}
-		});
+                Intent openRecipe = new Intent(RecipeSearch.this,
+                        selectedRecipePage);
+                Bundle recipeBundle = new Bundle();
+                recipeBundle.putString("name", db.getRecipeByName(recipeName)
+                        .getRecipeName());
 
-		delete_filter.setOnTouchListener(new OnTouchListener() {
+                String recipePage = db.getRecipeByName(recipeName)
+                        .getRecipeURL();
+                recipeBundle.putString("href", recipePage);
+                Log.w(GlobalStaticVariables.LOG_TAG, recipePage);
+                openRecipe.putExtras(recipeBundle);
+                Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
+                db.closeDatabase();
 
-			public boolean onTouch(View arg0, MotionEvent arg1) {
-				input.setText("");
-				return false;
-			}
-		});
+                sendTrackerEvent(getString(R.string.analytics_search_page), getString(R.string.analytics_navigate_from_search));
 
-	}
+                startActivity(openRecipe);
+
+            }
+        });
+
+        delete_filter.setOnTouchListener(new OnTouchListener() {
+
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                input.setText("");
+                return false;
+            }
+        });
+
+    }
+
+    private void sendTrackerEvent(String eventCategoryName, String eventActionName) {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(eventCategoryName)
+                .setAction(eventActionName)
+                .build());
+    }
+
 
 }

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\mainmenulist.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\mainmenulist.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\categories.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\categories.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\loafmaking.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\loafmaking.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\global_tracker.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\generated\\res\\google-services\\debug\\xml\\global_tracker.xml"
+    }
+]

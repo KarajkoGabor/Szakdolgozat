@@ -5,4 +5,4 @@
     <item android:state_pressed="true" android:color="@color/black"/>
     <item android:color="@color/LimaraPurple"/>
 
-</selector><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/drawable/color_selector.xml -->
+</selector>

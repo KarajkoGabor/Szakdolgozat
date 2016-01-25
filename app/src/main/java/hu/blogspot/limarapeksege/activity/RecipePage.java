@@ -1,6 +1,7 @@
 package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
 import hu.blogspot.limarapeksege.asyncs.AsyncFileCopy;
 import hu.blogspot.limarapeksege.asyncs.AsyncRecipeSaveClass;
 import hu.blogspot.limarapeksege.model.Recipe;
@@ -10,6 +11,8 @@ import hu.blogspot.limarapeksege.util.ourWebViewClient;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,7 +34,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class RecipePage extends Activity {
+public class RecipePage extends BaseActivity {
 	private RecipeActionsHandler util;
 	private static String URLsave;
 	private static String NAMEsave;
@@ -43,6 +46,12 @@ public class RecipePage extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_page);
+
+		DrawerListItem drawerListItem = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
+		List<DrawerListItem> items = new ArrayList<>();
+		items.add(drawerListItem);
+
+		super.onCreateDrawer(items, getLocalClassName());
 
 		bundleData = getIntent().getExtras();
 

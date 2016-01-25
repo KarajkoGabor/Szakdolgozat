@@ -35,4 +35,4 @@
         android:contentDescription="@string/imageString"
         android:src="@drawable/arrow" />
 
-</RelativeLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/list_row_category.xml -->
+</RelativeLayout>

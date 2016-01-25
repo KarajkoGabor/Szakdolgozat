@@ -18,4 +18,4 @@
         android:contentDescription="@string/note_pad_deleteButton" >
     </ImageView>
 
-</LinearLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/notepad_titlebar.xml -->
+</LinearLayout>

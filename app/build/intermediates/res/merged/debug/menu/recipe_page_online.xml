@@ -20,4 +20,4 @@
         android:showAsAction="ifRoom|withText"
         android:icon="@drawable/facebook_box_blue"/>
 
-</menu><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/menu/recipe_page_online.xml -->
+</menu>

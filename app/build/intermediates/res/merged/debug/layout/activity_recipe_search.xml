@@ -36,4 +36,4 @@
         android:layout_height="wrap_content" >
     </ListView>
 
-</LinearLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/activity_recipe_search.xml -->
+</LinearLayout>

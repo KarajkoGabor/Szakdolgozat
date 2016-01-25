@@ -16,4 +16,4 @@
         android:dividerHeight="1.5dip"
         android:listSelector="@drawable/selector" />
 
-</RelativeLayout><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/activity_recipe_list.xml -->
+</RelativeLayout>

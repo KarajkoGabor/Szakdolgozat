@@ -6,4 +6,3 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" android:showAsAction="never" />
 </menu>
-<!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/menu/base.xml -->

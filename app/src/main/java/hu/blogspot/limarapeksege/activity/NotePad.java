@@ -1,6 +1,7 @@
 package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.handlers.note.NoteHandler;
 
 import java.io.File;
@@ -15,13 +16,15 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.Tracker;
+
 public class NotePad extends Activity {
 
 	private EditText noteField;
 	private String noteText;
 	private String recipeName;
 	NoteHandler noteHandler;
-	Bundle getName;
+
 
 	// private Button confirmButton;
 
@@ -39,7 +42,7 @@ public class NotePad extends Activity {
 		setTitle(recipeName + " jegyzet");
 
 		File noteFile = new File(Environment.getExternalStorageDirectory()
-				+ "/LimaraPéksége/FavoriteRecipes/Notes", recipeName + ".txt");
+				+ GlobalStaticVariables.NOTES_PATH, recipeName + ".txt");
 		if (noteFile.exists()) {
 			noteField.setText(noteHandler.readNote(noteFile));
 		} else {
@@ -65,7 +68,7 @@ public class NotePad extends Activity {
 		// TODO Auto-generated method stub
 		if (getString(R.string.menu_save) == item.getTitle()) {
 			noteText = noteField.getText().toString();
-			Log.w("LimaraPéksége", noteText);
+			Log.w(GlobalStaticVariables.LOG_TAG, noteText);
 
 			if (noteHandler.saveNote(noteText, recipeName)) {
 				Toast.makeText(this, R.string.note_saved, Toast.LENGTH_LONG)

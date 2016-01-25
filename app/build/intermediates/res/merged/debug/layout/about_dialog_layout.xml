@@ -30,4 +30,4 @@
             android:textColor="#803a3a"
             android:textSize="20sp" />
     </LinearLayout>
-</ScrollView><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/layout/about_dialog_layout.xml -->
+</ScrollView>

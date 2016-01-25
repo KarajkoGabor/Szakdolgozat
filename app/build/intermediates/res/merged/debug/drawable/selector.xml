@@ -4,4 +4,4 @@
     <item android:drawable="@drawable/rounded_cell_selected" android:state_pressed="true"/>
     <item android:drawable="@drawable/rounded_cell"/>
 
-</selector><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/drawable/selector.xml -->
+</selector>

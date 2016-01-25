@@ -19,4 +19,4 @@
         android:showAsAction="ifRoom|withText"
         android:title="@string/menu_share"/>
 
-</menu><!-- From: file:/E:/Egyetem/Android%20projects/app/src/main/res/menu/activity_main_page.xml -->
+</menu>

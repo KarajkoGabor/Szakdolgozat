@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1"
+    android:background="#f7dbe3"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/headerPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dip"
+            android:contentDescription="@string/imageString"
+            android:src="@drawable/logo" />
+
+        <TableLayout
+            android:id="@+id/mainGrid"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dip"
+            android:numColumns="2" >
+
+            <TableRow android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/mainTextOnline"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="35dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/online_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/mainTextSaved"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/saved_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="25dip"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/mainTextFavorites"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="35dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/favorite_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/mainTextLoaf"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/loaf_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="25dip"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/mainTextSearch"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="35dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/search_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/mainTextNews"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="35dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector"
+                    android:clickable="true"
+                    android:drawableTop="@drawable/news_icon"
+                    android:gravity="center_horizontal"
+                    android:onClick="onCilck"
+                    android:paddingBottom="25dip"
+                    android:paddingLeft="10dip"
+                    android:paddingRight="10dip"
+                    android:textColor="#803a3a"
+                    android:textSize="14sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>
