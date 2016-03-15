@@ -3,6 +3,7 @@ package hu.blogspot.limarapeksege.util;
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import hu.blogspot.limarapeksege.R;
@@ -22,6 +23,18 @@ public class AnalyticsTracker extends Application {
             mTracker = analytics.newTracker(R.xml.global_tracker);
         }
         return mTracker;
+    }
+
+    public void sendTrackerEvent(String eventCategoryName, String eventActionName){
+        getDefaultTracker().send(new HitBuilders.EventBuilder()
+                .setCategory(eventCategoryName)
+                .setAction(eventActionName)
+                .build());
+    }
+
+    public void sendScreen(String screenName){
+        getDefaultTracker().setScreenName(screenName);
+        getDefaultTracker().send(new HitBuilders.ScreenViewBuilder().build());
     }
 
 

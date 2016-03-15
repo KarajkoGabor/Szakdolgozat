@@ -5,22 +5,25 @@
         <item>@drawable/befott</item>
         <item>@drawable/edes_sutemenyek</item>
         <item>@drawable/edessegek</item>
-        <item>@drawable/egyeb_kelttesztak</item>
-        <item>@drawable/hamburger</item>
+        <!--<item>@drawable/edes_sutemenyek</item>-->
+        <!--<item>@drawable/edessegek</item>-->
+        <!--<item>@drawable/egyeb_kelttesztak</item>-->
+        <!--<item>@drawable/hamburger</item>-->
         <item>@drawable/egytal</item>
         <item>@drawable/glutenmentes</item>
         <item>@drawable/foetel</item>
         <item>@drawable/italok</item>
         <item>@drawable/kalacs</item>
+        <item>@drawable/egyeb_kelttesztak</item>
         <item>@drawable/kenyer</item>
         <item>@drawable/koretek</item>
         <item>@drawable/levesek</item>
         <item>@drawable/peksutemenyek</item>
-        <item>@drawable/piknik</item>
+        <!--<item>@drawable/piknik</item>-->
         <item>@drawable/salatak</item>
         <item>@drawable/sos_sutemenyek</item>
-        <item>@drawable/tesztak</item>
         <item>@drawable/tortak</item>
+        <item>@drawable/tesztak</item>
         <item>@drawable/zoldseg_etelek</item>
     </string-array>
 

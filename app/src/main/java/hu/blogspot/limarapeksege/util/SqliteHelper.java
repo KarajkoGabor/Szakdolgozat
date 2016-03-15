@@ -16,7 +16,7 @@ import android.util.Log;
 public class SqliteHelper extends SQLiteOpenHelper {
 
 	private static SqliteHelper instance = null;
-	private static final String LOG = "LimaraPékségeSQL";
+	private static final String LOG = "LimaraPï¿½ksï¿½geSQL";
 
 	private static final int DATABASE_VERSION = 1;
 
@@ -40,6 +40,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	private static final String KEY_CATEGORY_ID = "categoryID";
 	private static final String KEY_IS_NOTE = "isNote";
 	private static final String KEY_NOTE_ID = "noteID";
+	private static final String KEY_IMG_THUMBNAIL = "thumbnail";
 
 	private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE "
 			+ TABLE_CATEGORY + "(" + KEY_ID
@@ -51,7 +52,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
 			+ KEY_IS_SAVED + " INTEGER," + KEY_IS_FAVORITE + " INTEGER,"
 			+ KEY_LINK + " TEXT," + KEY_CATEGORY_ID + " INTEGER," + KEY_IS_NOTE
-			+ " INTEGER," + KEY_NOTE_ID + " INTEGER)";
+			+ " INTEGER," + KEY_NOTE_ID + " INTEGER," + KEY_IMG_THUMBNAIL + " TEXT)";
 
 	private static final String CREATE_TABLE_NOTE = "CREATE TABLE "
 			+ TABLE_NOTE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -221,6 +222,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		values.put(KEY_LINK, recipe.getRecipeURL());
 		values.put(KEY_CATEGORY_ID, recipe.getCategory_id());
 		values.put(KEY_IS_NOTE, recipe.isNoteAdded());
+		values.put(KEY_IMG_THUMBNAIL, recipe.getRecipeThumbnailUrl());
 
 		db.insert(TABLE_RECIPE, null, values);
 
@@ -308,6 +310,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 					recipe.setNoteAdded(false);
 				}
 
+				recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
 				recipes.add(recipe);
 			} while (c.moveToNext());
 		}
@@ -325,12 +328,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
 		Cursor c = db.rawQuery(selectQuery, null);
 
-		Log.w("LimaraPéksége", c.toString());
+		Log.w(GlobalStaticVariables.LOG_TAG, c.toString());
 		if (c != null && c.moveToFirst()) {
 
 			Recipe recipe = new Recipe();
 			recipe.setId(c.getInt(c.getColumnIndex(KEY_ID)));
 			recipe.setRecipeName(c.getString(c.getColumnIndex(KEY_NAME)));
+			recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
 			if (c.getInt(c.getColumnIndex(KEY_IS_SAVED)) == 1) {
 				recipe.setSaved(true);
 			} else {
@@ -361,7 +365,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		values.put(KEY_IS_DOWNLOADED, 1);
 		db.update(TABLE_CATEGORY, values, KEY_ID + "= ?",
 				new String[] { String.valueOf(categoryID) });
-		Log.w("LimaraPéksége", "category downloaded updated");
+		Log.w(GlobalStaticVariables.LOG_TAG, "category downloaded updated");
 	}
 
 	public void updateRecipeIsSaved(long recipeID, int isSavedValue) {
@@ -372,7 +376,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.update(TABLE_RECIPE, values, KEY_ID + "= ?",
 				new String[] { String.valueOf(recipeID) });
 
-		Log.w("LimaraPéksége", "recipe updated saved");
+		Log.w(GlobalStaticVariables.LOG_TAG, "recipe updated saved");
 
 	}
 
@@ -384,7 +388,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.update(TABLE_RECIPE, values, KEY_ID + "= ?",
 				new String[] { String.valueOf(recipeID) });
 
-		Log.w("LimaraPéksége", "recipe updated favorite");
+		Log.w(GlobalStaticVariables.LOG_TAG, "recipe updated favorite");
 
 	}
 
@@ -396,7 +400,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.update(TABLE_RECIPE, values, KEY_ID + "= ?",
 				new String[] { String.valueOf(recipeID) });
 
-		Log.w("LimaraPéksége", "recipe updated note");
+		Log.w(GlobalStaticVariables.LOG_TAG, "recipe updated note");
 	}
 
 	public void deleteRecipe(String recipeName) {
@@ -411,7 +415,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 			db.close();
 		}
 
-		Log.w("LimaraPéksége", "database closed");
+		Log.w(GlobalStaticVariables.LOG_TAG, "database closed");
 
 	}
 

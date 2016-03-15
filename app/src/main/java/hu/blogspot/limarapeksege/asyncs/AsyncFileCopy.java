@@ -1,5 +1,6 @@
 package hu.blogspot.limarapeksege.asyncs;
 
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 		File destination = (File) params[1];
 		String recipeName = (String) params[2];
 
-		Log.w("LimaraPéksége", "copy file start");
+		Log.w(GlobalStaticVariables.LOG_TAG, "copy file start");
 
 		if (!destination.exists()) {
 			try {
@@ -40,7 +41,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 			}
 		}
 		copyFile(source, destination, recipeName);
-		Log.w("LimaraPéksége", "copy file end");
+		Log.w(GlobalStaticVariables.LOG_TAG, "copy file end");
 		return true;
 
 	}
@@ -65,7 +66,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 			fileOut.close();
 
 			db.updateRecipeIsFavorite(db.getRecipeByName(recipeName).getId(), 1);
-			Log.w("LimaraPéksége", db.getRecipeByName(recipeName).isFavorite()
+			Log.w(GlobalStaticVariables.LOG_TAG, db.getRecipeByName(recipeName).isFavorite()
 					+ " is favorite from copy");
 			db.closeDatabase();
 

@@ -12,30 +12,63 @@
         android:layout_height="match_parent">
         <!-- Add content here -->
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pageLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--android:id="@+id/pageLayout"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:weightSum="1">-->
 
-            <WebView
+        <WebView
                 android:id="@+id/recipeWv"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:clickable="false"
                 android:fitsSystemWindows="true" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/reading_mode_textView"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:text="Olvasó módban a képernyő nem kapcsol ki"
+            android:background="@color/Black"
+            android:textColor="@color/White"
+            android:typeface="serif"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="15sp"
+            android:gravity="center"
+            />
+
+        <!--</LinearLayout>-->
+
     </FrameLayout>
 
 
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="440px"
+    <LinearLayout
+        android:layout_width="540px"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@id/headerPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/imageString"
+            android:src="@drawable/logo"
+            android:background="@color/white"/>
+
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@color/White"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

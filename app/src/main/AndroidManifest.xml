@@ -3,10 +3,10 @@
     package="hu.blogspot.limarapeksege"
     android:installLocation="preferExternal"
     android:versionCode="5"
-    android:versionName="1.2.2" >
+    android:versionName="1.2.2">
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,15 +18,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name = ".util.AnalyticsTracker"
+        android:name=".util.AnalyticsTracker"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
             android:name=".activity.MainPage"
             android:configChanges="orientation"
             android:label="@string/title_activity_main_page"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -47,7 +47,7 @@
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/title_activity_recipe_category"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -57,17 +57,21 @@
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/title_activity_recipe_list"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+            <meta-data
+                android:name="searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".activity.RecipePage"
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/title_activity_recipe_page"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -76,7 +80,7 @@
             android:name=".activity.SavedRecipes"
             android:configChanges="orientation"
             android:label="@string/title_activity_saved_recipes"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -86,7 +90,7 @@
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/title_activity_loaf_making_tutorial"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -96,7 +100,7 @@
             android:configChanges="orientation"
             android:label="@string/title_activity_note_pad"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan" >
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -105,7 +109,7 @@
             android:name=".activity.FreshNews"
             android:configChanges="orientation"
             android:label="@string/title_activity_fresh_news"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -114,15 +118,15 @@
             android:name=".activity.RecipeSearch"
             android:configChanges="orientation"
             android:label="@string/title_activity_recipe_search"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
         <!--<activity-->
-            <!--android:name="com.facebook.LoginActivity"-->
-            <!--android:configChanges="orientation"-->
-            <!--android:screenOrientation="portrait" />-->
+        <!--android:name="com.facebook.LoginActivity"-->
+        <!--android:configChanges="orientation"-->
+        <!--android:screenOrientation="portrait" />-->
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -130,13 +134,12 @@
 
         <activity
             android:name=".activity.BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+            android:label="@string/title_activity_base"></activity>
         <activity
             android:name=".activity.AboutActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main_page"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

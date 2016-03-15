@@ -3,7 +3,7 @@
     package="hu.blogspot.limarapeksege.test" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="22" />
 
     <instrumentation

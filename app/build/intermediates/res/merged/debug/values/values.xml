@@ -4,22 +4,25 @@
         <item>@drawable/befott</item>
         <item>@drawable/edes_sutemenyek</item>
         <item>@drawable/edessegek</item>
-        <item>@drawable/egyeb_kelttesztak</item>
-        <item>@drawable/hamburger</item>
+        <!--<item>@drawable/edes_sutemenyek</item>-->
+        <!--<item>@drawable/edessegek</item>-->
+        <!--<item>@drawable/egyeb_kelttesztak</item>-->
+        <!--<item>@drawable/hamburger</item>-->
         <item>@drawable/egytal</item>
         <item>@drawable/glutenmentes</item>
         <item>@drawable/foetel</item>
         <item>@drawable/italok</item>
         <item>@drawable/kalacs</item>
+        <item>@drawable/egyeb_kelttesztak</item>
         <item>@drawable/kenyer</item>
         <item>@drawable/koretek</item>
         <item>@drawable/levesek</item>
         <item>@drawable/peksutemenyek</item>
-        <item>@drawable/piknik</item>
+        <!--<item>@drawable/piknik</item>-->
         <item>@drawable/salatak</item>
         <item>@drawable/sos_sutemenyek</item>
-        <item>@drawable/tesztak</item>
         <item>@drawable/tortak</item>
+        <item>@drawable/tesztak</item>
         <item>@drawable/zoldseg_etelek</item>
     </string-array>
     <string-array name="mainPageMenus">
@@ -187,6 +190,7 @@
     <color name="abc_search_url_text_normal">#7fa87f</color>
     <color name="abc_search_url_text_pressed">@android:color/black</color>
     <color name="abc_search_url_text_selected">@android:color/black</color>
+    <color name="accent_color">#FF9800</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
     <color name="aqua">#00FFFF</color>
@@ -204,10 +208,13 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
+    <color name="dark_primary_color">#7B1FA2</color>
+    <color name="default_primary_color">#9C27B0</color>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
+    <color name="divider_color">#B6B6B6</color>
     <color name="fuchsia">#FF00FF</color>
     <color name="gray">#808080</color>
     <color name="green">#008000</color>
@@ -215,6 +222,7 @@
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
+    <color name="light_primary_color">#E1BEE7</color>
     <color name="lime">#00FF00</color>
     <color name="link_text_material_dark">@color/material_deep_teal_200</color>
     <color name="link_text_material_light">@color/material_deep_teal_500</color>
@@ -230,6 +238,7 @@
     <color name="primary_dark_material_light">#ff757575</color>
     <color name="primary_material_dark">#ff212121</color>
     <color name="primary_material_light">#ffefefef</color>
+    <color name="primary_text_color">#212121</color>
     <color name="primary_text_default_material_dark">#ffffffff</color>
     <color name="primary_text_default_material_light">#de000000</color>
     <color name="primary_text_disabled_material_dark">#4Dffffff</color>
@@ -238,6 +247,7 @@
     <color name="red">#FF0000</color>
     <color name="ripple_material_dark">#4dffffff</color>
     <color name="ripple_material_light">#1f000000</color>
+    <color name="secondary_text_color">#727272</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
@@ -248,6 +258,7 @@
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <color name="teal">#008080</color>
+    <color name="text_primary_color">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
     <color name="yellow">#FFFF00</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode"><enum name="normal" value="0"/><enum name="listMode" value="1"/><enum name="tabMode" value="2"/></attr><attr name="displayOptions"><flag name="none" value="0"/><flag name="useLogo" value="0x1"/><flag name="showHome" value="0x2"/><flag name="homeAsUp" value="0x4"/><flag name="showTitle" value="0x8"/><flag name="showCustom" value="0x10"/><flag name="disableHome" value="0x20"/></attr><attr name="title"/><attr format="string" name="subtitle"/><attr format="reference" name="titleTextStyle"/><attr format="reference" name="subtitleTextStyle"/><attr format="reference" name="icon"/><attr format="reference" name="logo"/><attr format="reference" name="divider"/><attr format="reference" name="background"/><attr format="reference|color" name="backgroundStacked"/><attr format="reference|color" name="backgroundSplit"/><attr format="reference" name="customNavigationLayout"/><attr name="height"/><attr format="reference" name="homeLayout"/><attr format="reference" name="progressBarStyle"/><attr format="reference" name="indeterminateProgressStyle"/><attr format="dimension" name="progressBarPadding"/><attr name="homeAsUpIndicator"/><attr format="dimension" name="itemPadding"/><attr format="boolean" name="hideOnContentScroll"/><attr format="dimension" name="contentInsetStart"/><attr format="dimension" name="contentInsetEnd"/><attr format="dimension" name="contentInsetLeft"/><attr format="dimension" name="contentInsetRight"/><attr format="dimension" name="elevation"/><attr format="reference" name="popupTheme"/></declare-styleable>
@@ -385,13 +396,35 @@
     <string name="about_title">Névjegy</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="analytics_about">Kapcsolat megnyitása</string>
+    <string name="analytics_category_choose_nav_drawer">Navdrawer menü elem</string>
+    <string name="analytics_category_facebook">Facebook</string>
+    <string name="analytics_category_main_menu_item">Főmenüpont</string>
+    <string name="analytics_category_note">Jegyzet</string>
+    <string name="analytics_category_recipe">Recept</string>
+    <string name="analytics_category_recipe_category">Kategória</string>
     <string name="analytics_choose_main_menu">Menü elem választás</string>
-    <string name="analytics_choose_nav_drawer">Nav drawer menü elem választás</string>
     <string name="analytics_close_nav_drawer">Nav drawer bezár</string>
-    <string name="analytics_main_page_screen">Főoldal</string>
-    <string name="analytics_navigate_from_search">Használta a keresőt</string>
+    <string name="analytics_delete_recipe">Recept törlése</string>
+    <string name="analytics_favorite_recipe">Recept kedvencekbe</string>
+    <string name="analytics_fresh_news">Friss hírek betöltése</string>
+    <string name="analytics_nav_drawer_main_menu">Nav drawer bezár</string>
+    <string name="analytics_nav_drawer_search">Nav drawer bezár</string>
+    <string name="analytics_navigate_from_search">Kereső használata</string>
+    <string name="analytics_note_deleted">Jegyzet törlése</string>
+    <string name="analytics_note_saved">Jegyzet mentése</string>
     <string name="analytics_open_nav_drawer">Nav drawer kinyit</string>
-    <string name="analytics_search_page">Keresés oldal</string>
+    <string name="analytics_open_recipe">Recept megnyitása</string>
+    <string name="analytics_open_recipe_category">Kategóra megnyitása</string>
+    <string name="analytics_save_recipe">Recept mentése</string>
+    <string name="analytics_screen_bread_shaping">Kenyér formázása</string>
+    <string name="analytics_screen_category_list">Kategória Lista</string>
+    <string name="analytics_screen_favorite_recipes">Kedvenc receptek</string>
+    <string name="analytics_screen_main_page_screen">Főoldal</string>
+    <string name="analytics_screen_note">Jegyzet nézet</string>
+    <string name="analytics_screen_recipe_list">Recept Lista</string>
+    <string name="analytics_screen_saved_recipes">Lementett receptek</string>
+    <string name="analytics_screen_search_page">Keresés oldal</string>
     <string name="analytics_slide_nav_drawer">Nav drawer kicsúsztat</string>
     <string name="app_id">535320333226754</string>
     <string name="app_name">LimaraPeksege</string>
@@ -446,6 +479,7 @@
     <string name="menu_delete">Törlés</string>
     <string name="menu_favorite">Kedvencek</string>
     <string name="menu_note">Jegyzet</string>
+    <string name="menu_reading_option">Olvasó mód</string>
     <string name="menu_refresh">Frissítés</string>
     <string name="menu_save">Mentés</string>
     <string name="menu_settings">Settings</string>
@@ -1414,7 +1448,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#00FF00</item>
-        <item name="android:typeface">monospace</item>
+        <item name="android:typeface">sans</item>
     </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>

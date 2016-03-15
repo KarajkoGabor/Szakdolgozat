@@ -14,8 +14,7 @@ public class GlobalStaticVariables {
 	public static final String LOG_TAG = "LimaraPeksege";
 
 	public static final String URL_TARTALOM = "http://limarapeksegetartalom.blogspot.hu/";
-
-	public static final String KELTTESZTA = "Egyéb kelttészták";
+	public static final String URL = "http://www.limarapeksege.hu/";
 
 	public static final String MAIN_DIRECTORY = "/LimaraPeksege";
 	public static final String SAVED_RECIPE_PATH = "/LimaraPeksege/SavedRecipes/";

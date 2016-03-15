@@ -160,6 +160,10 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable\\note_purple.png"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\nav_drawer_selectors.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable\\nav_drawer_selectors.xml"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable\\abc_cab_background_top_material.xml"
     },

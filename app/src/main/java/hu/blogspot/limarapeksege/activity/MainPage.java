@@ -1,12 +1,9 @@
 package hu.blogspot.limarapeksege.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -31,7 +28,6 @@ import java.util.List;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
-import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
 import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.XmlParser;
@@ -39,13 +35,13 @@ import hu.blogspot.limarapeksege.util.XmlParser;
 @SuppressLint("NewApi")
 public class MainPage extends BaseActivity implements OnClickListener {
 
-	private Bitmap onlineIcon;
-	private Bitmap savedIcon;
-	private Bitmap favoritesIcon;
-	private Bitmap loafIcon;
-	private Bitmap searchIcon;
-	private Bitmap newsIcon;
-	private Tracker tracker;
+//	private Bitmap onlineIcon;
+//	private Bitmap savedIcon;
+//	private Bitmap favoritesIcon;
+//	private Bitmap loafIcon;
+//	private Bitmap searchIcon;
+//	private Bitmap newsIcon;
+	private AnalyticsTracker trackerApp;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +49,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
         setContentView(R.layout.activity_main_page);
 
 		DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
-		DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.about_icon);
+		DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp);
 		List<DrawerListItem> items = new ArrayList<>();
 		items.add(drawerListItemHome);
 		items.add(drawerListItemAbout);
@@ -61,13 +57,12 @@ public class MainPage extends BaseActivity implements OnClickListener {
         super.onCreateDrawer(items, getLocalClassName());
 		List<String> mainMenuList; // men� lista
 
-		setIcons();
+//		setIcons();
 
 		mainMenuList = setMainMenuList();
 		setTextViews(mainMenuList);
 
-		AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
-		tracker = trackerApp.getDefaultTracker();
+		trackerApp = (AnalyticsTracker) getApplication();
 
 	}
 
@@ -77,7 +72,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		TextView favoriteRecipes = (TextView) findViewById(R.id.mainTextFavorites);
 		TextView loafMaking = (TextView) findViewById(R.id.mainTextLoaf);
 		TextView searchRecipes = (TextView) findViewById(R.id.mainTextSearch);
-		TextView newPosts = (TextView) findViewById(R.id.mainTextNews);
+//		TextView newPosts = (TextView) findViewById(R.id.mainTextNews);
 
 		onlineRecipes.setOnClickListener(this);
 		onlineRecipes.setText(mainMenuList.get(0));
@@ -89,24 +84,9 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		loafMaking.setText(mainMenuList.get(3));
 		searchRecipes.setOnClickListener(this);
 		searchRecipes.setText(mainMenuList.get(4));
-		newPosts.setOnClickListener(this);
-		newPosts.setText(mainMenuList.get(5));
+//		newPosts.setOnClickListener(this);
+//		newPosts.setText(mainMenuList.get(5));
 
-	}
-
-	private boolean isAllRecipesPreDownloaded() {
-
-		SharedPreferences savedSettings = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		boolean isAllRecipeDownloaded;
-
-		if (savedSettings.getBoolean("All_recipe_downloaded", false)) {
-			isAllRecipeDownloaded = true;
-		} else {
-			isAllRecipeDownloaded = false;
-		}
-
-		return isAllRecipeDownloaded;
 	}
 
 	public void onClick(View v) {
@@ -132,7 +112,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 				startNewActivity(GlobalStaticVariables.LOAF_MAKING_CLASS, 3);
 				break;
 			case R.id.mainTextSearch:
-				if (isNetworkAvailable() == false) {
+				if (!isNetworkAvailable()) {
 					throw new Exception();
 				} else {
 					startNewActivity(GlobalStaticVariables.RECIPE_SEARCH_CLASS,
@@ -140,7 +120,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 				}
 				break;
 			case R.id.mainTextNews:
-				if (isNetworkAvailable() == false) {
+				if (!isNetworkAvailable()) {
 					throw new Exception();
 				} else {
 					startNewActivity(GlobalStaticVariables.NEWS_CLASS, 6);
@@ -153,13 +133,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 			Toast.makeText(this, R.string.no_connection,
 					Toast.LENGTH_LONG).show();
 		}
-	}
-
-	private void sendTrackerEvent(String eventCategoryName, String eventActionName){
-		tracker.send(new HitBuilders.EventBuilder()
-				.setCategory(eventCategoryName)
-				.setAction(eventActionName)
-				.build());
 	}
 
 	private void startNewActivity(String className, int position) {
@@ -176,27 +149,27 @@ public class MainPage extends BaseActivity implements OnClickListener {
 
 		openRecipeCategory.putExtras(sendData);
 
-		sendTrackerEvent(className, getString(R.string.analytics_choose_main_menu));
+		trackerApp.sendTrackerEvent(getString(R.string.analytics_category_main_menu_item), className);
 
 		this.startActivity(openRecipeCategory);
 	}
 
-	private void setIcons() {
-
-		onlineIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.online_icon);
-		savedIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.saved_icon);
-		favoritesIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.favorite_icon);
-		loafIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.loaf_icon);
-		searchIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.search_icon);
-		newsIcon = BitmapFactory.decodeResource(getResources(),
-				R.drawable.news_icon);
-
-	}
+//	private void setIcons() {
+//
+//		onlineIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.online_icon);
+//		savedIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.saved_icon);
+//		favoritesIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.favorite_icon);
+//		loafIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.loaf_icon);
+//		searchIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.search_icon);
+//		newsIcon = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.news_icon);
+//
+//	}
 
 	private List<String> setMainMenuList() {
 		ArrayList<? extends Object> mainMenuList = new ArrayList<String>();
@@ -214,7 +187,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main_page, menu);
+//		getMenuInflater().inflate(R.menu.activity_main_page, menu);
 
         super.onCreateOptionsMenu(menu);
 		return true;
@@ -222,30 +195,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (getString(R.string.menu_about) == item.getTitle()) {
-			openAboutDialog();
-		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void openAboutDialog() {
-		AlertDialog.Builder newAboutDialog = new AlertDialog.Builder(this);
-		View about_dialog_layout = getLayoutInflater().inflate(
-				R.layout.about_dialog_layout, null, false);
-
-		newAboutDialog.setTitle(R.string.about_title);
-		newAboutDialog.setIcon(R.drawable.ic_launcher);
-		newAboutDialog.setView(about_dialog_layout);
-		newAboutDialog.setNegativeButton(R.string.close,
-				new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				});
-
-		AlertDialog dialog = newAboutDialog.create();
-		dialog.show();
 	}
 
 	private boolean isNetworkAvailable() { // ellen�rizz�k van-e internet el�r�s
@@ -255,20 +205,10 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		return activeNetworkInfo != null;
 	}
 
-	private void setAllRecipesDownloadedSettings() {
-		SharedPreferences savedSettings = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		Editor editor = savedSettings.edit();
-		editor.putBoolean("All_recipe_downloaded", true);
-		editor.commit();
-
-	}
-
 	@Override
 	public void onResume() {
 		super.onResume();
-		tracker.setScreenName(getString(R.string.analytics_main_page_screen));
-		tracker.send(new HitBuilders.ScreenViewBuilder().build());
+        trackerApp.sendScreen(getString(R.string.analytics_screen_main_page_screen));
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class AsyncRecipeRefresher extends AsyncTask<Object, String, Boolean> {
 			util.recipeTitleParser(recipeCategories.get(i).getName(),
 					(String) params[0], recipeCategories.get(i).getId());
 			publishProgress(recipeCategories.get(i).getName()
-					+ " kategória frissítése...");
+					+ " kategÃ³ria frissÃ­tÃ©se...");
 		}
 
 		return true;

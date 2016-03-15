@@ -10,6 +10,7 @@ public class Recipe {
 	private boolean isNoteAdded;
 	private int category_id;
 	private int note_id;
+	private String recipeThumbnailUrl;
 
 	public Recipe() {
 
@@ -82,6 +83,14 @@ public class Recipe {
 
 	public void setNote_id(int note_id) {
 		this.note_id = note_id;
+	}
+
+	public String getRecipeThumbnailUrl() {
+		return recipeThumbnailUrl;
+	}
+
+	public void setRecipeThumbnailUrl(String recipeThumbnailUrl) {
+		this.recipeThumbnailUrl = recipeThumbnailUrl;
 	}
 
 }

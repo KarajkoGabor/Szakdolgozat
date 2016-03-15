@@ -1,19 +1,7 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.RecipeCategoryListAdapter;
-import hu.blogspot.limarapeksege.asyncs.AsyncRecipeListClass;
-import hu.blogspot.limarapeksege.model.Category;
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ListActivity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -24,195 +12,255 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.RecipeCategoryListAdapter;
+import hu.blogspot.limarapeksege.asyncs.AsyncRecipeListClass;
+import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 public class RecipeList extends ListActivity {
 
-	private int categoryPos;
+    private int categoryPos;
 
-	private RecipeActionsHandler util;
-	private SqliteHelper db;
-	private Category currentCategory;
-	private AsyncRecipeListClass asyncRecipeList;
+    private RecipeActionsHandler util;
+    private SqliteHelper db;
+    private Category currentCategory;
+    private AsyncRecipeListClass asyncRecipeList;
+    private AnalyticsTracker trackerApp;
+    private ArrayAdapter<String> adapter;
+    private ListView lv;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recipe_list);
-		trimCache(this);
-		ArrayList<String> recipeTitles = new ArrayList<String>();
-		List<Recipe> recipeList;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_list);
+        trimCache(this);
+        trackerApp = (AnalyticsTracker) getApplication();
 
-		util = new RecipeActionsHandler(RecipeList.this);
+        util = new RecipeActionsHandler(RecipeList.this);
 
-		db = SqliteHelper.getInstance(RecipeList.this);
+        db = SqliteHelper.getInstance(RecipeList.this);
 
-		ListView lv = (ListView) findViewById(android.R.id.list);
-		Bundle extras = getIntent().getExtras();
+        lv = (ListView) findViewById(android.R.id.list);
+//        lv.setTextFilterEnabled(true);
+        Bundle extras = getIntent().getExtras();
 
-		String category = extras.getString("category");// beolvassuk milyen
-														// kategóriát
-		// választott a felhasználó
-		categoryPos = extras.getInt("position");
-		currentCategory = db.getCategoryByName(category);
+        String category = extras.getString("category");// beolvassuk milyen
+        categoryPos = extras.getInt("position");
+        currentCategory = db.getCategoryByName(category);
 
-//		category = category.replace(":", "");
-		setTitle(category);
+        setTitle(category);
 
-		File storageReceipeListDirectory = new File(
-				Environment.getExternalStorageDirectory()
-						+ GlobalStaticVariables.MAIN_DIRECTORY,
-				GlobalStaticVariables.RECIPE_LIST_DIRECTORY);
+        if (currentCategory.isRecipesDownloaded()) {
+            setListAdapter(currentCategory);
+        } else {
+            setListAdapterUsingAsync(currentCategory);
+        }
+        db.closeDatabase();
 
-//		if (!category.equals(GlobalStaticVariables.KELTTESZTA))
-//			category = category.concat(":");
+        lv.setOnItemClickListener(new OnItemClickListener() {
 
-		Log.w("LimaraPéksége", db.getCategoryByName(category)
-				.isRecipesDownloaded() + "");
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    int position, long arg3) {
+                try {
+                    if (isNetworkAvailable() == false) {
+                        throw new Exception();
+                    } else {
 
-		if (currentCategory.isRecipesDownloaded()) {
-			try {
-				Log.w("LimaraPéksége", "not async");
-				recipeList = db.getRecipesByCategoryID(currentCategory.getId());
-				Log.w("LimaraPéksége", "size" + recipeList.size() + "");
-				for (Recipe recipe : recipeList) {
-					recipeTitles.add(recipe.getRecipeName());
-				}
-				Log.w("LimaraPéksége", "size" + recipeTitles.size() + "");
-				setAdapter(util.listSorter(recipeTitles));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                        String currentRecipeName = lv.getItemAtPosition(position).toString();
 
-		} else {
-			Log.w("LimaraPéksége", "async");
-			storageReceipeListDirectory.mkdirs();
-			asyncRecipeList = new AsyncRecipeListClass(RecipeList.this,
-					RecipeList.this, getString(R.string.recipes_download),
-					categoryPos);
-			asyncRecipeList.execute(category,
-					GlobalStaticVariables.URL_TARTALOM,
-					currentCategory.getId(), RecipeList.this);
+                        startNewActivity(
+                                GlobalStaticVariables.RECIPE_PAGE_CLASS,
+                                currentRecipeName);
 
-		}
+                    }
 
-		db.closeDatabase();
+                } catch (Exception e) {
+                    Toast.makeText(RecipeList.this, R.string.no_connection,
+                            Toast.LENGTH_LONG).show();
+                }
+            }
 
-		lv.setOnItemClickListener(new OnItemClickListener() {
+        });
 
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				try {
-					if (isNetworkAvailable() == false) {
-						throw new Exception();
-					} else {
-						String recipeName = getRecipeNameFromDBByCategoryId(
-								currentCategory.getId(), position);
+        trackerApp.sendScreen(getString(R.string.analytics_screen_recipe_list));
 
-						startNewActivity(
-								GlobalStaticVariables.RECIPE_PAGE_CLASS,
-								recipeName);
+    }
 
-					}
+    private void setAdapter(ArrayList<String> recipes) {
 
-				} catch (Exception e) {
-					Toast.makeText(RecipeList.this, R.string.no_connection,
-							Toast.LENGTH_LONG).show();
-				}
-			}
+        TypedArray icons = getResources().obtainTypedArray(
+                R.array.category_icons);
+        Bitmap tempIcon = BitmapFactory.decodeResource(getResources(),
+                icons.getResourceId(categoryPos, -1));
+        adapter = new RecipeCategoryListAdapter(this,
+                R.layout.list_row_category, recipes, tempIcon);
+        setListAdapter(adapter);
 
-		});
+    }
 
-	}
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
 
-	private String getRecipeNameFromDBByCategoryId(int categoryId,
-			int positionInView) {
-		List<Recipe> recipes = db.getRecipesByCategoryID(categoryId);
-		ArrayList<String> recipeNames = new ArrayList<String>();
-		for (Recipe recipe : recipes) {
-			recipeNames.add(recipe.getRecipeName());
-		}
-		recipeNames = util.listSorter(recipeNames);
-		return recipeNames.get(positionInView);
-	}
+    private static void trimCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            if (dir != null && dir.isDirectory()) {
+                deleteDir(dir);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 
-	private void setAdapter(List<String> recipeTitles) {
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
 
-		TypedArray icons = getResources().obtainTypedArray(
-				R.array.category_icons);
-		Bitmap tempIcon = BitmapFactory.decodeResource(getResources(),
-				icons.getResourceId(categoryPos, -1));
-		ArrayAdapter<String> adapter = new RecipeCategoryListAdapter(this,
-				R.layout.list_row_category, recipeTitles, tempIcon);
-		setListAdapter(adapter);
+        // The directory is now empty so delete it
+        return dir.delete();
+    }
 
-	}
+    private void startNewActivity(String className, String recipeName) {
+        Bundle b2 = new Bundle();
+        Recipe selectedRecipe;
+        selectedRecipe = db.getRecipeByName(recipeName);
+        Log.w(GlobalStaticVariables.LOG_TAG, selectedRecipe.getRecipeName());
 
-	private boolean isNetworkAvailable() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
-		return activeNetworkInfo != null;
-	}
+        String recipePage = selectedRecipe.getRecipeURL();
+        b2.putString("href", recipePage);
+        Log.w(GlobalStaticVariables.LOG_TAG, recipePage);
 
-	public static void trimCache(Context context) {
-		try {
-			File dir = context.getCacheDir();
-			if (dir != null && dir.isDirectory()) {
-				deleteDir(dir);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+        Class<?> selectedRecipePage = null;
 
-	public static boolean deleteDir(File dir) {
-		if (dir != null && dir.isDirectory()) {
-			String[] children = dir.list();
-			for (int i = 0; i < children.length; i++) {
-				boolean success = deleteDir(new File(dir, children[i]));
-				if (!success) {
-					return false;
-				}
-			}
-		}
+        try {
+            selectedRecipePage = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		// The directory is now empty so delete it
-		return dir.delete();
-	}
+        Intent openRecipe = new Intent(RecipeList.this, selectedRecipePage);
+        b2.putString("name", selectedRecipe.getRecipeName());
 
-	private void startNewActivity(String className, String recipeName) {
-		Bundle b2 = new Bundle();
-		Recipe selectedRecipe;
-		selectedRecipe = db.getRecipeByName(recipeName);
-		Log.w("LimaraPéksége", selectedRecipe.getRecipeName());
+        openRecipe.putExtras(b2);
+        Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
+        db.closeDatabase();
+        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_recipe));
+        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), selectedRecipe.getRecipeName());
+        startActivity(openRecipe);
+    }
 
-		String recipePage = selectedRecipe.getRecipeURL();
-		b2.putString("href", recipePage);
-		Log.w("LimaraPéksége", recipePage);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recipe_list, menu);
 
-		Class<?> selectedRecipePage = null;
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
 
-		try {
-			selectedRecipePage = Class.forName(className);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        searchManager.setOnCancelListener(new SearchManager.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                Log.w(GlobalStaticVariables.LOG_TAG, "cancel");
+            }
+        });
 
-		Intent openRecipe = new Intent(RecipeList.this, selectedRecipePage);
-		b2.putString("name", selectedRecipe.getRecipeName());
+        searchView.setSubmitButtonEnabled(false);
 
-		openRecipe.putExtras(b2);
-		Log.w("LimaraPéksége", "new activity starting");
-		db.closeDatabase();
-		startActivity(openRecipe);
-	}
+        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                adapter.getFilter().filter(query);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextSubmit " + query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+//                lv.setFilterText(newText);
+
+                adapter.getFilter().filter(newText);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextChange " + newText);
+
+                return true;
+            }
+
+
+        };
+
+        searchView.setOnQueryTextListener(textListener);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void setListAdapter(Category currentCategory) {
+        try {
+            Log.w(GlobalStaticVariables.LOG_TAG, "not async");
+            ArrayList<String> recipeTitles = new ArrayList<String>();
+            List<Recipe> recipeList = db.getRecipesByCategoryID(currentCategory.getId());
+
+            Log.w(GlobalStaticVariables.LOG_TAG, "size" + recipeList.size() + "");
+            for (Recipe recipe : recipeList) {
+                recipeTitles.add(recipe.getRecipeName());
+            }
+            Log.w(GlobalStaticVariables.LOG_TAG, "size" + recipeTitles.size() + "");
+            setAdapter(util.stringListSorter(recipeTitles));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private void setListAdapterUsingAsync(Category currentCategory) {
+        File storageReceipeListDirectory = new File(
+                Environment.getExternalStorageDirectory()
+                        + GlobalStaticVariables.MAIN_DIRECTORY,
+                GlobalStaticVariables.RECIPE_LIST_DIRECTORY);
+        Log.w(GlobalStaticVariables.LOG_TAG, "async");
+        storageReceipeListDirectory.mkdirs();
+        asyncRecipeList = new AsyncRecipeListClass(RecipeList.this,
+                RecipeList.this, getString(R.string.recipes_download),
+                categoryPos);
+        asyncRecipeList.execute(currentCategory.getName(),
+                GlobalStaticVariables.URL_TARTALOM,
+                currentCategory.getId(), RecipeList.this);
+    }
 
 }

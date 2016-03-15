@@ -57,7 +57,7 @@ public class RecipeSearch extends ListActivity {
 
         }
         RecipeActionsHandler util = new RecipeActionsHandler(this);
-        recipeNames = (ArrayList<String>) util.listSorter(recipeNames);
+        recipeNames = (ArrayList<String>) util.stringListSorter(recipeNames);
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, recipeNames);
         list.setAdapter(adapter);
@@ -115,7 +115,7 @@ public class RecipeSearch extends ListActivity {
                 Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
                 db.closeDatabase();
 
-                sendTrackerEvent(getString(R.string.analytics_search_page), getString(R.string.analytics_navigate_from_search));
+                sendTrackerEvent(getString(R.string.analytics_screen_search_page), getString(R.string.analytics_navigate_from_search));
 
                 startActivity(openRecipe);
 

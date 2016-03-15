@@ -123,33 +123,11 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/mainTextNews"
+                            android:id="@+id/mainTextSearch"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="15dip"
                             android:layout_marginRight="15dip"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector"
-                            android:clickable="true"
-                            android:drawablePadding="15dip"
-                            android:drawableTop="@drawable/news_icon"
-                            android:gravity="center_horizontal"
-                            android:onClick="onCilck"
-                            android:paddingBottom="15dip"
-                            android:paddingTop="15dip"
-                            android:textColor="#803a3a"
-                            android:textSize="14sp" />
-                    </TableRow>
-
-                    <TableRow android:layout_marginTop="25dip">
-
-                        <TextView
-                            android:id="@+id/mainTextSearch"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dip"
-                            android:layout_marginRight="15dip"
-                            android:layout_span="2"
                             android:layout_weight="1"
                             android:background="@drawable/selector"
                             android:clickable="true"
@@ -162,6 +140,28 @@
                             android:textColor="#803a3a"
                             android:textSize="14sp" />
                     </TableRow>
+
+                    <!--<TableRow android:layout_marginTop="25dip">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/mainTextSearch"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginLeft="15dip"-->
+                            <!--android:layout_marginRight="15dip"-->
+                            <!--android:layout_span="2"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:background="@drawable/selector"-->
+                            <!--android:clickable="true"-->
+                            <!--android:drawablePadding="15dip"-->
+                            <!--android:drawableTop="@drawable/search_icon"-->
+                            <!--android:gravity="center_horizontal"-->
+                            <!--android:onClick="onCilck"-->
+                            <!--android:paddingBottom="15dip"-->
+                            <!--android:paddingTop="15dip"-->
+                            <!--android:textColor="#803a3a"-->
+                            <!--android:textSize="14sp" />-->
+                    <!--</TableRow>-->
                 </TableLayout>
 
                 <!-- The main content view -->
@@ -178,14 +178,32 @@
         </ScrollView>
     </FrameLayout>
 
-
-    <ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="440px"
+    <LinearLayout
+        android:layout_width="540px"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#f7dbe3"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@id/headerPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/imageString"
+            android:src="@drawable/logo"
+            android:background="@color/white"/>
+
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@color/White"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+
 </android.support.v4.widget.DrawerLayout>

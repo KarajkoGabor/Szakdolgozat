@@ -4,12 +4,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_go_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_clear_mtrl_alpha.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_clear_mtrl_alpha.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_go_search_api_mtrl_alpha.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
@@ -44,24 +44,24 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\saved_icon.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pizza.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\pizza.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\kalacs.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\kalacs.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\pizza.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\pizza.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notecircles.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\notecircles.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\piknik.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\piknik.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\piknik.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\piknik.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\eloetelek.png",
@@ -100,16 +100,20 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\delete.png"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_info_black_24dp.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\ic_info_black_24dp.png"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_voice_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\news_icon.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\news_icon.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\news_icon.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\news_icon.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
@@ -132,24 +136,24 @@
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_switch_track_mtrl_alpha.9.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_btn_rating_star_on_mtrl_alpha.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_switch_track_mtrl_alpha.9.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
@@ -184,12 +188,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\ic_drawer.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\online_icon.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\online_icon.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_menu_share_mtrl_alpha.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\online_icon.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\online_icon.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\italok.png",
@@ -200,12 +204,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\kenyer.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_menu_hardkey_panel_mtrl_mult.9.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_list_pressed_holo_dark.9.png",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\foetel.png",
@@ -220,12 +224,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_list_pressed_holo_light.9.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_action_search.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\ic_action_search.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
@@ -304,12 +308,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-mdpi\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\tortak.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\tortak.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\logo.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\logo.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\tortak.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-mdpi\\tortak.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_list_focused_holo.9.png",

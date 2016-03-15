@@ -75,7 +75,7 @@ public class SavedListAdapter extends BaseAdapter {
 //        icon.setImageBitmap(icons.get(arg0));
         icon.setImageBitmap(tempBitmap);
 
-        Log.w("LimaraP�ks�ge", recipeTitles.get(arg0));
+        Log.w(GlobalStaticVariables.LOG_TAG, recipeTitles.get(arg0));
         title.setText(recipeTitles.get(arg0));
 
         return view;

@@ -3,9 +3,11 @@ package hu.blogspot.limarapeksege.activity;
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.asyncs.AsyncRecipeCategoryClass;
 import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.RecipeCategoryGridMaker;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,108 +27,101 @@ import android.widget.Toast;
 
 public class RecipeCategory extends Activity {
 
-	private List<String> mainMenuList = new ArrayList<String>();
+    private ArrayList<String> mainMenuList = new ArrayList<String>();
+    private GridView grid;
+    private AnalyticsTracker trackerApp;
+    private RecipeActionsHandler util;
 
-	private AsyncRecipeCategoryClass asyncCategory;
-	private GridView grid;
-	private SqliteHelper db;
-	// public static int heightPixels;
-	private Bundle b;
-	private RecipeCategoryGridMaker categoryGridMaker;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_recipe_category);
+        SqliteHelper db = SqliteHelper.getInstance(RecipeCategory.this);
+        RecipeCategoryGridMaker categoryGridMaker = new RecipeCategoryGridMaker(RecipeCategory.this);
+        util = new RecipeActionsHandler(this);
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recipe_category);
-		b = new Bundle();
-		db = SqliteHelper.getInstance(RecipeCategory.this);
-		categoryGridMaker = new RecipeCategoryGridMaker(RecipeCategory.this);
+        trackerApp = (AnalyticsTracker) getApplication();
+        List<Category> categoryList = db.getAllCategories();
 
-		try {
+        try {
 
-			if (!db.getAllCategories().isEmpty()) { // ha már egyszer
-													// elmentettük
+            if (!categoryList.isEmpty()) { // ha mï¿½r egyszer
+                // elmentettï¿½k
+                mainMenuList.clear();
+                Log.w(GlobalStaticVariables.LOG_TAG, categoryList.size() + "");
 
-				List<Category> tempCategoryList = new ArrayList<Category>();
+                for (int i = 0; i < categoryList.size(); i++) {
+                    Log.w(GlobalStaticVariables.LOG_TAG, categoryList.get(i).getName());
+                    mainMenuList.add(categoryList.get(i).getName());
+                }
 
-				mainMenuList.clear();
+                Log.w(GlobalStaticVariables.LOG_TAG, "not async");
+            } else {
+                db.deleteCategoryTable();
+                // db.deleteRecipeTable();
+                AsyncRecipeCategoryClass asyncCategory = new AsyncRecipeCategoryClass(
+                        RecipeCategory.this);
+                asyncCategory.execute(RecipeCategory.this,
+                        GlobalStaticVariables.URL_TARTALOM, categoryGridMaker,
+                        grid);
+                Log.w(GlobalStaticVariables.LOG_TAG, "async");
+            }
 
-				tempCategoryList = db.getAllCategories();
-				Log.w("LimaraPéksége", tempCategoryList.size() + "");
+            grid = categoryGridMaker.setGridItems(util.stringListSorter(mainMenuList));
+            db.closeDatabase();
 
-				for (int i = 0; i < tempCategoryList.size(); i++) {
-					Log.w("LimaraPéksége", tempCategoryList.get(i).getName());
-					mainMenuList.add(tempCategoryList.get(i).getName());
-				}
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-				Log.w("LimaraPéksége", "not async");
-			} else {
-				db.deleteCategoryTable();
-				// db.deleteRecipeTable();
-				asyncCategory = new AsyncRecipeCategoryClass(
-						RecipeCategory.this);
-				asyncCategory.execute(RecipeCategory.this,
-						GlobalStaticVariables.URL_TARTALOM, categoryGridMaker,
-						grid);
-				Log.w("LimaraPéksége", "async");
-			}
+        grid.setOnItemClickListener(new OnItemClickListener() {
 
-			grid = categoryGridMaker.setGridItems(mainMenuList);
-			db.closeDatabase();
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    int position, long arg3) {
+                try {
+                    if (!isNetworkAvailable()) {
+                        throw new Exception();
+                    } else {
+                        startNewActivity(
+                                GlobalStaticVariables.RECIPE_LIST_CLASS,
+                                position);
+                    }
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+                } catch (Exception e) {
+                    Toast.makeText(RecipeCategory.this, R.string.no_connection,
+                            Toast.LENGTH_LONG).show();
+                }
 
-		grid.setOnItemClickListener(new OnItemClickListener() {
+            }
+        });
 
-			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
-				try {
-					if (isNetworkAvailable() == false) {
-						throw new Exception();
-					} else {
-						startNewActivity(
-								GlobalStaticVariables.RECIPE_LIST_CLASS,
-								position);
-					}
+        trackerApp.sendScreen(getString(R.string.analytics_screen_category_list));
 
-				} catch (Exception e) {
-					Toast.makeText(RecipeCategory.this, R.string.no_connection,
-							Toast.LENGTH_LONG).show();
-				}
+    }
 
-			}
-		});
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
 
-	}
+    private void startNewActivity(String className, int position)
+            throws ClassNotFoundException {
+        Class<?> recipeList = null;
+        recipeList = Class.forName(className);
+        Bundle bundle = new Bundle();
 
-	private boolean isNetworkAvailable() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
-		return activeNetworkInfo != null;
-	}
+        Intent openReceptList = new Intent(RecipeCategory.this, recipeList);
+        bundle.putInt("position", position);
+        bundle.putString("category", mainMenuList.get(position));// elkï¿½ldjï¿½k
+        // a
+        // kategï¿½riï¿½t
 
-	private void startNewActivity(String className, int position)
-			throws ClassNotFoundException {
-		Class<?> recipeList = null;
-		recipeList = Class.forName(className);
-
-		Intent openReceptList = new Intent(RecipeCategory.this, recipeList);
-		b.putInt("position", position);
-		b.putString("category", mainMenuList.get(position).toString());// elküldjük
-																		// a
-																		// kategóriát
-
-		openReceptList.putExtras(b);
-		startActivity(openReceptList);
-	}
-
-	public void postResult(ArrayList<String> resultList) {
-		// TODO Auto-generated method stub
-
-	}
+        openReceptList.putExtras(bundle);
+        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe_category), mainMenuList.get(position));
+        startActivity(openReceptList);
+    }
 
 }

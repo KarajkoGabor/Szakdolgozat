@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.opencsv.CSVWriter;
@@ -40,7 +41,7 @@ public class FileHandler {
 	
 	public void writeToCSVFile(ArrayList<Recipe> recipes,String category){
 		String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+GlobalStaticVariables.MAIN_DIRECTORY+category+".csv";
-		Log.w("LimaraPékségeCSV", "Csv file " + csv);
+		Log.w(GlobalStaticVariables.LOG_TAG, "Csv file " + csv);
 		List<String[]> data = new ArrayList<String[]>();
 		try {
 			CSVWriter writer = new CSVWriter(new FileWriter(csv));
@@ -54,7 +55,7 @@ public class FileHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.w("LimaraPékségeCSV", "Csv file done");
+		Log.w(GlobalStaticVariables.LOG_TAG, "Csv file done");
 	}
 	
 }

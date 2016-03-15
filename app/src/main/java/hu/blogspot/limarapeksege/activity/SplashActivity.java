@@ -2,14 +2,17 @@ package hu.blogspot.limarapeksege.activity;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import java.io.File;
+import java.util.Date;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
@@ -24,18 +27,18 @@ public class SplashActivity extends Activity {
         setFullScreen();
 
         setContentView(R.layout.activity_splash);
-        clearApplicationData();
+//        clearApplicationData();
 
-        AsyncPrepareRecipeDatas asyncPrepareRecipeDatas = new AsyncPrepareRecipeDatas(SplashActivity.this,SplashActivity.this);
+        AsyncPrepareRecipeDatas asyncPrepareRecipeDatas = new AsyncPrepareRecipeDatas(SplashActivity.this, SplashActivity.this);
         asyncPrepareRecipeDatas.execute();
 
     }
 
-    private void setFullScreen(){
+    private void setFullScreen() {
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else{
+        } else {
             View decorView = getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
@@ -72,5 +75,12 @@ public class SplashActivity extends Activity {
         return dir.delete();
     }
 
+    private void setLatestUploadDate(){
+        SharedPreferences savedSettings = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = savedSettings.edit();
+        editor.putLong("last_modified", (long)1000);
+        editor.commit();
+    }
 
 }

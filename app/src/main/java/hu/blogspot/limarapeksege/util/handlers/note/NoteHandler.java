@@ -65,7 +65,7 @@ public class NoteHandler {
 			db.updateRecipeisNoteAdded(db.getRecipeByName(recipeName).getId(),
 					1);
 			db.closeDatabase();
-			Log.w("LimaraPéksége", "Done");
+			Log.w(GlobalStaticVariables.LOG_TAG, "Done");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

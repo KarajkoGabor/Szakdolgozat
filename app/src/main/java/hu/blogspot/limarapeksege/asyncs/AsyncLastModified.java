@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+
 //for the recipe update
 public class AsyncLastModified extends AsyncTask<Void, String, Boolean> {
 
@@ -30,19 +32,19 @@ public class AsyncLastModified extends AsyncTask<Void, String, Boolean> {
 		long lastPageModified = getPageLastModified();
 		long lastSavedModifiedDate = savedSettings.getLong("last_modified",
 				lastPageModified);
-		Log.w("LimaraPéksége", lastSavedModifiedDate + "last saved modified ");
-		Log.w("LimaraPéksége", lastPageModified + "last modified ");
+		Log.w(GlobalStaticVariables.LOG_TAG, lastSavedModifiedDate + "last saved modified ");
+		Log.w(GlobalStaticVariables.LOG_TAG, lastPageModified + "last modified ");
 
 		if (lastSavedModifiedDate < lastPageModified) {
 			editor.putLong("last_modified", lastPageModified);
 			editor.putBoolean("is_new_recipe", true);
 			editor.commit();
-			Log.w("LimaraPéksége", "there is new recipe");
+			Log.w(GlobalStaticVariables.LOG_TAG, "there is new recipe");
 			return true;
 		} else {
 			editor.putBoolean("is_new_recipe", false);
 			editor.commit();
-			Log.w("LimaraPéksége", "there isn't new recipe");
+			Log.w(GlobalStaticVariables.LOG_TAG, "there isn't new recipe");
 			return false;
 		}
 
@@ -67,7 +69,7 @@ public class AsyncLastModified extends AsyncTask<Void, String, Boolean> {
 
 		long date = httpCon.getLastModified();
 		Date dateReal = new Date(date);
-		Log.w("LimaraPéksége", dateReal.toString() + " last modified date");
+		Log.w(GlobalStaticVariables.LOG_TAG, dateReal.toString() + " last modified date");
 		return date;
 	}
 

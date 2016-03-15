@@ -1,13 +1,16 @@
 package hu.blogspot.limarapeksege.util.handlers.recipe;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.DateTime;
 import com.google.api.services.blogger.Blogger;
 import com.google.api.services.blogger.model.Post;
 import com.google.api.services.blogger.model.PostList;
@@ -32,6 +35,7 @@ import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,10 +60,15 @@ public class RecipeActionsHandler {
 	private GoogleCredential credential = new GoogleCredential();
 	private Blogger blogger = new Blogger.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName("LimaraApp").build();
 	private Blogger.Posts.List postsListAction;
+	private static final String BLOG_ID = "3172210115883978627";
+	private static final String BLOG_KEY = "AIzaSyB0MQ_sdri3PY2xrYmFJvK_FNRPojNeZg8";
+	private SharedPreferences savedSettings;
 
 	public RecipeActionsHandler(Context context) {
 		this.context = context;
 		db = SqliteHelper.getInstance(context);
+		this.savedSettings = PreferenceManager
+				.getDefaultSharedPreferences(context);
 	}
 
 	/**
@@ -80,7 +89,7 @@ public class RecipeActionsHandler {
 		try {
 			categoryList = (ArrayList<Category>) parser.parseXml(xpp, parseMode);
 			// abc sorrendbe rakjuk
-//			categoryList = listSorter(categoryList);
+//			categoryList = stringListSorter(categoryList);
 
 			Collections.sort(categoryList, new Comparator<Category>() {
 				@Override
@@ -143,23 +152,21 @@ public class RecipeActionsHandler {
 		return list;
 	}
 
-	public List<Recipe> gatherRecipeData(String categoryLabelName , int categoryID){
+	public List<Recipe> gatherRecipeData(String categoryLabelName , int categoryID, boolean isThereNewRecipes){
 
 		Log.w(GlobalStaticVariables.LOG_TAG , "Gathering recipe data started");
 
-		List<Recipe> recipeList = new ArrayList<Recipe>();
+		List<Recipe> recipeList;
 
 		int numberOfRecipesInDB = db.getRecipesByCategoryID(categoryID).size();
+		long lastUpdateDate = savedSettings.getLong("last_modified", (long) 0);
 
-		if (numberOfRecipesInDB == 0) { //ha nincs a kategóriához mentve recept
-			recipeList = gatherRecipeDataFromAPI(categoryLabelName, categoryID);
-			numberOfRecipesInDB = db.getRecipesByCategoryID(categoryID).size();
-			if(numberOfRecipesInDB == recipeList.size()){
-				db.updateRecipeDownloaded(categoryID);
-			}
+		if (numberOfRecipesInDB == 0 || isThereNewRecipes) { //ha nincs a kategóriához mentve recept vagy van új recept
+
+			recipeList = gatherRecipeDataFromAPI(categoryLabelName, categoryID, lastUpdateDate);
 
 		}else if(!db.getCategoryById(categoryID).isRecipesDownloaded()){
-			recipeList = gatherRecipeDataFromAPI(categoryLabelName,categoryID);
+			recipeList = gatherRecipeDataFromAPI(categoryLabelName,categoryID, lastUpdateDate);
 			for(Recipe recipe: recipeList){
 				Recipe recipeFromDb = db.getRecipeByName(recipe
 						.getRecipeName());
@@ -177,9 +184,7 @@ public class RecipeActionsHandler {
 					Log.w("LimaraPeksege", "END: Recipe is saved again");
 				}
 			}
-		}
-
-		else{
+		}else{
 			recipeList = db.getRecipesByCategoryID(categoryID);
 		}
 
@@ -192,21 +197,21 @@ public class RecipeActionsHandler {
 		return recipeList;
 	}
 
-	private List<Recipe> gatherRecipeDataFromAPI(String categoryLabelName, int categoryID) {
+	private List<Recipe> gatherRecipeDataFromAPI(String categoryLabelName, int categoryID, long lastUpdateDate) {
 
 		Log.w(GlobalStaticVariables.LOG_TAG, "Recipe datas from API");
 
 		List<Recipe> recipeList = new ArrayList<Recipe>();
 
-		String BLOG_ID = "3172210115883978627";
 		int pageCount = 0;
 
 		try {
 			postsListAction = blogger.posts().list(BLOG_ID);
-			postsListAction.setKey("AIzaSyB0MQ_sdri3PY2xrYmFJvK_FNRPojNeZg8");
-			postsListAction.setFields("items(title,url), nextPageToken");
+			postsListAction.setKey(BLOG_KEY);
+			postsListAction.setFields("items(title,url,content), nextPageToken");
 			postsListAction.setLabels(categoryLabelName);
 			postsListAction.setMaxResults((long) 499);
+			postsListAction.setStartDate(new DateTime(lastUpdateDate));
 			PostList posts = postsListAction.execute();
 
 			// Now we can navigate the response.
@@ -219,6 +224,7 @@ public class RecipeActionsHandler {
 					tempRecipe.setNoteAdded(false);
 					tempRecipe.setSaved(false);
 					tempRecipe.setCategory_id(categoryID);
+					tempRecipe.setRecipeThumbnailUrl(parseRecipeImageUrl(post.getContent()));
 					Log.w(GlobalStaticVariables.LOG_TAG, "Recipe got from API: "+ tempRecipe.getRecipeName() );
 					db.addRecipe(tempRecipe);
 					recipeList.add(tempRecipe);
@@ -239,6 +245,21 @@ public class RecipeActionsHandler {
 		}
 
 		return recipeList;
+	}
+
+	private String parseRecipeImageUrl(String recipeContent){
+
+		String imageURL = null;
+
+		Document document = Jsoup.parse(recipeContent);
+
+		Element link = document.select("img").first();
+
+		if(link != null){
+			imageURL = link.attr("abs:src");
+		}
+
+		return imageURL;
 	}
 
 
@@ -374,7 +395,17 @@ public class RecipeActionsHandler {
 	 *            input lista
 	 * @return sorbarendezett lista
 	 */
-	public ArrayList<String> listSorter(ArrayList<String> list) {
+	public ArrayList<String> stringListSorter(ArrayList<String> list) {
+
+		Locale hungarian = new Locale("hu_HU"); // magyar abc
+		Collator hungarianCollator = Collator.getInstance(hungarian);
+
+		Collections.sort(list, hungarianCollator);
+
+		return list;
+	}
+
+	public ArrayList<Recipe> recipeListSorter(ArrayList<Recipe> list) {
 
 		Locale hungarian = new Locale("hu_HU"); // magyar abc
 		Collator hungarianCollator = Collator.getInstance(hungarian);
@@ -405,7 +436,7 @@ public class RecipeActionsHandler {
 
 		htmlText = parseRecipeContentFromWebsite(website).toString();
 		htmlText = imageHandler.setImageDivs(htmlText);
-		String finalText = imageHandler.saveImage(htmlText, NAME, isFavorite);
+		String finalText = imageHandler.saveImage(htmlText, NAME);
 
 		if (!isFavorite) { // ha nem kedvenc
 			fileHandler.writeToFile(finalText, SAVED_RECIPES,
@@ -552,6 +583,42 @@ public class RecipeActionsHandler {
 		recipe.setNoteAdded(isNoteAdded);
 		db.addRecipe(recipe);
 		db.close();
+	}
+
+	public String getRecipeNameFromDBByCategoryId(int categoryId,
+												   int positionInView) {
+		List<Recipe> recipes = db.getRecipesByCategoryID(categoryId);
+		ArrayList<String> recipeNames = new ArrayList<String>();
+		for (Recipe recipe : recipes) {
+			recipeNames.add(recipe.getRecipeName());
+		}
+		recipeNames = stringListSorter(recipeNames);
+		return recipeNames.get(positionInView);
+	}
+
+	public Date getLastUploadedRecipeDate(){
+
+		Date lastDate = null;
+
+		try {
+			postsListAction = blogger.posts().list(BLOG_ID);
+			postsListAction.setKey(BLOG_KEY);
+			postsListAction.setMaxResults((long) 1);
+			postsListAction.setOrderBy("published");
+			postsListAction.setFetchBodies(false);
+			PostList lastModifiedPost = postsListAction.execute();
+
+			if(lastModifiedPost != null){
+				for (Post post : lastModifiedPost.getItems()) {
+					lastDate = new Date(post.getPublished().getValue());
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return lastDate;
 	}
 
 }

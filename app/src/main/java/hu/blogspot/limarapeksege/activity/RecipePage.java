@@ -29,8 +29,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
@@ -47,11 +54,7 @@ public class RecipePage extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_page);
 
-		DrawerListItem drawerListItem = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
-		List<DrawerListItem> items = new ArrayList<>();
-		items.add(drawerListItem);
-
-		super.onCreateDrawer(items, getLocalClassName());
+		super.onCreateDrawer(preparedDrawerListItems(), getLocalClassName());
 
 		bundleData = getIntent().getExtras();
 
@@ -59,6 +62,28 @@ public class RecipePage extends BaseActivity {
 		setWebViewClient();
 
 		setTitle(NAMEsave);
+
+		final TextView readingModeTextView = (TextView) findViewById(R.id.reading_mode_textView);
+
+		readingModeTextView.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				readingModeTextView.setVisibility(View.GONE);
+				return false;
+			}
+		});
+
+
+	}
+
+	private List<DrawerListItem> preparedDrawerListItems(){
+		DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
+		DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp);
+		List<DrawerListItem> items = new ArrayList<>();
+		items.add(drawerListItemHome);
+		items.add(drawerListItemAbout);
+
+		return items;
 	}
 
 	private void setWebViewClient() {
@@ -200,6 +225,8 @@ public class RecipePage extends BaseActivity {
 				dialogBox(RecipePage.this, NAMEsave, isFavoriteRecipe);
 			} else if (getString(R.string.menu_note) == item.getTitle()) {
 				openNotePadActivity();
+			} else if(getString(R.string.menu_reading_option) == item.getTitle()){
+				setScreenToReadingMode();
 			}
 		}
 
@@ -217,6 +244,26 @@ public class RecipePage extends BaseActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void setScreenToReadingMode(){
+
+		TextView readingModeTextView = (TextView) findViewById(R.id.reading_mode_textView);
+		Animation animation = null;
+
+
+		if((getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) != 0){ // flag has been already set
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			readingModeTextView.setVisibility(View.GONE);
+			animation = AnimationUtils.loadAnimation(this,
+					R.anim.slide_down);
+		}else{
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			readingModeTextView.setVisibility(View.VISIBLE);
+			animation = AnimationUtils.loadAnimation(this,
+					R.anim.slide_up);
+		}
+		readingModeTextView.startAnimation(animation);
 	}
 
 	private void saveRecipeToFavorite(MenuItem item) {

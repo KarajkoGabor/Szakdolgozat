@@ -4,6 +4,10 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-ldpi\\piknik.png"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_info_black_24dp.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-ldpi\\ic_info_black_24dp.png"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\rounded_cell.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-ldpi\\rounded_cell.xml"
     },

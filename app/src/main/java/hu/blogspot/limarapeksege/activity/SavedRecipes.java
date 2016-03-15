@@ -15,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,7 +72,7 @@ public class SavedRecipes extends ListActivity {
 			setTitle(getString(R.string.title_favorite_recipes));
 		}
 
-		util.listSorter(savedRecipeTitles);
+		util.stringListSorter(savedRecipeTitles);
 		setAdapter(savedRecipeTitles);
 
 		lv.setOnItemClickListener(new OnItemClickListener() {

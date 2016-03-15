@@ -34,7 +34,7 @@ public class BaseActivity extends Activity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ListView drawerList;
     private NavigationDrawerListAdapter adapter;
-    private Tracker tracker;
+    private AnalyticsTracker trackerApp;
     private static String currentClassName;
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -54,31 +54,29 @@ public class BaseActivity extends Activity {
             public void onDrawerClosed(View view)
             {
                 getActionBar().setTitle(R.string.limara);
-                sendTrackEvent(getString(R.string.analytics_close_nav_drawer));
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_close_nav_drawer), BaseActivity.currentClassName);
             }
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onDrawerOpened(View drawerView)
             {
                 getActionBar().setTitle(R.string.limara);
-                sendTrackEvent(getString(R.string.analytics_open_nav_drawer));
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_open_nav_drawer), BaseActivity.currentClassName);
             }
 
             @Override
             public void onDrawerStateChanged(int newState) {
                 super.onDrawerStateChanged(newState);
                 if(newState == DrawerLayout.STATE_DRAGGING){
-                    sendTrackEvent(getString(R.string.analytics_slide_nav_drawer));
+                    trackerApp.sendTrackerEvent(getString(R.string.analytics_slide_nav_drawer), BaseActivity.currentClassName);
                 }
             }
 
         };
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
-        AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
-        tracker = trackerApp.getDefaultTracker();
+        trackerApp = (AnalyticsTracker) getApplication();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
 //        layers = getResources().getStringArray(R.array.nav_drawer_items);
@@ -104,24 +102,19 @@ public class BaseActivity extends Activity {
                     case 0:
                         intent = new Intent(BaseActivity.this, MainPage.class);
                         break;
-//                    case 1:
-//                        intent = new Intent(BaseActivity.this, RecipeCategory.class);
-//                        break;
-//                    case 2:
-//                        intent = new Intent(BaseActivity.this, RecipeSearch.class);
-//                        break;
                     case 1:
                         intent = new Intent(BaseActivity.this, AboutActivity.class);
                         break;
-
 
                     default :
                         intent = new Intent(BaseActivity.this, MainPage.class); // Activity_0 as default
                         break;
                 }
 
-                sendTrackEvent(getString(R.string.analytics_choose_nav_drawer));
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_choose_nav_drawer), BaseActivity.currentClassName);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -158,13 +151,6 @@ public class BaseActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    private void sendTrackEvent(String actionName){
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory(BaseActivity.currentClassName)
-                .setAction(actionName)
-                .build());
     }
 
 }

@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.adapters;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.model.GridItem;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 
 import java.util.ArrayList;
 
@@ -43,16 +44,16 @@ public class CategoryPageGridAdapter extends ArrayAdapter<GridItem> {
 			gridView = inflater.inflate(resource, parent, false);
 
 			if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-				Log.w("LimaraPéksége", "large");
+				Log.w(GlobalStaticVariables.LOG_TAG, "large");
 				gridView.setMinimumHeight(heightPixels / 4);
 			} else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-				Log.w("LimaraPéksége", "xlarge");
+				Log.w(GlobalStaticVariables.LOG_TAG, "xlarge");
 				gridView.setMinimumHeight(heightPixels / 6);
 			} else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-				Log.w("LimaraPéksége", "normall");
+				Log.w(GlobalStaticVariables.LOG_TAG, "normall");
 				gridView.setMinimumHeight(heightPixels / 4);
 			} else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-				Log.w("LimaraPéksége", "small");
+				Log.w(GlobalStaticVariables.LOG_TAG, "small");
 				gridView.setMinimumHeight(heightPixels / 3);
 			}
 

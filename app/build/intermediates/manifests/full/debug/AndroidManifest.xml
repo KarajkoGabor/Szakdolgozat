@@ -6,7 +6,7 @@
     android:versionName="1.2.2" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -62,7 +62,13 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
+            <meta-data
+                android:name="searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name="hu.blogspot.limarapeksege.activity.RecipePage"
@@ -132,8 +138,7 @@
 
         <activity
             android:name="hu.blogspot.limarapeksege.activity.BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+            android:label="@string/title_activity_base" />
         <activity
             android:name="hu.blogspot.limarapeksege.activity.AboutActivity"
             android:configChanges="orientation"

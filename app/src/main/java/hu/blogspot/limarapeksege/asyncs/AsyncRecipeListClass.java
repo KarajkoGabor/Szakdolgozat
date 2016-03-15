@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.asyncs;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.RecipeCategoryListAdapter;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 import java.util.ArrayList;
@@ -48,9 +49,9 @@ public class AsyncRecipeListClass extends
 		int categoryID = (Integer) params[2];
 		RecipeActionsHandler util = new RecipeActionsHandler(context);
 		recipeTitles = util.recipeTitleParser(categoryName, url, categoryID);
-		recipeTitles = (ArrayList<String>) util.listSorter(recipeTitles);
+		recipeTitles = (ArrayList<String>) util.stringListSorter(recipeTitles);
 
-		Log.w("LimaraPéksége", "async continue");
+		Log.w(GlobalStaticVariables.LOG_TAG, "async continue");
 		return recipeTitles;
 	}
 

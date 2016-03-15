@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.analytics.Tracker;
 
 import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 
 public class AboutActivity extends Activity {
+
+    private AnalyticsTracker trackerApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +30,18 @@ public class AboutActivity extends Activity {
 //
 //        super.onCreateDrawer(items, getLocalClassName());
 
+        trackerApp = (AnalyticsTracker) getApplication();
+        trackerApp.sendScreen(getString(R.string.analytics_about));
+
         setContentView(R.layout.activity_about);
 
     }
 
-    private void setFullScreen(){
+    private void setFullScreen() {
         if (Build.VERSION.SDK_INT < 16) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else{
+        } else {
             View decorView = getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);

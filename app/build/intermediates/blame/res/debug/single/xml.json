@@ -18,5 +18,9 @@
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\global_tracker.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\build\\generated\\res\\google-services\\debug\\xml\\global_tracker.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\xml\\searchable.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\searchable.xml"
     }
 ]
