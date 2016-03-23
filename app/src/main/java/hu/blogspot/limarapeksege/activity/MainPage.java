@@ -35,12 +35,6 @@ import hu.blogspot.limarapeksege.util.XmlParser;
 @SuppressLint("NewApi")
 public class MainPage extends BaseActivity implements OnClickListener {
 
-//	private Bitmap onlineIcon;
-//	private Bitmap savedIcon;
-//	private Bitmap favoritesIcon;
-//	private Bitmap loafIcon;
-//	private Bitmap searchIcon;
-//	private Bitmap newsIcon;
 	private AnalyticsTracker trackerApp;
 	
 	@Override
@@ -57,8 +51,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
         super.onCreateDrawer(items, getLocalClassName());
 		List<String> mainMenuList; // men� lista
 
-//		setIcons();
-
 		mainMenuList = setMainMenuList();
 		setTextViews(mainMenuList);
 
@@ -72,7 +64,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		TextView favoriteRecipes = (TextView) findViewById(R.id.mainTextFavorites);
 		TextView loafMaking = (TextView) findViewById(R.id.mainTextLoaf);
 		TextView searchRecipes = (TextView) findViewById(R.id.mainTextSearch);
-//		TextView newPosts = (TextView) findViewById(R.id.mainTextNews);
 
 		onlineRecipes.setOnClickListener(this);
 		onlineRecipes.setText(mainMenuList.get(0));
@@ -84,8 +75,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 		loafMaking.setText(mainMenuList.get(3));
 		searchRecipes.setOnClickListener(this);
 		searchRecipes.setText(mainMenuList.get(4));
-//		newPosts.setOnClickListener(this);
-//		newPosts.setText(mainMenuList.get(5));
 
 	}
 
@@ -95,7 +84,7 @@ public class MainPage extends BaseActivity implements OnClickListener {
 			switch (v.getId()) {
 
 			case R.id.mainTextOnline:
-				if (isNetworkAvailable() == false) {
+				if (!isNetworkAvailable()) {
 					throw new Exception();
 				} else {
 					startNewActivity(
@@ -117,13 +106,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 				} else {
 					startNewActivity(GlobalStaticVariables.RECIPE_SEARCH_CLASS,
 							5);
-				}
-				break;
-			case R.id.mainTextNews:
-				if (!isNetworkAvailable()) {
-					throw new Exception();
-				} else {
-					startNewActivity(GlobalStaticVariables.NEWS_CLASS, 6);
 				}
 				break;
 
@@ -153,23 +135,6 @@ public class MainPage extends BaseActivity implements OnClickListener {
 
 		this.startActivity(openRecipeCategory);
 	}
-
-//	private void setIcons() {
-//
-//		onlineIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.online_icon);
-//		savedIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.saved_icon);
-//		favoritesIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.favorite_icon);
-//		loafIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.loaf_icon);
-//		searchIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.search_icon);
-//		newsIcon = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.news_icon);
-//
-//	}
 
 	private List<String> setMainMenuList() {
 		ArrayList<? extends Object> mainMenuList = new ArrayList<String>();

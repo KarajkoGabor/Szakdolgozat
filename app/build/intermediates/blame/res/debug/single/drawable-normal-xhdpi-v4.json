@@ -8,24 +8,24 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\loaf_icon.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\favorite_icon.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\favorite_icon.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\kenyer.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\kenyer.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\news_icon.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\news_icon.png"
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\favorite_icon.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\favorite_icon.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\eloetelek.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\eloetelek.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\sos_sutemenyek.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\sos_sutemenyek.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\eloetelek.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\eloetelek.png"
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\news_icon.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\news_icon.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\salatak.png",
@@ -48,40 +48,40 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\zoldseg_etelek.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\foetel.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\foetel.png"
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\note_purple.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\note_purple.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\tesztak.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\tesztak.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\note_purple.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\note_purple.png"
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\foetel.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\foetel.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\egytal.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\egytal.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\logo.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\logo.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\save.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\save.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\logo.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\logo.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\online_icon.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\online_icon.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\edessegek.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\edessegek.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\italok.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\italok.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\edessegek.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\edessegek.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\ic_action_search.png",
@@ -92,12 +92,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\favorite.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\tortak.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\tortak.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\search_icon.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\search_icon.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\tortak.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\tortak.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\piknik.png",
@@ -112,12 +112,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\glutenmentes.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\saved_icon.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\saved_icon.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\fank.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\fank.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\saved_icon.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\saved_icon.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\pizza.png",
@@ -136,12 +136,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\favorite_colored.png"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\levesek.png",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\levesek.png"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\egyeb_kelttesztak.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\egyeb_kelttesztak.png"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\levesek.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-normal-xhdpi\\levesek.png"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-normal-xhdpi-v4\\kalacs.png",

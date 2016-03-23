@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\layout-large-v4\\category_grid_row.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\layout-large\\category_grid_row.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\layout-large-v4\\activity_recipe_category.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\layout-large\\activity_recipe_category.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\layout-large-v4\\loafmaking_items.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\layout-large\\loafmaking_items.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\layout-large-v4\\activity_main_page.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\layout-large\\activity_main_page.xml"
+    }
+]

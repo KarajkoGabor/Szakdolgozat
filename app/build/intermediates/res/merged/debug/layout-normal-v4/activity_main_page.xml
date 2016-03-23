@@ -8,14 +8,14 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#f7dbe3"
+        >
         <!-- Add content here -->
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="#f7dbe3"
             android:scrollbars="none">
 
             <LinearLayout
@@ -36,7 +36,6 @@
                     android:id="@+id/mainGrid"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    android:layout_gravity="center"
                     android:layout_marginBottom="15dip"
                     android:layout_marginTop="5dip"
                     android:numColumns="2">
@@ -140,46 +139,16 @@
                             android:textColor="#803a3a"
                             android:textSize="14sp" />
                     </TableRow>
-
-                    <!--<TableRow android:layout_marginTop="25dip">-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/mainTextSearch"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="match_parent"-->
-                            <!--android:layout_marginLeft="15dip"-->
-                            <!--android:layout_marginRight="15dip"-->
-                            <!--android:layout_span="2"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:background="@drawable/selector"-->
-                            <!--android:clickable="true"-->
-                            <!--android:drawablePadding="15dip"-->
-                            <!--android:drawableTop="@drawable/search_icon"-->
-                            <!--android:gravity="center_horizontal"-->
-                            <!--android:onClick="onCilck"-->
-                            <!--android:paddingBottom="15dip"-->
-                            <!--android:paddingTop="15dip"-->
-                            <!--android:textColor="#803a3a"-->
-                            <!--android:textSize="14sp" />-->
-                    <!--</TableRow>-->
                 </TableLayout>
-
-                <!-- The main content view -->
-                <!--<FrameLayout-->
-                <!--android:id="@+id/content_frame"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent">-->
-                <!--&lt;!&ndash; Put what you want as your normal screen in here, you can also choose for a linear layout or any other layout, whatever you prefer &ndash;&gt;-->
-                <!--</FrameLayout>-->
-                <!-- The navigation drawer -->
-
 
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="540px"
+        android:id="@+id/drawer_container"
+        android:weightSum="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:orientation="vertical"

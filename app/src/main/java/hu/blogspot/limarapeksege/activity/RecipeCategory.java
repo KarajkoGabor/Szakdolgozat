@@ -30,7 +30,6 @@ public class RecipeCategory extends Activity {
     private ArrayList<String> mainMenuList = new ArrayList<String>();
     private GridView grid;
     private AnalyticsTracker trackerApp;
-    private RecipeActionsHandler util;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,15 +37,13 @@ public class RecipeCategory extends Activity {
         setContentView(R.layout.activity_recipe_category);
         SqliteHelper db = SqliteHelper.getInstance(RecipeCategory.this);
         RecipeCategoryGridMaker categoryGridMaker = new RecipeCategoryGridMaker(RecipeCategory.this);
-        util = new RecipeActionsHandler(this);
+        RecipeActionsHandler util = new RecipeActionsHandler(this);
 
         trackerApp = (AnalyticsTracker) getApplication();
         List<Category> categoryList = db.getAllCategories();
 
         try {
 
-            if (!categoryList.isEmpty()) { // ha m�r egyszer
-                // elmentett�k
                 mainMenuList.clear();
                 Log.w(GlobalStaticVariables.LOG_TAG, categoryList.size() + "");
 
@@ -56,16 +53,6 @@ public class RecipeCategory extends Activity {
                 }
 
                 Log.w(GlobalStaticVariables.LOG_TAG, "not async");
-            } else {
-                db.deleteCategoryTable();
-                // db.deleteRecipeTable();
-                AsyncRecipeCategoryClass asyncCategory = new AsyncRecipeCategoryClass(
-                        RecipeCategory.this);
-                asyncCategory.execute(RecipeCategory.this,
-                        GlobalStaticVariables.URL_TARTALOM, categoryGridMaker,
-                        grid);
-                Log.w(GlobalStaticVariables.LOG_TAG, "async");
-            }
 
             grid = categoryGridMaker.setGridItems(util.stringListSorter(mainMenuList));
             db.closeDatabase();

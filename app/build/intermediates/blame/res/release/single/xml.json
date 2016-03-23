@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\global_tracker.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\build\\generated\\res\\google-services\\release\\xml\\global_tracker.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\categories.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\categories.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\loafmaking.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\loafmaking.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\searchable.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\searchable.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\splashloadingmessages.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\splashloadingmessages.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\mainmenulist.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\mainmenulist.xml"
+    }
+]

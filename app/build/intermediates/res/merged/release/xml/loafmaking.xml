@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loaf_making>
+
+    <step value="0" >
+        <description>
+ Közkívánatra fázisfotók a vekni formázásáról. Megmutatom én hogyan készítem, lépésről lépésre.
+        </description>
+    </step>
+    <step value="1" >
+        <description>
+ Először is, kelesztőtálban duplájára kelesztem a bedagasztott tésztát (most egy magvas graham kenyér készült).
+        </description>
+    </step>
+    <step value="2" >
+        <description>
+ Enyhén lisztezett felületre borítom. Egy szilikon lapot használok.
+        </description>
+    </step>
+    <step value="3" >
+        <description>
+ Nem gyúrom át, egyszerűen kilapogatom a kezemmel, azaz kiütögetem belőle a levegőt.
+        </description>
+    </step>
+    <step value="4" >
+        <description>
+ Mindkét oldalról behajtom és jól lenyomkodom.
+        </description>
+    </step>
+    <step value="5" >
+        <description>
+ A felső részén megint hajtok,úgy, hogy  háromszög alakú legyen.
+        </description>
+    </step>
+    <step value="6" >
+        <description>
+ Ezután feltekerem de minden tekerésnél lenyomom a tésztát, illetve a két oldaláról is a feltekert rész alá húzom, hogy a még fel nem tekert rész ne legyen szélesebb a már megformázottnál.
+        </description>
+    </step>
+    <step value="7" >
+        <description>
+ A végén összecsípem és megfordítom a tésztát.
+        </description>
+    </step>
+    <step value="8" >
+        <description>
+ Szilikon bevonatú sütőpapíron kelesztem ismét a duplájára.  Mielőtt a sütőbe teszem három helyen bemetszem egy éles pengével.
+        </description>
+    </step>
+
+</loaf_making>

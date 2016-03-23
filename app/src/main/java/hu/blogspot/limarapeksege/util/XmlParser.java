@@ -13,9 +13,9 @@ import hu.blogspot.limarapeksege.model.Category;
 
 public class XmlParser {
 
-    public ArrayList<? extends Object> parseXml(XmlPullParser xpp, String mode)
+    public ArrayList<?> parseXml(XmlPullParser xpp, String mode)
             throws XmlPullParserException, IOException {
-        ArrayList<? extends Object> resultList = null;
+        ArrayList<?> resultList = null;
         ArrayList<String> tempResultListString = new ArrayList<String>();
         ArrayList<Category> tempResultListCategory = new ArrayList<Category>();
 
@@ -27,7 +27,7 @@ public class XmlParser {
 
                         Category tempCategory = new Category();
                         tempCategory.setLabel(xpp.getAttributeValue(0));
-                        tempCategory.setName(xpp.getAttributeValue(1).toString());
+                        tempCategory.setName(xpp.getAttributeValue(1));
                         tempResultListCategory.add(tempCategory);
                         resultList = tempResultListCategory;
                         Log.w(GlobalStaticVariables.LOG_TAG, "Category parsed with label " + tempCategory.getLabel() + " and name " + tempCategory.getName());

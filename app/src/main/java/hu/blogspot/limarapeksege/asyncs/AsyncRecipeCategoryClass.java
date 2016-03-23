@@ -36,9 +36,7 @@ public class AsyncRecipeCategoryClass extends
 		recipeCategoryGridMaker = (RecipeCategoryGridMaker) params[2];
 		grid = (GridView) params[3];
 
-		ArrayList<Category> parserList = util.categoryParser();
-
-		return parserList;
+		return util.categoryParser();
 	}
 
 	protected void onPostExecute(ArrayList<String> list) {

@@ -1,21 +1,6 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
-import hu.blogspot.limarapeksege.asyncs.AsyncFileCopy;
-import hu.blogspot.limarapeksege.asyncs.AsyncRecipeSaveClass;
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.ourWebViewClient;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,6 +23,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
+import hu.blogspot.limarapeksege.asyncs.AsyncFileCopy;
+import hu.blogspot.limarapeksege.asyncs.AsyncRecipeSaveClass;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
+import hu.blogspot.limarapeksege.util.ourWebViewClient;
 
 @SuppressLint("NewApi")
 public class RecipePage extends BaseActivity {
@@ -49,6 +48,7 @@ public class RecipePage extends BaseActivity {
 	private SqliteHelper db;
 	private Bundle bundleData;
 	private static boolean isFavoriteRecipe;
+	private AnalyticsTracker trackerApp;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,7 +61,12 @@ public class RecipePage extends BaseActivity {
 		setClassVariables(bundleData);
 		setWebViewClient();
 
+		trackerApp = (AnalyticsTracker) getApplication();
+		trackerApp.sendScreen(getString(R.string.analytics_screen_recipe));
+
 		setTitle(NAMEsave);
+
+		trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), NAMEsave);
 
 		final TextView readingModeTextView = (TextView) findViewById(R.id.reading_mode_textView);
 
@@ -216,15 +221,21 @@ public class RecipePage extends BaseActivity {
 	@SuppressLint("NewApi")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.hasSubMenu() == false) {
+		super.onOptionsItemSelected(item);
+
+		if (!item.hasSubMenu()) {
 			if (getString(R.string.menu_save) == item.getTitle()) {
 				saveRecipe(item);
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_save_recipe));
 			} else if (getString(R.string.menu_favorite) == item.getTitle()) {
 				saveRecipeToFavorite(item);
-			} else if (getString(R.string.menu_delete) == item.getTitle()) {
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_move_recipte_to_favorite));
+            } else if (getString(R.string.menu_delete) == item.getTitle()) {
 				dialogBox(RecipePage.this, NAMEsave, isFavoriteRecipe);
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_delete_recipe));
 			} else if (getString(R.string.menu_note) == item.getTitle()) {
 				openNotePadActivity();
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_note_open));
 			} else if(getString(R.string.menu_reading_option) == item.getTitle()){
 				setScreenToReadingMode();
 			}
@@ -257,12 +268,16 @@ public class RecipePage extends BaseActivity {
 			readingModeTextView.setVisibility(View.GONE);
 			animation = AnimationUtils.loadAnimation(this,
 					R.anim.slide_down);
-		}else{
+            trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_reading_mode_disabled));
+
+        }else{
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 			readingModeTextView.setVisibility(View.VISIBLE);
 			animation = AnimationUtils.loadAnimation(this,
 					R.anim.slide_up);
-		}
+            trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_reading_mode_enabled));
+
+        }
 		readingModeTextView.startAnimation(animation);
 	}
 

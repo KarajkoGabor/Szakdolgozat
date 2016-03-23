@@ -22,7 +22,6 @@ import com.google.android.gms.analytics.Tracker;
 public class NotePad extends Activity {
 
     private EditText noteField;
-    private String noteText;
     private String recipeName;
     NoteHandler noteHandler;
     private AnalyticsTracker trackerApp;
@@ -42,7 +41,7 @@ public class NotePad extends Activity {
         noteField = (EditText) findViewById(R.id.notePadBody);
 
         Bundle getName = getIntent().getExtras();
-        recipeName = getName.getString("name").toString();
+        recipeName = getName.getString("name");
         setTitle(recipeName + " jegyzet");
 
         File noteFile = new File(Environment.getExternalStorageDirectory()
@@ -71,7 +70,7 @@ public class NotePad extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         if (getString(R.string.menu_save) == item.getTitle()) {
-            noteText = noteField.getText().toString();
+            String noteText = noteField.getText().toString();
             Log.w(GlobalStaticVariables.LOG_TAG, noteText);
 
             if (noteHandler.saveNote(noteText, recipeName)) {

@@ -9,11 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -30,23 +32,18 @@ import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 
 public class BaseActivity extends Activity {
 
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private ListView drawerList;
-    private NavigationDrawerListAdapter adapter;
     private AnalyticsTracker trackerApp;
     private static String currentClassName;
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
     protected void onCreateDrawer(List<DrawerListItem> items, String currentClassName) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_base2);
 
-        this.currentClassName = currentClassName;
+        setDrawerContainerWidth();
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        BaseActivity.currentClassName = currentClassName;
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle((Activity) this, drawerLayout, 0, 0)
         {
@@ -78,43 +75,32 @@ public class BaseActivity extends Activity {
         trackerApp = (AnalyticsTracker) getApplication();
 
         getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        layers = getResources().getStringArray(R.array.nav_drawer_items);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
-//        View header = getLayoutInflater().inflate(R.layout.title, null);
-//        drawerList.addHeaderView(header, null, false);
-//        DrawerListItem drawerListItem = new DrawerListItem("Kezd?lap", R.drawable.ic_menu_home);
-//        List<DrawerListItem> items = new ArrayList<>();
-//        items.add(drawerListItem);
-        adapter = new NavigationDrawerListAdapter(this, items, R.layout.custom_drawer_item);
+        ListView drawerList = (ListView) findViewById(R.id.left_drawer);
+        NavigationDrawerListAdapter adapter = new NavigationDrawerListAdapter(this, items, R.layout.custom_drawer_item);
         drawerList.setAdapter(adapter);
-//        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.custom_drawer_item,
-//                layers));
-//        View footerView = ((LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-//                R.layout.drawer_list_footer, null, false);
-//        drawerList.addFooterView(footerView);
 
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                 Intent intent = null;
-                switch(pos) {
+                switch (pos) {
                     case 0:
                         intent = new Intent(BaseActivity.this, MainPage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         break;
                     case 1:
                         intent = new Intent(BaseActivity.this, AboutActivity.class);
                         break;
 
-                    default :
+                    default:
                         intent = new Intent(BaseActivity.this, MainPage.class); // Activity_0 as default
                         break;
                 }
 
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_category_choose_nav_drawer), BaseActivity.currentClassName);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -125,7 +111,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-//        actionBarDrawerToggle.syncState();
+        actionBarDrawerToggle.syncState();
     }
 
     @Override
@@ -140,17 +126,23 @@ public class BaseActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void setDrawerContainerWidth(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        LinearLayout drawerContainer  = (LinearLayout) findViewById(R.id.drawer_container);
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams) drawerContainer.getLayoutParams();
+        params.width = (int) (metrics.widthPixels*0.7);
+        drawerContainer.setLayoutParams(params);
     }
 
 }

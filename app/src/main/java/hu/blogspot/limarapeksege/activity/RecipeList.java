@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -42,8 +43,6 @@ public class RecipeList extends ListActivity {
 
     private RecipeActionsHandler util;
     private SqliteHelper db;
-    private Category currentCategory;
-    private AsyncRecipeListClass asyncRecipeList;
     private AnalyticsTracker trackerApp;
     private ArrayAdapter<String> adapter;
     private ListView lv;
@@ -60,12 +59,11 @@ public class RecipeList extends ListActivity {
         db = SqliteHelper.getInstance(RecipeList.this);
 
         lv = (ListView) findViewById(android.R.id.list);
-//        lv.setTextFilterEnabled(true);
         Bundle extras = getIntent().getExtras();
 
         String category = extras.getString("category");// beolvassuk milyen
         categoryPos = extras.getInt("position");
-        currentCategory = db.getCategoryByName(category);
+        Category currentCategory = db.getCategoryByName(category);
 
         setTitle(category);
 
@@ -81,7 +79,7 @@ public class RecipeList extends ListActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1,
                                     int position, long arg3) {
                 try {
-                    if (isNetworkAvailable() == false) {
+                    if (!isNetworkAvailable()) {
                         throw new Exception();
                     } else {
 
@@ -112,7 +110,7 @@ public class RecipeList extends ListActivity {
         Bitmap tempIcon = BitmapFactory.decodeResource(getResources(),
                 icons.getResourceId(categoryPos, -1));
         adapter = new RecipeCategoryListAdapter(this,
-                R.layout.list_row_category, recipes, tempIcon);
+                R.layout.list_row_category, recipes, icons.getResourceId(categoryPos, -1));
         setListAdapter(adapter);
 
     }
@@ -138,8 +136,8 @@ public class RecipeList extends ListActivity {
     private static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
+            for (String aChildren : children) {
+                boolean success = deleteDir(new File(dir, aChildren));
                 if (!success) {
                     return false;
                 }
@@ -147,6 +145,7 @@ public class RecipeList extends ListActivity {
         }
 
         // The directory is now empty so delete it
+        assert dir != null;
         return dir.delete();
     }
 
@@ -176,7 +175,6 @@ public class RecipeList extends ListActivity {
         Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
         db.closeDatabase();
         trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_recipe));
-        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), selectedRecipe.getRecipeName());
         startActivity(openRecipe);
     }
 
@@ -200,6 +198,14 @@ public class RecipeList extends ListActivity {
         });
 
         searchView.setSubmitButtonEnabled(false);
+
+        searchView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe_list), getString(R.string.analytics_use_of_search_bar));
+                return false;
+            }
+        });
 
         SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
             @Override
@@ -255,7 +261,7 @@ public class RecipeList extends ListActivity {
                 GlobalStaticVariables.RECIPE_LIST_DIRECTORY);
         Log.w(GlobalStaticVariables.LOG_TAG, "async");
         storageReceipeListDirectory.mkdirs();
-        asyncRecipeList = new AsyncRecipeListClass(RecipeList.this,
+        AsyncRecipeListClass asyncRecipeList = new AsyncRecipeListClass(RecipeList.this,
                 RecipeList.this, getString(R.string.recipes_download),
                 categoryPos);
         asyncRecipeList.execute(currentCategory.getName(),

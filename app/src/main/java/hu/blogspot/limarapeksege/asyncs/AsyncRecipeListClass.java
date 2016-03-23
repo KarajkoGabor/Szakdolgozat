@@ -24,7 +24,6 @@ public class AsyncRecipeListClass extends
 	private ProgressDialog progressDialog;
 	private Context context;
 	private String recipesDownloadMessage;
-	private ArrayList<String> recipeTitles;
 	private ListActivity activity;
 	private int categoryPos;
 
@@ -48,8 +47,8 @@ public class AsyncRecipeListClass extends
 		String url = (String) params[1];
 		int categoryID = (Integer) params[2];
 		RecipeActionsHandler util = new RecipeActionsHandler(context);
-		recipeTitles = util.recipeTitleParser(categoryName, url, categoryID);
-		recipeTitles = (ArrayList<String>) util.stringListSorter(recipeTitles);
+		ArrayList<String> recipeTitles = util.recipeTitleParser(categoryName, url, categoryID);
+		recipeTitles = util.stringListSorter(recipeTitles);
 
 		Log.w(GlobalStaticVariables.LOG_TAG, "async continue");
 		return recipeTitles;
@@ -64,10 +63,8 @@ public class AsyncRecipeListClass extends
 
 		TypedArray icons = activity.getResources().obtainTypedArray(
 				R.array.category_icons);
-		Bitmap tempIcon = BitmapFactory.decodeResource(activity.getResources(),
-				icons.getResourceId(categoryPos, -1));
 		ArrayAdapter<String> adapter = new RecipeCategoryListAdapter(activity,
-				R.layout.list_row_category, list, tempIcon);
+				R.layout.list_row_category, list, icons.getResourceId(categoryPos, -1));
 		activity.setListAdapter(adapter);
 	}
 

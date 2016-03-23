@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\menu\\recipe_page_online.xml",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_page_online.xml"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\menu\\global.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\global.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\menu\\recipe_page_online.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_page_online.xml"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\menu\\note_pad.xml",

@@ -50,9 +50,6 @@ import hu.blogspot.limarapeksege.util.handlers.image.ImageHandler;
 
 public class RecipeActionsHandler {
 
-	private final String MAIN_DIRECTORY = "/LimaraPeksege";
-	private final String SAVED_RECIPES = "SavedRecipes";
-	private final String FAVORITE_RECIPES = "FavoriteRecipes";
 	private SqliteHelper db;
 	private Context context;
 	private HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -60,8 +57,6 @@ public class RecipeActionsHandler {
 	private GoogleCredential credential = new GoogleCredential();
 	private Blogger blogger = new Blogger.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName("LimaraApp").build();
 	private Blogger.Posts.List postsListAction;
-	private static final String BLOG_ID = "3172210115883978627";
-	private static final String BLOG_KEY = "AIzaSyB0MQ_sdri3PY2xrYmFJvK_FNRPojNeZg8";
 	private SharedPreferences savedSettings;
 
 	public RecipeActionsHandler(Context context) {
@@ -88,8 +83,6 @@ public class RecipeActionsHandler {
 		
 		try {
 			categoryList = (ArrayList<Category>) parser.parseXml(xpp, parseMode);
-			// abc sorrendbe rakjuk
-//			categoryList = stringListSorter(categoryList);
 
 			Collections.sort(categoryList, new Comparator<Category>() {
 				@Override
@@ -98,58 +91,22 @@ public class RecipeActionsHandler {
 				}
 			});
 
-			Log.w("LimaraPeksege", "Web Parsing succeed");
 			Log.w("LimaraPeksege", "Recipe Category save begin");
 
 			for (int i = 0; i < categoryList.size(); i++) {
-//				Category category = new Category();
 				Log.w("LimaraPeksege", "Actual category" + categoryList.get(i).getName());
-//				category.setName(categoryList.get(i));
 				db.addCategory(categoryList.get(i));
 			}
 
 			Log.w("LimaraPeksege", "Recipe Category save succeed");
 
 			db.closeDatabase();
-		} catch (XmlPullParserException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (XmlPullParserException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		return categoryList;
-	}
-
-	/**
-	 * Mivel az oldal vizsg�l�sa(a weboldal form�zotts�ga miatt) sor�n sok
-	 * felesleges " " �s egy�b elemek is beker�lnek, ez�rt ez a met�dus ezeket a
-	 * felesleges elemeket kit�rli
-	 * 
-	 * @param list
-	 *            egy lista amib�l a felesleges elemeket ki akarjuk t�r�lni
-	 * @return a letisztult lista
-	 */
-	public ArrayList<String> ListClear(ArrayList<String> list) {
-
-		for (int i = 0; i < list.size(); i++) {
-			// Log.w("myApp", recipeTitles.get(i).toString());
-			if (list.get(i).toString().equals("")
-					|| list.get(i).toString().equals("|")
-					|| list.get(i).toString().equals("skip to main")
-					|| list.get(i).toString().equals("skip to sidebar")
-					|| list.get(i).toString().equals("Tartalomjegyz�k")
-					|| list.get(i).toString().equals("<<")
-					|| list.get(i).toString()
-							.equals("Vissza a Limara P�ks�g f�oldalra")) {
-				list.remove(i);
-				i = i - 1; // l�pj�nk vissza �jra az elemre
-			}
-
-		}
-
-		return list;
 	}
 
 	public List<Recipe> gatherRecipeData(String categoryLabelName , int categoryID, boolean isThereNewRecipes){
@@ -172,9 +129,7 @@ public class RecipeActionsHandler {
 						.getRecipeName());
 				if (recipeFromDb == null) {
 					db.addRecipe(recipe);
-				} else if (recipeFromDb != null
-						&& recipeFromDb.getCategory_id() == 0
-						&& recipeFromDb.getNote_id() == 0) {
+				} else if (recipeFromDb.getCategory_id() == 0 && recipeFromDb.getNote_id() == 0) {
 					Log.w("LimaraPeksege", "START: Recipe is saved again: " + recipe.getRecipeName());
 					recipe.setSaved(recipeFromDb.isSaved());
 					recipe.setFavorite(recipeFromDb.isFavorite());
@@ -206,8 +161,8 @@ public class RecipeActionsHandler {
 		int pageCount = 0;
 
 		try {
-			postsListAction = blogger.posts().list(BLOG_ID);
-			postsListAction.setKey(BLOG_KEY);
+			postsListAction = blogger.posts().list(GlobalStaticVariables.BLOG_ID);
+			postsListAction.setKey(GlobalStaticVariables.BLOG_KEY);
 			postsListAction.setFields("items(title,url,content), nextPageToken");
 			postsListAction.setLabels(categoryLabelName);
 			postsListAction.setMaxResults((long) 499);
@@ -300,9 +255,7 @@ public class RecipeActionsHandler {
 							.getRecipeName());
 					if (recipeFromDb == null) {
 						db.addRecipe(recipe);
-					} else if (recipeFromDb != null
-							&& recipeFromDb.getCategory_id() == 0
-							&& recipeFromDb.getNote_id() == 0) {
+					} else if (recipeFromDb.getCategory_id() == 0 && recipeFromDb.getNote_id() == 0) {
 						Log.w("LimaraPeksege", recipe.getRecipeName());
 						recipe.setSaved(recipeFromDb.isSaved());
 						recipe.setFavorite(recipeFromDb.isFavorite());
@@ -324,10 +277,7 @@ public class RecipeActionsHandler {
 			db.closeDatabase();
 			Log.w("LimaraPeksege", "recipe list succeed");
 
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (XmlPullParserException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -338,7 +288,7 @@ public class RecipeActionsHandler {
 	private ArrayList<Recipe> getRecipesFromUrl(String category,
 			Elements elements) throws XmlPullParserException, IOException {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		List<Category> categories = new ArrayList<Category>();
+		List<Category> categories;
 		boolean isAddeble = false;
 		XmlParser parser = new XmlParser();
 		XmlPullParser xpp = context.getResources().getXml(R.xml.categories);
@@ -429,7 +379,7 @@ public class RecipeActionsHandler {
 			throws Exception {
 
 		Log.w("LimaraPeksege", "Save the recipe started");
-		String htmlText = null;
+		String htmlText;
 		URI website = new URI(URL);
 		ImageHandler imageHandler = new ImageHandler();
 		FileHandler fileHandler = new FileHandler();
@@ -439,14 +389,14 @@ public class RecipeActionsHandler {
 		String finalText = imageHandler.saveImage(htmlText, NAME);
 
 		if (!isFavorite) { // ha nem kedvenc
-			fileHandler.writeToFile(finalText, SAVED_RECIPES,
+			fileHandler.writeToFile(finalText, GlobalStaticVariables.SAVED_RECIPES,
 					GlobalStaticVariables.SAVED_RECIPE_PATH, NAME);
 			db.updateRecipeIsSaved(db.getRecipeByName(NAME).getId(), 1);
 			Log.w("LimaraPeksege", db.getRecipeByName(NAME).isSaved()
 					+ " is saved");
 			db.closeDatabase();
 		} else { // ha kedvenc
-			fileHandler.writeToFile(finalText, FAVORITE_RECIPES,
+			fileHandler.writeToFile(finalText, GlobalStaticVariables.FAVORITE_RECIPES,
 					GlobalStaticVariables.FAVORITE_RECIPE_PATH, NAME);
 			db.updateRecipeIsFavorite(db.getRecipeByName(NAME).getId(), 1);
 			Log.w("LimaraPeksege", db.getRecipeByName(NAME).isSaved()
@@ -480,7 +430,7 @@ public class RecipeActionsHandler {
 		while ((l = in.readLine()) != null) {
 			if (l.contains("entry-content")) {
 				contain = true;
-			} else if (l.contains("post-footer") && contain == true) {
+			} else if (l.contains("post-footer") && contain) {
 				contain = false;
 			}
 			if (contain) {
@@ -510,8 +460,8 @@ public class RecipeActionsHandler {
 		// TODO savedRecipes
 
 		File webpageDirectory = new File(
-				Environment.getExternalStorageDirectory() + MAIN_DIRECTORY,
-				SAVED_RECIPES);
+				Environment.getExternalStorageDirectory() + GlobalStaticVariables.MAIN_DIRECTORY,
+				GlobalStaticVariables.SAVED_RECIPES);
 		File savedRecipe;
 		if (!webpageDirectory.exists())
 			webpageDirectory.mkdirs();
@@ -601,8 +551,8 @@ public class RecipeActionsHandler {
 		Date lastDate = null;
 
 		try {
-			postsListAction = blogger.posts().list(BLOG_ID);
-			postsListAction.setKey(BLOG_KEY);
+			postsListAction = blogger.posts().list(GlobalStaticVariables.BLOG_ID);
+			postsListAction.setKey(GlobalStaticVariables.BLOG_KEY);
 			postsListAction.setMaxResults((long) 1);
 			postsListAction.setOrderBy("published");
 			postsListAction.setFetchBodies(false);

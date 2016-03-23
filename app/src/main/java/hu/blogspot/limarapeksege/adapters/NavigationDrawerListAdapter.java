@@ -17,9 +17,6 @@ import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 
-/**
- * Created by benti on 2015.10.23..
- */
 public class NavigationDrawerListAdapter extends ArrayAdapter<DrawerListItem> {
 
     private Context context;

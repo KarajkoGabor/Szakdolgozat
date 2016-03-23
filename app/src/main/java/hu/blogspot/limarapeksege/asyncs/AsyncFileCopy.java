@@ -18,7 +18,6 @@ import android.util.Log;
 public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 
 	private Context context;
-	private SqliteHelper db;
 
 	public AsyncFileCopy(Context context) {
 		this.context = context;
@@ -51,7 +50,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 	}
 
 	private void copyFile(File source, File destination, String recipeName) {
-		db = new SqliteHelper(context);
+		SqliteHelper db = new SqliteHelper(context);
 
 		try {
 			InputStream fileIn = new FileInputStream(source);
@@ -70,9 +69,6 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 					+ " is favorite from copy");
 			db.closeDatabase();
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -29,7 +29,6 @@ public class ImageHandler {
 
         for (Element e : hrefs) {
             String style = e.attr("style");
-            // e.attr("style","clear: both; text-align: center;  margin-right: 1em;display: block;");
             if (style.contains("float: left")) {
                 String newStyle = style.replace("float: left;", " ");
                 html = tempHtml.replace(style, newStyle);
@@ -123,8 +122,6 @@ public class ImageHandler {
             }
             ou.close();
             io.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

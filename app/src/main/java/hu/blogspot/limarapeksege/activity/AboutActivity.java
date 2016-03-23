@@ -14,23 +14,13 @@ import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 
 public class AboutActivity extends Activity {
 
-    private AnalyticsTracker trackerApp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setFullScreen();
 
-//        DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
-//        DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.about_icon);
-//        List<DrawerListItem> items = new ArrayList<>();
-//        items.add(drawerListItemHome);
-//        items.add(drawerListItemAbout);
-//
-//        super.onCreateDrawer(items, getLocalClassName());
-
-        trackerApp = (AnalyticsTracker) getApplication();
+        AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
         trackerApp.sendScreen(getString(R.string.analytics_about));
 
         setContentView(R.layout.activity_about);
@@ -46,6 +36,8 @@ public class AboutActivity extends Activity {
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
             ActionBar actionBar = getActionBar();
+
+            assert actionBar != null;
             actionBar.hide();
         }
     }

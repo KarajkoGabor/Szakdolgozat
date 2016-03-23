@@ -46,7 +46,7 @@ public class ourWebViewClient extends WebViewClient {
 	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
 		super.onPageStarted(view, url, favicon);
-		if(progressDialog.isShowing() == false){
+		if(!progressDialog.isShowing()){
 			progressDialog = ProgressDialog.show(context, "", context
 					.getResources().getString(R.string.load_recipe));
 		}

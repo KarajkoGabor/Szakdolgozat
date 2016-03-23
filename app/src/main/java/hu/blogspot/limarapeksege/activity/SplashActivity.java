@@ -27,6 +27,7 @@ public class SplashActivity extends Activity {
         setFullScreen();
 
         setContentView(R.layout.activity_splash);
+//        setLatestUploadDate();
 //        clearApplicationData();
 
         AsyncPrepareRecipeDatas asyncPrepareRecipeDatas = new AsyncPrepareRecipeDatas(SplashActivity.this, SplashActivity.this);
@@ -43,6 +44,7 @@ public class SplashActivity extends Activity {
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
             ActionBar actionBar = getActionBar();
+            assert actionBar != null;
             actionBar.hide();
         }
     }
@@ -64,14 +66,15 @@ public class SplashActivity extends Activity {
     private static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
+            for (String aChildren : children) {
+                boolean success = deleteDir(new File(dir, aChildren));
                 if (!success) {
                     return false;
                 }
             }
         }
 
+        assert dir != null;
         return dir.delete();
     }
 
@@ -79,7 +82,9 @@ public class SplashActivity extends Activity {
         SharedPreferences savedSettings = PreferenceManager
                 .getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = savedSettings.edit();
-        editor.putLong("last_modified", (long)1000);
+
+        long dateLong = 1456790400000L; //2016.03.01.
+        editor.putLong("last_modified", dateLong);
         editor.commit();
     }
 

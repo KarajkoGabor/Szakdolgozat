@@ -208,6 +208,10 @@
         "source": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\drawable-xhdpi\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_visibility_white_24dp.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-xhdpi\\ic_visibility_white_24dp.png"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\news_icon.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-xhdpi\\news_icon.png"
     },

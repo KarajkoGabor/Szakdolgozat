@@ -49,10 +49,6 @@
     <init>();
 }
 
--keep class hu.blogspot.limarapeksege.activity.FreshNews {
-    <init>();
-}
-
 -keep class hu.blogspot.limarapeksege.activity.RecipeSearch {
     <init>();
 }

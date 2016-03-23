@@ -57,8 +57,8 @@ public class RecipeSearch extends ListActivity {
 
         }
         RecipeActionsHandler util = new RecipeActionsHandler(this);
-        recipeNames = (ArrayList<String>) util.stringListSorter(recipeNames);
-        adapter = new ArrayAdapter<String>(this,
+        recipeNames = util.stringListSorter(recipeNames);
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, recipeNames);
         list.setAdapter(adapter);
 

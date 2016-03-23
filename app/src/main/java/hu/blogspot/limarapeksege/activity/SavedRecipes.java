@@ -29,27 +29,26 @@ public class SavedRecipes extends ListActivity {
 
 	private ArrayList<String> savedRecipeTitles;
 	private String temp;
-	private RecipeActionsHandler util;
 	private int mainPosition;
 	private static final File savedRecipesDirectory = new File(
 			Environment.getExternalStorageDirectory() + GlobalStaticVariables.SAVED_RECIPE_PATH);
 	private static final File favoriteRecipesDirectory = new File(
 			Environment.getExternalStorageDirectory() + GlobalStaticVariables.FAVORITE_RECIPE_PATH);
-	private Tracker tracker;
+	private AnalyticsTracker tracker;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_saved_recipes);
 
-		AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
-		tracker = trackerApp.getDefaultTracker();
+		tracker = (AnalyticsTracker) getApplication();
 
 		ListView lv = (ListView) findViewById(android.R.id.list);
 		Bundle mainPositionBundle = getIntent().getExtras();
 		mainPosition = mainPositionBundle.getInt("position");
-		util = new RecipeActionsHandler(getApplicationContext());
-		savedRecipeTitles = new ArrayList<String>();
+		RecipeActionsHandler util = new RecipeActionsHandler(getApplicationContext());
+		savedRecipeTitles = new ArrayList<>();
+
 		if (mainPosition == 1) {
 			try {
 				savedRecipeTitles = getSavedRecipeTitlesFromDirectory(savedRecipesDirectory);
@@ -58,8 +57,9 @@ public class SavedRecipes extends ListActivity {
 						.show();
 
 			}
-			sendTrackerScreenInfo(getString(R.string.title_saved_recipes));
+			tracker.sendScreen((getString(R.string.title_saved_recipes)));
 			setTitle(getString(R.string.title_saved_recipes));
+
 		} else if (mainPosition == 2) {
 			try {
 				savedRecipeTitles = getSavedRecipeTitlesFromDirectory(favoriteRecipesDirectory);
@@ -68,7 +68,7 @@ public class SavedRecipes extends ListActivity {
 						.show();
 
 			}
-			sendTrackerScreenInfo(getString(R.string.title_favorite_recipes));
+			tracker.sendScreen((getString(R.string.title_favorite_recipes)));
 			setTitle(getString(R.string.title_favorite_recipes));
 		}
 
@@ -90,9 +90,10 @@ public class SavedRecipes extends ListActivity {
 					recipeDirectory = favoriteRecipesDirectory;
 				}
 
-				temp = savedRecipeTitles.get(arg2).toString();
+				temp = savedRecipeTitles.get(arg2);
 				Log.w(GlobalStaticVariables.LOG_TAG, temp);
 
+				assert recipeDirectory != null;
 				for (File fs : recipeDirectory.listFiles()) {
 					if (fs.isFile()) {
 						if (fs.getName().equals(temp)) {
@@ -124,27 +125,25 @@ public class SavedRecipes extends ListActivity {
 
 	private void setAdapter(ArrayList<String> recipeTitles) {
 
-		ArrayList<Bitmap> icons = new ArrayList<Bitmap>();
-		File storagePath = Environment.getExternalStorageDirectory();
-		String storeImagePath = null;
-		storeImagePath = storagePath + GlobalStaticVariables.SAVED_RECIPE_PATH
-				+ "Images/";
-		for (int i = 0; i < recipeTitles.size(); i++) {
-			String storeImage = recipeTitles.get(i) + "0" + ".jpg";
-			storeImage = storeImagePath + storeImage;
-			Log.w(GlobalStaticVariables.LOG_TAG, storeImage);
-			try {
-				Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
-				icons.add(tempBitmap);
-				tempBitmap.recycle();
-			} catch (Exception e) {
-				Toast.makeText(this,
-						"Elfogyott a mem�ria a k�p bet�lt�se k�zben!",
-						Toast.LENGTH_LONG).show();
-			}
-		}
+//		File storagePath = Environment.getExternalStorageDirectory();
+//		String storeImagePath = null;
+//		storeImagePath = storagePath + GlobalStaticVariables.SAVED_RECIPE_PATH
+//				+ "Images/";
+//		for (int i = 0; i < recipeTitles.size(); i++) {
+//			String storeImage = recipeTitles.get(i) + "0" + ".jpg";
+//			storeImage = storeImagePath + storeImage;
+//			Log.w(GlobalStaticVariables.LOG_TAG, storeImage);
+//			try {
+//				Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
+//				tempBitmap.recycle();
+//			} catch (Exception e) {
+//				Toast.makeText(this,
+//						"Elfogyott a mem�ria a k�p bet�lt�se k�zben!",
+//						Toast.LENGTH_LONG).show();
+//			}
+//		}
 		SavedListAdapter adapter = new SavedListAdapter(this, recipeTitles,
-				icons, R.layout.list_row_saved);
+				 R.layout.list_row_saved);
 		setListAdapter(adapter);
 
 	}
@@ -165,19 +164,19 @@ public class SavedRecipes extends ListActivity {
 		pushData.putInt("position", mainPosition);
 
 		openRecipe.putExtras(pushData);
-		startActivity(openRecipe);
 
+		if(mainPosition == 1){
+			tracker.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_saved_recipe));
+		}else{
+			tracker.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_favorite_recipe));
+		}
+		startActivity(openRecipe);
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-	}
-
-	private void sendTrackerScreenInfo(String screenName){
-		tracker.setScreenName(screenName);
-		tracker.send(new HitBuilders.ScreenViewBuilder().build());
 	}
 
 }

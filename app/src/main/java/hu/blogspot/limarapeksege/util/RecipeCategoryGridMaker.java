@@ -17,18 +17,15 @@ import android.widget.GridView;
 
 public class RecipeCategoryGridMaker {
 
-	private GridView grid;
 	private Activity activity;
-	private ArrayList<GridItem> itemArray;
-	private CategoryPageGridAdapter gridAdapter;
 
 	public RecipeCategoryGridMaker(Activity activity) {
 		this.activity = activity;
 	}
 
 	public GridView setGridItems(List<String> mainMenuList) {
-		itemArray = new ArrayList<GridItem>();
-		grid = (GridView) activity.findViewById(R.id.categoryGrid);
+		ArrayList<GridItem> itemArray = new ArrayList<>();
+		GridView grid = (GridView) activity.findViewById(R.id.categoryGrid);
 
 		if ((activity.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
 			grid.setNumColumns(3);
@@ -53,7 +50,7 @@ public class RecipeCategoryGridMaker {
 			itemArray.add(new GridItem(mainMenuList.get(i), tempIcon));
 		}
 
-		gridAdapter = new CategoryPageGridAdapter(activity,
+		CategoryPageGridAdapter gridAdapter = new CategoryPageGridAdapter(activity,
 				R.layout.category_grid_row, itemArray, heightPixels);
 		grid.setAdapter(gridAdapter);
 

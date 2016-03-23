@@ -23,15 +23,13 @@ import android.widget.Toast;
 public class SavedListAdapter extends BaseAdapter {
 
     private ArrayList<String> recipeTitles;
-    private ArrayList<Bitmap> icons;
     private LayoutInflater inflater = null;
     private int resourceID;
     private Activity activity;
 
     public SavedListAdapter(Activity activity, ArrayList<String> recipeTitles,
-                            ArrayList<Bitmap> icons, int resourceID) {
+                            int resourceID) {
         this.recipeTitles = recipeTitles;
-        this.icons = icons;
         this.activity = activity;
         inflater = (LayoutInflater) this.activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,11 +66,9 @@ public class SavedListAdapter extends BaseAdapter {
         Log.w("LimaraPeksege", storeImage);
 
         Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
-//        icons.add(tempBitmap);
 
         ImageView icon = (ImageView) view.findViewById(R.id.categoryPic);
         TextView title = (TextView) view.findViewById(R.id.title);
-//        icon.setImageBitmap(icons.get(arg0));
         icon.setImageBitmap(tempBitmap);
 
         Log.w(GlobalStaticVariables.LOG_TAG, recipeTitles.get(arg0));

@@ -22,8 +22,8 @@
         <!--<item>@drawable/piknik</item>-->
         <item>@drawable/salatak</item>
         <item>@drawable/sos_sutemenyek</item>
-        <item>@drawable/tortak</item>
         <item>@drawable/tesztak</item>
+        <item>@drawable/tortak</item>
         <item>@drawable/zoldseg_etelek</item>
     </string-array>
 

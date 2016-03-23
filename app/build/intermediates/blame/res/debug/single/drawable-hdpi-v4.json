@@ -148,6 +148,10 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-hdpi\\peksutemenyek.png"
     },
     {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_visibility_white_24dp.png",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-hdpi\\ic_visibility_white_24dp.png"
+    },
+    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
     },

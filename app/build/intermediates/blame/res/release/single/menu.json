@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\recipe_page_saved.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_page_saved.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\base.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\base.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\recipe_page_online.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_page_online.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\global.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\global.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\note_pad.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\note_pad.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\activity_main_page.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\activity_main_page.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\menu_base.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\menu_base.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\recipe_list.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_list.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\menu\\recipe_page_favorite.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\menu\\recipe_page_favorite.xml"
+    }
+]

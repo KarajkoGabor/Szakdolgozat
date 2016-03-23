@@ -41,11 +41,11 @@ public class RecipeCategoryListAdapter extends ArrayAdapter<String> implements F
     private int resourceId;
     private List<String> recipeTitles;
     private List<String> originalRecipeTitles = new ArrayList<String>();
-    private Bitmap icon;
+    private int icon;
     private SqliteHelper db;
 
     public RecipeCategoryListAdapter(Context context, int resourceId,
-                                     List<String> recipeTitles, Bitmap icon) {
+                                     List<String> recipeTitles, int icon) {
         super(context, resourceId, recipeTitles);
         this.context = context;
         this.resourceId = resourceId;
@@ -73,29 +73,12 @@ public class RecipeCategoryListAdapter extends ArrayAdapter<String> implements F
 
             Log.w(GlobalStaticVariables.LOG_TAG,"I WANT TO LOAD " + currentRecipe.getRecipeThumbnailUrl());
 
-            Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).listener(new LoggingListener<String, GlideDrawable>()).override(180, 180).into(categoryIcon);
-//            Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).into(categoryIcon);
-//            picasso.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).into(categoryIcon);
-//            categoryIcon.setImageBitmap(gatherIconForRecipe(recipeTitles.get(position)));
+            Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).placeholder(icon).listener(new LoggingListener<String, GlideDrawable>()).override(180, 180).into(categoryIcon);
             recipeName.setText(recipeTitles.get(position));
 
         }
         return view;
     }
-
-//    private Bitmap gatherIconForRecipe(String recipeName) {
-//        Bitmap recipeImage = null;
-//
-//
-//
-//        String recipeURL = currentRecipe.getRecipeThumbnailUrl();
-//
-//        ImageHandler imageHandler = new ImageHandler();
-//
-//        imageHandler.saveImageForRecipeListToLocalPath(recipeURL, recipeName);
-//
-//        return recipeImage != null ? recipeImage : icon;
-//    }
 
     @Override
     public Filter getFilter() {
@@ -111,7 +94,7 @@ public class RecipeCategoryListAdapter extends ArrayAdapter<String> implements F
                     List<String> matchingTitles = new ArrayList<String>();
 
                     for (String title : RecipeCategoryListAdapter.this.originalRecipeTitles) {
-                        if (title.toString().toLowerCase().contains(constraint)) {
+                        if (title.toLowerCase().contains(constraint)) {
                             matchingTitles.add(title);
                         }
                     }

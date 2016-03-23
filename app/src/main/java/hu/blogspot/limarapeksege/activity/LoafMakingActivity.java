@@ -26,7 +26,6 @@ public class LoafMakingActivity extends Activity {
     PagerAdapter pagerAdapter;
     int[] pictures;
     ArrayList<String> texts;
-    private AnalyticsTracker trackerApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class LoafMakingActivity extends Activity {
 
         setContentView(R.layout.loafmaking_main);
 
-        trackerApp = (AnalyticsTracker) getApplication();
+        AnalyticsTracker trackerApp = (AnalyticsTracker) getApplication();
 
         pictures = new int[]{R.drawable.loaf0, R.drawable.loaf1,
                 R.drawable.loaf2, R.drawable.loaf3, R.drawable.loaf4,
@@ -62,10 +61,7 @@ public class LoafMakingActivity extends Activity {
             }
 
 //            texts = (ArrayList<String>) parser.parseXml(xpp, "loaf_making");
-        } catch (XmlPullParserException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (XmlPullParserException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
