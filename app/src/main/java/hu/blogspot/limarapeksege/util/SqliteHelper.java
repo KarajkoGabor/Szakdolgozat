@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Settings;
 import android.util.Log;
 
 public class SqliteHelper extends SQLiteOpenHelper {
@@ -222,7 +223,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		values.put(KEY_LINK, recipe.getRecipeURL());
 		values.put(KEY_CATEGORY_ID, recipe.getCategory_id());
 		values.put(KEY_IS_NOTE, recipe.isNoteAdded());
-		values.put(KEY_IMG_THUMBNAIL, recipe.getRecipeThumbnailUrl());
+//		values.put(KEY_IMG_THUMBNAIL, recipe.getRecipeThumbnailUrl());
 
 		db.insert(TABLE_RECIPE, null, values);
 
@@ -310,7 +311,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 					recipe.setNoteAdded(false);
 				}
 
-				recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+//				recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
 				recipes.add(recipe);
 			} while (c.moveToNext());
 		}
@@ -319,7 +320,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
 	}
 
-	public Recipe getRecipeByName(String recipeName) {
+	public Recipe getRecipeByName(String recipeName){
 
 		SQLiteDatabase db = this.getReadableDatabase();
 
@@ -327,14 +328,15 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ KEY_NAME + " LIKE '" + recipeName + "'";
 
 		Cursor c = db.rawQuery(selectQuery, null);
+        Recipe recipe = null;
 
 		Log.w(GlobalStaticVariables.LOG_TAG, c.toString());
 		if (c != null && c.moveToFirst()) {
 
-			Recipe recipe = new Recipe();
+			recipe = new Recipe();
 			recipe.setId(c.getInt(c.getColumnIndex(KEY_ID)));
 			recipe.setRecipeName(c.getString(c.getColumnIndex(KEY_NAME)));
-			recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+//			recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
 			if (c.getInt(c.getColumnIndex(KEY_IS_SAVED)) == 1) {
 				recipe.setSaved(true);
 			} else {
@@ -351,10 +353,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
 			} else {
 				recipe.setNoteAdded(false);
 			}
-			return recipe;
-		} else {
-			return null;
 		}
+        if(recipe == null){
+			Log.w(GlobalStaticVariables.LOG_TAG, "No entry " + recipeName);
+            try {
+                throw new Exception("There is no recipe in the DB for that name " +  recipeName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return recipe;
 
 	}
 

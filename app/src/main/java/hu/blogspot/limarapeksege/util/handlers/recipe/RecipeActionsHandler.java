@@ -128,12 +128,14 @@ public class RecipeActionsHandler {
 				Recipe recipeFromDb = db.getRecipeByName(recipe
 						.getRecipeName());
 				if (recipeFromDb == null) {
+					Log.w(GlobalStaticVariables.LOG_TAG, "No entry in the DB " + recipe.getRecipeName());
 					db.addRecipe(recipe);
 				} else if (recipeFromDb.getCategory_id() == 0 && recipeFromDb.getNote_id() == 0) {
 					Log.w("LimaraPeksege", "START: Recipe is saved again: " + recipe.getRecipeName());
 					recipe.setSaved(recipeFromDb.isSaved());
 					recipe.setFavorite(recipeFromDb.isFavorite());
 					recipe.setNoteAdded(recipeFromDb.isNoteAdded());
+					recipe.setRecipeThumbnailUrl(recipeFromDb.getRecipeThumbnailUrl());
 					db.deleteRecipe(recipe.getRecipeName());
 					db.addRecipe(recipe);
 					Log.w("LimaraPeksege", "END: Recipe is saved again");
@@ -181,7 +183,9 @@ public class RecipeActionsHandler {
 					tempRecipe.setCategory_id(categoryID);
 					tempRecipe.setRecipeThumbnailUrl(parseRecipeImageUrl(post.getContent()));
 					Log.w(GlobalStaticVariables.LOG_TAG, "Recipe got from API: "+ tempRecipe.getRecipeName() );
-					db.addRecipe(tempRecipe);
+					if(db.getRecipeByName(tempRecipe.getRecipeName()) == null){
+						db.addRecipe(tempRecipe);
+					}
 					recipeList.add(tempRecipe);
 				}
 

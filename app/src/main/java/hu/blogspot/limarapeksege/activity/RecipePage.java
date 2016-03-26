@@ -139,7 +139,12 @@ public class RecipePage extends BaseActivity {
 		isFavoriteRecipe = bundleData.getBoolean("favorite");
 
 		db = SqliteHelper.getInstance(RecipePage.this);
-		currentRecipe = db.getRecipeByName(NAMEsave);
+        try{
+            currentRecipe = db.getRecipeByName(NAMEsave);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 	}
 
 	@Override

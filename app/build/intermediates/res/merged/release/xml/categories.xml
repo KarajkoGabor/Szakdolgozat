@@ -6,67 +6,67 @@
             Levesek
         </Name>
     </Item>
-    <Item value="salata" name="Saláták, előételek">
+    <Item value="saláta" name="Saláták, előételek">
         <Name>
             Saláták, előételek
         </Name>
     </Item>
-    <Item value="husetelek" name="Húsételek">
+    <Item value="hús" name="Húsételek">
         <Name>
             Húsételek
         </Name>
     </Item>
-    <Item value="zoldseg" name="Zöldségételek">
+    <Item value="zöldség" name="Zöldségételek">
         <Name>
             Zöldségételek
         </Name>
     </Item>
-    <Item value="teszta" name="Tészták">
+    <Item value="tészta" name="Tészták">
         <Name>
             Tészták
         </Name>
     </Item>
-    <Item value="koret" name="Köretek">
+    <Item value="köret" name="Köretek">
         <Name>
             Köretek
         </Name>
     </Item>
-    <Item value="egytaletel" name="Egytálételek">
+    <Item value="egytálétel" name="Egytálételek">
         <Name>
             Egytálételek
         </Name>
     </Item>
-    <Item value="kenyer" name="Kenyerek">
+    <Item value="kenyér" name="Kenyerek">
         <Name>
             Kenyerek
         </Name>
     </Item>
-    <Item value="peksutemenyek" name="Péksütemények">
+    <Item value="péksütemény" name="Péksütemények">
         <Name>
             Péksütemények
         </Name>
     </Item>
-    <Item value="kalacs" name="Kalácsok">
+    <Item value="kalács" name="Kalácsok">
         <Name>
             Kalácsok
         </Name>
     </Item>
-    <Item value="keltteszta" name="Kelttészták">
+    <Item value="kelttészta" name="Kelttészták">
         <Name>
             Kelttészták
         </Name>
     </Item>
-    <Item value="sos" name="Sósság">
+    <Item value="sós" name="Sósság">
         <Name>
             Sósság
         </Name>
     </Item>
-    <Item value="edes sutemenyek" name="Édes sütemények">
+    <Item value="édes süti" name="Édes sütemények">
         <Name>
             Édes sütemények
         </Name>
     </Item>
-    <Item value="edesseg" name="Édességek">
+    <Item value="édesség" name="Édességek">
         <Name>
             Édességek
         </Name>
@@ -76,7 +76,7 @@
             Torták
         </Name>
     </Item>
-    <Item value="befozes" name="Befőzés, tartósítás">
+    <Item value="befőzés" name="Befőzés, tartósítás">
         <Name>
             Befőzés, tartósítás
         </Name>
@@ -86,7 +86,7 @@
             Italok
         </Name>
     </Item>
-    <Item value="glutenmentes" name="Gluténmentes ételek">
+    <Item value="gluténmentes" name="Gluténmentes ételek">
         <Name>
             Gluténmentes ételek
         </Name>

@@ -8,12 +8,12 @@
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\categories.xml"
     },
     {
-        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\loafmaking.xml",
-        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\loafmaking.xml"
-    },
-    {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\searchable.xml",
         "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\searchable.xml"
+    },
+    {
+        "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\loafmaking.xml",
+        "source": "E:\\Egyetem\\Android projects\\app\\src\\main\\res\\xml\\loafmaking.xml"
     },
     {
         "merged": "E:\\Egyetem\\Android projects\\app\\build\\intermediates\\res\\merged\\release\\xml\\splashloadingmessages.xml",

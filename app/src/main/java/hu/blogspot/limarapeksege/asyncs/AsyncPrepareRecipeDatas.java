@@ -70,7 +70,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
 
         if(isFirstRun()){
             db.deleteCategoryTable();
-            db.deleteRecipeTable();
+//            db.deleteRecipeTable();
         }
 
         if (isNetworkAvailable() && isThereNewRecipe()) { // ha m�g nincsenek a receptek

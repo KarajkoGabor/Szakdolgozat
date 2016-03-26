@@ -12,7 +12,7 @@ ADDED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml:2:1-137:
 		INJECTED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml
 		INJECTED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml
 	android:versionCode
-		ADDED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml:5:5-28
+		ADDED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml:5:5-29
 		INJECTED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml
 		INJECTED from E:\Egyetem\Android projects\app\src\main\AndroidManifest.xml
 	android:installLocation
