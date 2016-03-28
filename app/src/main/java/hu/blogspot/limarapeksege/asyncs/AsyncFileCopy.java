@@ -27,7 +27,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 	protected Boolean doInBackground(Object... params) {
 		File source = (File) params[0];
 		File destination = (File) params[1];
-		String recipeName = (String) params[2];
+		String recipeID = (String) params[2];
 
 		Log.w(GlobalStaticVariables.LOG_TAG, "copy file start");
 
@@ -39,7 +39,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 				e.printStackTrace();
 			}
 		}
-		copyFile(source, destination, recipeName);
+		copyFile(source, destination, recipeID);
 		Log.w(GlobalStaticVariables.LOG_TAG, "copy file end");
 		return true;
 
@@ -49,7 +49,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 
 	}
 
-	private void copyFile(File source, File destination, String recipeName) {
+	private void copyFile(File source, File destination, String recipeID) {
 		SqliteHelper db = new SqliteHelper(context);
 
 		try {
@@ -64,9 +64,7 @@ public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 			fileIn.close();
 			fileOut.close();
 
-			db.updateRecipeIsFavorite(db.getRecipeByName(recipeName).getId(), 1);
-			Log.w(GlobalStaticVariables.LOG_TAG, db.getRecipeByName(recipeName).isFavorite()
-					+ " is favorite from copy");
+			db.updateRecipeIsFavorite(db.getRecipeById(recipeID).getId(), 1);
 			db.closeDatabase();
 
 		} catch (IOException e) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">LimaraPeksege</string>
+    <string name="app_name">Limara Péksége</string>
     <string name="limara">Limara Péksége</string>
     <string name="loafImage">Vekni készítéséhez képek</string>
     <string name="imageString">Kezdő kép</string>
@@ -17,7 +17,7 @@
     <string name="recipe_save">Recept mentése</string>
     <string name="note_pad_saveButton">NotePadSaveButton</string>
     <string name="note_pad_deleteButton">NotePadDeleteButton</string>
-    
+
     <string name="wifi_connected_dialog_content">WiFi kapcsolatot észleltem és az elsődleges beállítások még nem történtek meg. A beállítások szükségesek az alkalmazás gyors és zavartalan működéshez, elvégezzem ezeket most? FIGYELEM: a műveletsorozat akár több másodercet is igénybe vehet! </string>
 	<string name="app_id">535320333226754</string>
     <string name="yes">Igen</string>
@@ -27,7 +27,7 @@
 	<string name="prepare_settings">Beállítások elvégzése</string>
 	<string name="refresh_recipes">Receptek frissítése</string>
     <string name="loaf_making_step"> / 9. lépés</string>
-    
+
 	<!-- Toast messages -->
     <string name="noSaved">Nincs mentett recept!</string>
     <string name="no_connection">Nincs internet kapcsolat</string>
@@ -38,9 +38,9 @@
     <string name="common_error">Hiba történt, próbálja újra!</string>
     <string name="note_deleted">Jegyzet törölve!</string>
     <string name="update_finished">Frissítés befejezve</string>
-	
+
 	<!-- Menu strings -->
-	
+
     <string name="menu_save">Mentés</string>
     <string name="menu_delete">Törlés</string>
     <string name="menu_favorite">Kedvencek</string>

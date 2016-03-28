@@ -2,8 +2,10 @@ package hu.blogspot.limarapeksege.activity;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.SavedListAdapter;
+import hu.blogspot.limarapeksege.model.Recipe;
 import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 import java.io.File;
@@ -35,6 +37,7 @@ public class SavedRecipes extends ListActivity {
 	private static final File favoriteRecipesDirectory = new File(
 			Environment.getExternalStorageDirectory() + GlobalStaticVariables.FAVORITE_RECIPE_PATH);
 	private AnalyticsTracker tracker;
+	private SqliteHelper db;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class SavedRecipes extends ListActivity {
 		mainPosition = mainPositionBundle.getInt("position");
 		RecipeActionsHandler util = new RecipeActionsHandler(getApplicationContext());
 		savedRecipeTitles = new ArrayList<>();
+		db = SqliteHelper.getInstance(this);
 
 		if (mainPosition == 1) {
 			try {
@@ -90,7 +94,8 @@ public class SavedRecipes extends ListActivity {
 					recipeDirectory = favoriteRecipesDirectory;
 				}
 
-				temp = savedRecipeTitles.get(arg2);
+                Recipe savedRecipe = db.getRecipeByName(savedRecipeTitles.get(arg2));
+				temp = savedRecipe.getId();
 				Log.w(GlobalStaticVariables.LOG_TAG, temp);
 
 				assert recipeDirectory != null;
@@ -117,7 +122,7 @@ public class SavedRecipes extends ListActivity {
 
 				temp = fs.getName();
 				temp = temp.replace(".xml", "");
-				savedRecipeTitles.add(temp);
+				savedRecipeTitles.add(db.getRecipeById(temp).getRecipeName());
 			}
 		}
 		return savedRecipeTitles;
@@ -142,6 +147,7 @@ public class SavedRecipes extends ListActivity {
 //						Toast.LENGTH_LONG).show();
 //			}
 //		}
+
 		SavedListAdapter adapter = new SavedListAdapter(this, recipeTitles,
 				 R.layout.list_row_saved);
 		setListAdapter(adapter);

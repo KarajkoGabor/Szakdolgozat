@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "hu.blogspot.limarapeksege"
-        minSdkVersion 11
+        minSdkVersion 15
         targetSdkVersion 22
         multiDexEnabled true
     }
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
 }

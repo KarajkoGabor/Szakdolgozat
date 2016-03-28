@@ -11,6 +11,8 @@ public class GlobalStaticVariables {
 	public static final String NOTEPAD_CLASS = "hu.blogspot.limarapeksege.activity.NotePad";
 
 	public static final String LOG_TAG = "LimaraPeksege";
+	public static final String LOG_TAG_SQL = "LimaraPeksegeSQL";
+
 
 	public static final String URL_TARTALOM = "http://limarapeksegetartalom.blogspot.hu/";
 	public static final String URL = "http://www.limarapeksege.hu/";
@@ -19,6 +21,7 @@ public class GlobalStaticVariables {
 	public static final String SAVED_RECIPE_PATH = MAIN_DIRECTORY + "/SavedRecipes/";
 	public static final String FAVORITE_RECIPE_PATH = MAIN_DIRECTORY + "/FavoriteRecipes/";
 	public static final String NOTES_PATH = MAIN_DIRECTORY + "/FavoriteRecipes/Notes";
+	public static final String IMAGES_PATH = MAIN_DIRECTORY + "/SavedRecipes/Images";
 
 	public static final String RECIPE_LIST_DIRECTORY = "RecipeLists";
 	public static final String FAVORITE_RECIPES = "FavoriteRecipes";

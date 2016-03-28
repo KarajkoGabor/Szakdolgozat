@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WrongRecipes>
+    <Recipe
+        apiName="Őszibarack csatni (chutney)"
+        htmlName="Őszibarack csatni" />
+    <Recipe
+        apiName="Szörp (most eper) hidegen"
+        htmlName="Szörp hidegen" />
+    <Recipe
+        apiName="Fügés szilvacsatni (chutney)"
+        htmlName="Fügés szilvacsatni" />
+    <Recipe
+        apiName="Friss házi sajt aszalt gyümölcsökkel"
+        htmlName="Házisajt gyümölcsökkel" />
+    <Recipe
+        apiName="Levendulás sárgabarackdzsem"
+        htmlName="Levendulás sárgabarack lekvár" />
+    <Recipe
+        apiName="Levendula esszencia"
+        htmlName="Levendula eszencia" />
+    <Recipe
+        apiName="Spárgás rizotto"
+        htmlName="Spárgás rizottó" />
+    <Recipe
+        apiName="Vörösboros kakas (coq au vin)"
+        htmlName="Vörösboros kakas" />
+    <Recipe
+        apiName="Nagygombóc vagy Tikiknédli"
+        htmlName="Tikiknédli vagy Nagygombóc" />
+    <Recipe
+        apiName="Darálthús tekercs  meglepetés"
+        htmlName="Darálthús tekercs meglepetés" />
+    <Recipe
+        apiName="Kapros töltöttkáposzta bográcsban"
+        htmlName="Kapros töltöttkáposzta" />
+    <Recipe
+        apiName="Makói savanyú vágottleves"
+        htmlName="Makói savanyú vágott leves" />
+    <Recipe
+        apiName="Gluténmentes kenyér lenmag- és kölespehellyel"
+        htmlName="Gm kenyér lenmag és kölespehellyel" />
+    <Recipe
+        apiName="Mézes-melaszos gluténmentes édeskenyér - Segítsüti"
+        htmlName="Mézes-melaszos gluténmentes édeskenyér" />
+    <Recipe
+        apiName="Mediterrán quinoa saláta tealevélen füstölt lazaccal"
+        htmlName="Mediterrán quinoa saláta" />
+    <Recipe
+        apiName="Tápióka puding sharon gyümölccsel"
+        htmlName="Tapióka puding sharon gyümölccsel" />
+    <Recipe
+        apiName="Quinoa puding-VKFXXXIII."
+        htmlName="Quinoa puding" />
+    <Recipe
+        apiName="Márton napi libasült"
+        htmlName="Márton napi libasült" />
+    <Recipe
+        apiName="Provance-i csirke levendulás sárgabarackkal"
+        htmlName="Provancei csirke levendulás sárgabarackkal" />
+    <Recipe
+        apiName="Rántott hús"
+        htmlName="Rántotthús" />
+    <Recipe
+        apiName="Őzcomb cseréptálban sütve"
+        htmlName="Őzcomb cseréptálban" />
+    <Recipe
+        apiName="Töltött gőzölt tészta"
+        htmlName="Töltött gőzőlttészta" />
+    <Recipe
+        apiName="Grilleztünk"
+        htmlName="BBQ oldalas" />
+    <Recipe
+        apiName="Kínai húsos molnárkák"
+        htmlName="Kínai húsos molnárka" />
+    <Recipe
+        apiName="Töltött palacsintva rántva"
+        htmlName="Töltött palacsinta rántva" />
+    <Recipe
+        apiName="Kínai citromos csirke"
+        htmlName="Kínai citromos csírke" />
+    <Recipe
+        apiName="Szílveszteri menü - Báránysült Nigella módra"
+        htmlName="Báránysült Nigella módra" />
+    <Recipe
+        apiName="Mustáros pácban érlelt strucc - karácsonyi menü"
+        htmlName="Mustáros pácban érlelt strucc" />
+    <Recipe
+        apiName="Forralt bor"
+        htmlName="Forraltbor" />
+    <Recipe
+        apiName="Marcipános-narancsos kalácsok (ehető húsvéti díszek)"
+        htmlName="Marcipános-narancsos kalácsok (ehető húsvéti dísze..." />
+    <Recipe
+        apiName="Húsvéti töltött kalács II."
+        htmlName="Húsvéti töltött kalács" />
+    <Recipe
+        apiName="Illatos- habcsókos rózsakalács"
+        htmlName="Illatos-habcsókos rózsakalács" />
+    <Recipe
+        apiName="Máglyafészek (Máglyarakás kicsit másként)"
+        htmlName="Máglyafészek" />
+    <Recipe
+        apiName="Kalácsnak álcázott lekváros bukta"
+        htmlName="Kalácsnak álcázott lekvárosbukta" />
+    <Recipe
+        apiName="Kelt kakaóscsiga"
+        htmlName="Kakaóscsiga (kelt)" />
+    <Recipe
+        apiName="Túrós batyu"
+        htmlName="Túrósbatyu" />
+    <Recipe
+        apiName="Kalács habcsók töltelékkel"
+        htmlName="Kalács habcsóktöltelékkel" />
+    <Recipe
+        apiName="VKF XXIX. - Mákos buborék kalács"
+        htmlName="Mákos buborékkalács- VKF XXIX." />
+    <Recipe
+        apiName="Mázas meggyes kalács"
+        htmlName="Mázas-meggyes kalács" />
+    <Recipe
+        apiName="Citrommázas diós csiga"
+        htmlName="Citrommázas dióscsiga" />
+    <Recipe
+        apiName="Hokkaido kalács csokilencsével és aszalt áfonyával"
+        htmlName="Hokkaido kalács csokilencsével és aszaltáfonyával" />
+    <Recipe
+        apiName="Csavart koszorú, az ünnepi kenyér"
+        htmlName="Csavart koszorú az ünnepi kenyér" />
+    <Recipe
+        apiName="Tönkölykorpás, joghurtos kifli"
+        htmlName="Tönkölykorpás-joghurtos kifli" />
+    <Recipe
+        apiName="Pizzás csiga gyors levelestésztából"
+        htmlName="Pizzáscsiga gyors levelestésztából" />
+    <Recipe
+        apiName="Hagymás cipók"
+        htmlName="Hagymás cipó" />
+    <Recipe
+        apiName="Csokis-mogyoróvajas kalácsok"
+        htmlName="Csokis-mogyoróvajas kalácskák" />
+    <Recipe
+        apiName="Grissini aszalt paradicsommal, parmezánnal, csilivel"
+        htmlName="Grissini paremzánnal, aszalt paradicsommal és csilivel" />
+    <Recipe
+        apiName="Majomkenyér vaníliás alma töltelékkel"
+        htmlName="Majomkenyér vaníliás almatöltelékkel" />
+    <Recipe
+        apiName="Cukros-fahéjas rúd"
+        htmlName="Cukros-fahéjas rúd vaníliával töltve" />
+    <Recipe
+        apiName="Kenyér maradék burgonyapüréből"
+        htmlName="Kenyér maradék burg.püréből" />
+    <Recipe
+        apiName="Rozsos - tönkölyös fonottkenyér"
+        htmlName="Rozsos-tönkölyös fonottkenyér" />
+    <Recipe
+        apiName="Egycsücskös kifli füstölt tarjával"
+        htmlName="Egycsücskös tarjás kifli" />
+    <Recipe
+        apiName="Turbó kifli sós változatban"
+        htmlName="Turbókifli sós" />
+    <Recipe
+        apiName="Slanac &quot;összetapadt ujjacskák&quot;"
+        htmlName="Slanac összetapadt ujjacskák" />
+    <Recipe
+        apiName="Fűszeres, csicseriborsós lepénykenyér"
+        htmlName="Fűszeres csicseriborsós lepénykenyér" />
+    <Recipe
+        apiName="Piknik zsemle"
+        htmlName="Piknikzsemle" />
+    <Recipe
+        apiName="Turbó csokis kifli"
+        htmlName="Turbo csokiskifli" />
+    <Recipe
+        apiName="Kecskesajtos kelt csigák"
+        htmlName="Kecskesajtos keltcsigák" />
+    <Recipe
+        apiName="Török pide (török pizza)"
+        htmlName="Török pide" />
+    <Recipe
+        apiName="Sajtos kelt szívek Valentin napra"
+        htmlName="Sajtos keltszívek" />
+    <Recipe
+        apiName="Kókuszos és diókrémes kelt szívek"
+        htmlName="Kókuszos és diókrémes keltszívek" />
+    <Recipe
+        apiName="Fekete- fehér briós meyer lemon curd-al"
+        htmlName="Fekete-fehér briós" />
+    <Recipe
+        apiName="Kanelbullar - svéd kardamomos-fahéjas csiga"
+        htmlName="Kanelbullar-svéd kardamomos csiga" />
+    <Recipe
+        apiName="Csokoládés kenyér körtével és pirított mogyoróval"
+        htmlName="Csokoládéskenyér körtével és pirított mogyoróval" />
+    <Recipe
+        apiName="Lussebullar - Svéd Luca napi sütemény"
+        htmlName="Lussebullar" />
+    <Recipe
+        apiName="Monkey bread- Majomkenyér"
+        htmlName="Monkey bread-Majomkenyér" />
+    <Recipe
+        apiName="Hernyó kifli"
+        htmlName="Hernyókifli" />
+    <Recipe
+        apiName="Sütőtökös-tökmagos bucik"
+        htmlName="Sütőtökös-tökmagos buci" />
+    <Recipe
+        apiName="Orosz fekete kenyér"
+        htmlName="Orosz feketekenyér" />
+    <Recipe
+        apiName="Korpás kenyér"
+        htmlName="Korpáskenyér" />
+    <Recipe
+        apiName="Csavart vanília krémes-gyümölcsös briós"
+        htmlName="Csavart vaníliakrémes-gyümölcsös briós" />
+    <Recipe
+        apiName="Ribizlis-morzsás puffancsok"
+        htmlName="Ribizlis morzsás puffancs" />
+    <Recipe
+        apiName="Sütőtökös cipó a Kenyér Világnapjára"
+        htmlName="Sütőtökös cipó" />
+    <Recipe
+        apiName="Sütőtökös -hagymás lepény"
+        htmlName="Sütőtökös-hagymás lepény" />
+    <Recipe
+        apiName="Mini sajtos bagettek"
+        htmlName="Mini sajtosbagettek" />
+    <Recipe
+        apiName="Aszalt paradicsomos fetakrémmel töltött kenyér"
+        htmlName="Aszaltparadicsomos fetakrémmel töltött kenyér" />
+    <Recipe
+        apiName="Dupla kiflik csokis töltelékkel"
+        htmlName="Duplakiflik csokis töltelékkel" />
+    <Recipe
+        apiName="Fűszeres paradicsomos-sajtos kenyér"
+        htmlName="Fűszeres-paradicsomos sajtos kenyér" />
+    <Recipe
+        apiName="Rozslisztes, tönkölykorpás magvas kenyér"
+        htmlName="Rozslisztes, tönkölykorpás magvaskenyér" />
+    <Recipe
+        apiName="Jólbevált kilófaló liszttel"
+        htmlName="Kilófalós kenyér" />
+    <Recipe
+        apiName="Kenyér Zero-6 lisztből"
+        htmlName="Zero-6 kenyér" />
+    <Recipe
+        apiName="Diós-mazsolás tönkölykenyér a Kenyér Világnapjára"
+        htmlName="Diós-mazsolás tönkölykenyér" />
+    <Recipe
+        apiName="Express, nagyon magvas kenyér Rachell Allentől"
+        htmlName="Express nagyon magvas kenyér" />
+    <Recipe
+        apiName="Kovászos tönkölykenyér (élesztő nélkül)"
+        htmlName="Kovászos tönkölykenyér élesztő nélkül" />
+    <Recipe
+        apiName="Kenyér a cocotte-ban"
+        htmlName="Kenyér a cocottban" />
+    <Recipe
+        apiName="Ír szódás kenyér"
+        htmlName="Ír szódáskenyér" />
+    <Recipe
+        apiName="Budin de pan (kenyérpuding)"
+        htmlName="Budin de pan" />
+    <Recipe
+        apiName="Kenyér Világnapja - Tk. Beaucaire kenyér"
+        htmlName="Tk. Beaucaire kenyér - Kenyér világnapjára" />
+    <Recipe
+        apiName="VKF! Vörösboros kenyér mazsolával és dióval"
+        htmlName="Vörösboros kenyér dióval és mazsolával" />
+    <Recipe
+        apiName="Kenyérsütés gépben - jól bevált fehérkenyerem"
+        htmlName="Gépi fehérkenyér" />
+    <Recipe
+        apiName="Fougasse"
+        htmlName="Foguasse" />
+    <Recipe
+        apiName="Az én makói kenyerem az Észak Magyarország olvasóinak"
+        htmlName="Az én makói kenyerem (fokhagymás kenyér)" />
+    <Recipe
+        apiName="Cukkinis formakenyér"
+        htmlName="Cukkínis formakenyér" />
+    <Recipe
+        apiName="VKF XXIII!- Magvas gondolatok: Csokis-kesudiós kenyér"
+        htmlName="Csokis- kesudiós kenyér" />
+    <Recipe
+        apiName="Aszalt áfonyás-kesudiós bagett"
+        htmlName="Aszaltáfonyás kesudiós bagett" />
+    <Recipe
+        apiName="Zsemlekenyér - Pain Tessinois (Ticinói kenyér)"
+        htmlName="Zsemlekenyér" />
+    <Recipe
+        apiName="Sárga túró"
+        htmlName="Sárgatúró" />
+    <Recipe
+        apiName="Paradicsomos-padlizsános bulgur -VKF XXXIII."
+        htmlName="Paradicsomos-padlizsános bulgur" />
+    <Recipe
+        apiName="Zöldborsó-spárga krémleves mentás  tejhabbal"
+        htmlName="Zöldborsó-spárga krémleves mentás tejhabbal" />
+    <Recipe
+        apiName="Cukkíni krémleves"
+        htmlName="Cukkini krémleves" />
+    <Recipe
+        apiName="Kifli wimpy-hez"
+        htmlName="Kifli wimpyhez" />
+    <Recipe
+        apiName="Levendulás-citromos blundelszívek"
+        htmlName="Levendulás-citromkrémes blundelszívek" />
+    <Recipe
+        apiName="Scone (édes zsemle)"
+        htmlName="Scone (édes zsemlék)" />
+    <Recipe
+        apiName="Croissant kakaós tésztából"
+        htmlName="Croisant kakaós tésztából" />
+    <Recipe
+        apiName="Kukoricás csavart kifli"
+        htmlName="Kukoricás csavartkiflik" />
+    <Recipe
+        apiName="Aszalt paradicsomos-rozmaringos csigák"
+        htmlName="Aszaltparadicsomos-rozmaringos csigák" />
+    <Recipe
+        apiName="Császárzsemle reggelire"
+        htmlName="Császárzsemle" />
+    <Recipe
+        apiName="Kovászos bucik medvehagymás krémmel és paradicsommal"
+        htmlName="Kovászos bucik medvehagymakrémmel és paradicsommal" />
+    <Recipe
+        apiName="Kakaós csiga - békebeli"
+        htmlName="Kakaós csiga békebeli" />
+    <Recipe
+        apiName="Olajbogyós-aszalt paradicsomos panini"
+        htmlName="Aszalt paradicsomos olajbogyós panini" />
+    <Recipe
+        apiName="Express croissant reggelire"
+        htmlName="Express croissant" />
+    <Recipe
+        apiName="Gyümölcsös kuszkusz saláta"
+        htmlName="Gyümölcsös kuszkuszsaláta" />
+    <Recipe
+        apiName="Quinoa saláta csicseriborsóval, céklával és naranccsal"
+        htmlName="Quinoa saláta csicseriborsóval és céklával" />
+    <Recipe
+        apiName="Gyors, ropogós sajtos szál"
+        htmlName="gyors ropogós sajtos szál" />
+    <Recipe
+        apiName="Sonkás tekercs torma mártással"
+        htmlName="Sonkás tekercs tormamártással" />
+    <Recipe
+        apiName="Csicsókás pogácsa gorgonzolával és dióval"
+        htmlName="Csicsókás pogácsa dióval és gorgonzolával" />
+    <Recipe
+        apiName="Burgonyás-tepertős pogácsa"
+        htmlName="Tepertős-burgonyás pogácsa" />
+    <Recipe
+        apiName="Paradicsomos pite ordával"
+        htmlName="Paradicsomospite ordával" />
+    <Recipe
+        apiName="Luca pogácsa - hajtogatott tepertős"
+        htmlName="Hajtogatott tepertős pogácsa" />
+    <Recipe
+        apiName="Meggyes-mascarpone krémes szülinapi torta"
+        htmlName="Meggyes-mascarponekrémes csokitorta" />
+    <Recipe
+        apiName="Epres csokitorta"
+        htmlName="Epres csokitorta" />
+    <Recipe
+        apiName="Boldog szülinapot Hagymatikum!"
+        htmlName="Hagymatikumtorta" />
+    <Recipe
+        apiName="Fordított rebarbara torta Rachel Allen-től"
+        htmlName="Fordított rebarbaratorta" />
+    <Recipe
+        apiName="Epres-rebarbarás-citromfüves torta"
+        htmlName="Epres-rebarbarás citromfüves torta" />
+    <Recipe
+        apiName="Fekete-erdő torta"
+        htmlName="Fekete erdő torta" />
+    <Recipe
+        apiName="Epertorta anyáknapjára"
+        htmlName="Epertorta" />
+    <Recipe
+        apiName="Csokitorta a 13. szülinapra"
+        htmlName="Csokitorta" />
+    <Recipe
+        apiName="Torta Anyák Napjára"
+        htmlName="Torta anyáknapjára" />
+    <Recipe
+        apiName="12. születésnap"
+        htmlName="Stopliscipő torta" />
+    <Recipe
+        apiName="Csokoládés piskótatekercs Mikulás napra"
+        htmlName="Csokoládés piskótatekercs" />
+    <Recipe
+        apiName="AC Milan torta az ünnepeltnek"
+        htmlName="AC Milan torta" />
+    <Recipe
+        apiName="Bosch dícsérete-piskótatészta pillanatok alatt"
+        htmlName="Piskóta tészta pillanatok alatt" />
+    <Recipe
+        apiName="Cukkini ropogós"
+        htmlName="Cukkíni ropogós" />
+    <Recipe
+        apiName="&quot;Home Made&quot; sütipecsétes mini piték"
+        htmlName="Sütipecsétes mini pite" />
+    <Recipe
+        apiName="Meggyes rácsos pite"
+        htmlName="Meggyes rácsospite" />
+    <Recipe
+        apiName="Túrós pite vékony tésztával"
+        htmlName="Túrós pite vékonytésztából" />
+    <Recipe
+        apiName="Karácsonyi keksz tonkababos csokoládé- és sós karamella krémmel"
+        htmlName="Keksz tonkababos csokoládé és sós karamell krémmel" />
+    <Recipe
+        apiName="Segítsüti - Mákkrémes teasütemény"
+        htmlName="Mákkrémes teasütemény" />
+    <Recipe
+        apiName="Inci mama almás pitéje"
+        htmlName="Inci mama almáspitéje" />
+    <Recipe
+        apiName="Aszalt áfonyás-levendulás keksz"
+        htmlName="Aszaltáfonyás levendulás keksz" />
+    <Recipe
+        apiName="Csokis-gesztenyés sodort kifli"
+        htmlName="Csokis-gesztenyés kifli" />
+    <Recipe
+        apiName="Sütőtökös-csokis kenyér"
+        htmlName="Sütőtökös-csokoládés kenyér" />
+    <Recipe
+        apiName="Csokoládés -cukkinis kenyér"
+        htmlName="Csokoládés-cukkinis kenyér" />
+    <Recipe
+        apiName="Segítsüti - Linzerszívek levendulás citromkrémmel"
+        htmlName="Linzerszívek levendulás citromkrémmel- Segítsüti" />
+    <Recipe
+        apiName="Mákos zserbó"
+        htmlName="Mákoszserbó" />
+    <Recipe
+        apiName="Dán vajastészta mascarponéval, eperrel és rebarbarával"
+        htmlName="Dán vajastészta eper, rebarbara, mascarpone krémmel" />
+    <Recipe
+        apiName="Majomkenyér- XXXI. VKF"
+        htmlName="Majomkenyér" />
+    <Recipe
+        apiName="Csokis keksz csokilencsével és chilivel"
+        htmlName="Csokis keksz chilivel és csokilencsével" />
+    <Recipe
+        apiName="Fehér porhanyós kiflik"
+        htmlName="Fehér porhanyós kifli" />
+    <Recipe
+        apiName="Spirál süti"
+        htmlName="Spirálsüti" />
+    <Recipe
+        apiName="Morzsa süti szilvával és habcukorral"
+        htmlName="Morzsasüti szílvával és habcukorral" />
+    <Recipe
+        apiName="Gyümölcsös pite (galette)"
+        htmlName="Gyümölcsös pite" />
+    <Recipe
+        apiName="Csokis- meggyes süti"
+        htmlName="Csokis-meggyes süti" />
+    <Recipe
+        apiName="Epres- mascarpone krémes piskótarolád"
+        htmlName="Epres-mascarpone krémes piskótarolád" />
+    <Recipe
+        apiName="Nagyon csokis-áfonyás keksz"
+        htmlName="Nagyon csokis- áfonyás keksz" />
+    <Recipe
+        apiName="Amerika palacsinta"
+        htmlName="Amerikai palacsinta" />
+    <Recipe
+        apiName="Szilvalekváros papucs tepertős tésztából"
+        htmlName="Szílvalekváros papucs tepertős tésztából" />
+    <Recipe
+        apiName="Szilvalekváros süti"
+        htmlName="Szílvalekváros süti" />
+    <Recipe
+        apiName="Dominó kocka"
+        htmlName="Domino kocka" />
+    <Recipe
+        apiName="Bonbon forralt boros krémmel"
+        htmlName="Bonbon forraltboros krémmel" />
+    <Recipe
+        apiName="Levendulás panna cotta ribizlis málnazselével"
+        htmlName="Levendulás pannacotta ribizlizselével" />
+    <Recipe
+        apiName="Csokoládé szuflé gyors hangulatjavításra"
+        htmlName="Csokolédé szuflé gyors hangulatjavításra" />
+
+    <Recipe
+        apiName="Csokis-meggyes tojásmuffin"
+        htmlName="csokis-meggyes tojásmuffin" />
+</WrongRecipes>

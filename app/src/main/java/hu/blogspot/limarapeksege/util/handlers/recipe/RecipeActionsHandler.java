@@ -145,9 +145,9 @@ public class RecipeActionsHandler {
 			recipeList = db.getRecipesByCategoryID(categoryID);
 		}
 
-		if(recipeList.size() == db.getRecipesByCategoryID(categoryID).size()){
+//		if(recipeList.size() == db.getRecipesByCategoryID(categoryID).size()){
 			db.updateRecipeDownloaded(categoryID);
-		}
+//		}
 
 		db.closeDatabase();
 		Log.w(GlobalStaticVariables.LOG_TAG, "Gathering recipe data ended");
@@ -159,13 +159,14 @@ public class RecipeActionsHandler {
 		Log.w(GlobalStaticVariables.LOG_TAG, "Recipe datas from API");
 
 		List<Recipe> recipeList = new ArrayList<Recipe>();
+		List<Recipe> recipeListDatabase = db.getRecipesByCategoryID(categoryID);
 
 		int pageCount = 0;
 
 		try {
 			postsListAction = blogger.posts().list(GlobalStaticVariables.BLOG_ID);
 			postsListAction.setKey(GlobalStaticVariables.BLOG_KEY);
-			postsListAction.setFields("items(title,url,content), nextPageToken");
+			postsListAction.setFields("items(id,title,url,content), nextPageToken");
 			postsListAction.setLabels(categoryLabelName);
 			postsListAction.setMaxResults((long) 499);
 			postsListAction.setStartDate(new DateTime(lastUpdateDate));
@@ -175,6 +176,7 @@ public class RecipeActionsHandler {
 			while (posts.getItems() != null && !posts.getItems().isEmpty()) {
 				for (Post post : posts.getItems()) {
 					Recipe tempRecipe = new Recipe();
+					tempRecipe.setId(post.getId());
 					tempRecipe.setRecipeName(post.getTitle());
 					tempRecipe.setRecipeURL(post.getUrl());
 					tempRecipe.setFavorite(false);
@@ -182,9 +184,9 @@ public class RecipeActionsHandler {
 					tempRecipe.setSaved(false);
 					tempRecipe.setCategory_id(categoryID);
 					tempRecipe.setRecipeThumbnailUrl(parseRecipeImageUrl(post.getContent()));
-					Log.w(GlobalStaticVariables.LOG_TAG, "Recipe got from API: "+ tempRecipe.getRecipeName() );
-					if(db.getRecipeByName(tempRecipe.getRecipeName()) == null){
-						db.addRecipe(tempRecipe);
+					Log.w(GlobalStaticVariables.LOG_TAG, "Recipe got from API: " + tempRecipe.getRecipeName());
+					if(!recipeListDatabase.contains(tempRecipe)) {
+                        db.addRecipe(tempRecipe);
 					}
 					recipeList.add(tempRecipe);
 				}
@@ -275,8 +277,8 @@ public class RecipeActionsHandler {
 			}
 
 			db.updateRecipeDownloaded(categoryID);
-			FileHandler handler = new FileHandler();
-			handler.writeToCSVFile(recipes, category);
+//			FileHandler handler = new FileHandler();
+//			handler.writeToCSVFile(recipes, category);
 
 			db.closeDatabase();
 			Log.w("LimaraPeksege", "recipe list succeed");
@@ -371,39 +373,34 @@ public class RecipeActionsHandler {
 
 	/**
 	 * Elmenti egy recept oldal�t, egy file-ba
-	 * 
-	 * @param URL
-	 *            recept linkje
-	 * @param NAME
-	 *            recept neve
 	 * @param isFavorite
 	 * @throws Exception
 	 */
-	public void saveRecipePage(String URL, String NAME, Boolean isFavorite)
+	public void saveRecipePage(Recipe recipe, Boolean isFavorite)
 			throws Exception {
 
 		Log.w("LimaraPeksege", "Save the recipe started");
 		String htmlText;
-		URI website = new URI(URL);
+		URI website = new URI(recipe.getRecipeURL());
 		ImageHandler imageHandler = new ImageHandler();
 		FileHandler fileHandler = new FileHandler();
 
 		htmlText = parseRecipeContentFromWebsite(website).toString();
 		htmlText = imageHandler.setImageDivs(htmlText);
-		String finalText = imageHandler.saveImage(htmlText, NAME);
+		String finalText = imageHandler.saveImage(htmlText, recipe.getId());
 
 		if (!isFavorite) { // ha nem kedvenc
 			fileHandler.writeToFile(finalText, GlobalStaticVariables.SAVED_RECIPES,
-					GlobalStaticVariables.SAVED_RECIPE_PATH, NAME);
-			db.updateRecipeIsSaved(db.getRecipeByName(NAME).getId(), 1);
-			Log.w("LimaraPeksege", db.getRecipeByName(NAME).isSaved()
+					GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
+			db.updateRecipeIsSaved(recipe.getId(), 1);
+			Log.w("LimaraPeksege", recipe.getRecipeName()
 					+ " is saved");
 			db.closeDatabase();
 		} else { // ha kedvenc
 			fileHandler.writeToFile(finalText, GlobalStaticVariables.FAVORITE_RECIPES,
-					GlobalStaticVariables.FAVORITE_RECIPE_PATH, NAME);
-			db.updateRecipeIsFavorite(db.getRecipeByName(NAME).getId(), 1);
-			Log.w("LimaraPeksege", db.getRecipeByName(NAME).isSaved()
+					GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
+			db.updateRecipeIsFavorite(recipe.getId(), 1);
+			Log.w("LimaraPeksege", recipe.getRecipeName()
 					+ " is favorite");
 		}
 
@@ -460,7 +457,7 @@ public class RecipeActionsHandler {
 		return sb;
 	}
 
-	public void deleteRecipe(String name, boolean isFavorite) {
+	public void deleteRecipe(Recipe recipe, boolean isFavorite) {
 		// TODO savedRecipes
 
 		File webpageDirectory = new File(
@@ -471,28 +468,20 @@ public class RecipeActionsHandler {
 			webpageDirectory.mkdirs();
 		if (!isFavorite) {
 			savedRecipe = new File(Environment.getExternalStorageDirectory()
-					+ GlobalStaticVariables.SAVED_RECIPE_PATH, name);
+					+ GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
 		} else {
 			savedRecipe = new File(Environment.getExternalStorageDirectory()
-					+ GlobalStaticVariables.FAVORITE_RECIPE_PATH, name);
+					+ GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
 		}
 
 		if (savedRecipe.exists()) {
-			if (!isFavorite) {
-				db.updateRecipeIsSaved(db.getRecipeByName(name).getId(), 0);
-				Log.w("LimaraPeksege", db.getRecipeByName(name).isFavorite()
-						+ " after delete is favorite");
-				Log.w("LimaraPeksege", db.getRecipeByName(name).isSaved()
-						+ " after delete is saved");
-			} else {
-				db.updateRecipeIsFavorite(db.getRecipeByName(name).getId(), 0);
-				Log.w("LimaraPeksege", db.getRecipeByName(name).isFavorite()
-						+ " after delete is favorite");
-				Log.w("LimaraPeksege", db.getRecipeByName(name).isSaved()
-						+ " after delete is saved");
-			}
 			savedRecipe.delete();
-		}
+            if (!isFavorite) {
+                db.updateRecipeIsSaved(recipe.getId(), 0);
+            } else {
+                db.updateRecipeIsFavorite(recipe.getId(), 0);
+            }
+        }
 		db.closeDatabase();
 	}
 

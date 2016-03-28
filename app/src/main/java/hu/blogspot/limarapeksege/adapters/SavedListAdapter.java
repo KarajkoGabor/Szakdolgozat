@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.adapters;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class SavedListAdapter extends BaseAdapter {
     private LayoutInflater inflater = null;
     private int resourceID;
     private Activity activity;
+    private SqliteHelper db;
 
     public SavedListAdapter(Activity activity, ArrayList<String> recipeTitles,
                             int resourceID) {
@@ -34,6 +36,7 @@ public class SavedListAdapter extends BaseAdapter {
         inflater = (LayoutInflater) this.activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.resourceID = resourceID;
+        this.db = SqliteHelper.getInstance(this.activity);
     }
 
     public int getCount() {
@@ -59,19 +62,16 @@ public class SavedListAdapter extends BaseAdapter {
 
         File storagePath = Environment.getExternalStorageDirectory();
         String storeImagePath = null;
-        storeImagePath = storagePath + GlobalStaticVariables.SAVED_RECIPE_PATH
-                + "Images/";
-        String storeImage = recipeTitles.get(arg0) + "0" + ".jpg";
-        storeImage = storeImagePath + storeImage;
-        Log.w("LimaraPeksege", storeImage);
+        storeImagePath = storagePath + GlobalStaticVariables.IMAGES_PATH + "/";
 
+        String storeImage = db.getRecipeByName(recipeTitles.get(arg0)).getId() + "_0.jpg";
+        storeImage = storeImagePath + storeImage;
         Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
 
         ImageView icon = (ImageView) view.findViewById(R.id.categoryPic);
         TextView title = (TextView) view.findViewById(R.id.title);
         icon.setImageBitmap(tempBitmap);
 
-        Log.w(GlobalStaticVariables.LOG_TAG, recipeTitles.get(arg0));
         title.setText(recipeTitles.get(arg0));
 
         return view;

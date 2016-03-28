@@ -10,6 +10,7 @@ import android.util.Log;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.model.WrongRecipeData;
 
 public class XmlParser {
 
@@ -41,6 +42,27 @@ public class XmlParser {
                                 xpp.getAttributeValue(0));
 
                     }
+                }
+            }
+
+            xpp.next();
+        }
+
+        return resultList;
+    }
+
+
+    public ArrayList<WrongRecipeData> parseWrongRecipesXML(XmlPullParser xpp)
+            throws XmlPullParserException, IOException {
+        ArrayList<WrongRecipeData> resultList = new ArrayList<>();
+
+        while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
+            if (xpp.getEventType() == XmlPullParser.START_TAG) {
+                if (xpp.getName().equals("Recipe")) {
+                        WrongRecipeData wrongRecipe = new WrongRecipeData();
+                        wrongRecipe.setApiName(xpp.getAttributeValue(0));
+                        wrongRecipe.setHtmlName(xpp.getAttributeValue(1));
+                        resultList.add(wrongRecipe);
                 }
             }
 

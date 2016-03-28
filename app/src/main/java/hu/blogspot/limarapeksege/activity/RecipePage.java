@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +24,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,8 +57,15 @@ public class RecipePage extends BaseActivity {
 	private static boolean isFavoriteRecipe;
 	private AnalyticsTracker trackerApp;
 
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
 		setContentView(R.layout.activity_recipe_page);
 
 		super.onCreateDrawer(preparedDrawerListItems(), getLocalClassName());
@@ -64,19 +78,19 @@ public class RecipePage extends BaseActivity {
 		trackerApp = (AnalyticsTracker) getApplication();
 		trackerApp.sendScreen(getString(R.string.analytics_screen_recipe));
 
-		setTitle(NAMEsave);
+		setTitle(currentRecipe.getRecipeName());
 
-		trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), NAMEsave);
+		trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), currentRecipe.getRecipeName());
 
 		final TextView readingModeTextView = (TextView) findViewById(R.id.reading_mode_textView);
 
 		readingModeTextView.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				readingModeTextView.setVisibility(View.GONE);
-				return false;
-			}
-		});
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                readingModeTextView.setVisibility(View.GONE);
+                return false;
+            }
+        });
 
 
 	}
@@ -107,23 +121,19 @@ public class RecipePage extends BaseActivity {
 		if (bundleData.getBoolean("saved")) {
 
 			urlToLoad = "file://" + Environment.getExternalStorageDirectory()
-					+ GlobalStaticVariables.SAVED_RECIPE_PATH + NAMEsave;
+					+ GlobalStaticVariables.SAVED_RECIPE_PATH + currentRecipe.getId();
 			wv.loadUrl(urlToLoad);
 
 		} else if (bundleData.getBoolean("favorite")) {
 			urlToLoad = "file://" + Environment.getExternalStorageDirectory()
-					+ GlobalStaticVariables.FAVORITE_RECIPE_PATH + NAMEsave;
+					+ GlobalStaticVariables.FAVORITE_RECIPE_PATH + currentRecipe.getId();
 			wv.loadUrl(urlToLoad);
-			Log.w("LimaraPeksege", "favorite");
 		} else {
-			urlToLoad = URLsave;
+			urlToLoad = currentRecipe.getRecipeURL();
 
-			Log.w("LimaraPeksege", urlToLoad + "urlToLoad");
 			urlToLoad = urlToLoad.replace("limarapeksege.blogspot.com",
 					"www.limarapeksege.hu");
-			Log.w("LimaraPeksege", urlToLoad + "urlToLoad");
 			wv.loadUrl(urlToLoad);
-			Log.w("LimaraPeksege", "url_web");
 		}
 
 		webViewClient = new ourWebViewClient(urlToLoad, RecipePage.this);
@@ -136,12 +146,18 @@ public class RecipePage extends BaseActivity {
 
 		URLsave = bundleData.getString("href");
 		NAMEsave = bundleData.getString("name");
-		isFavoriteRecipe = bundleData.getBoolean("favorite");
 
-		db = SqliteHelper.getInstance(RecipePage.this);
-        try{
-            currentRecipe = db.getRecipeByName(NAMEsave);
-        }catch (Exception e){
+		try{isFavoriteRecipe = bundleData.getBoolean("favorite");
+
+			db = SqliteHelper.getInstance(RecipePage.this);
+
+
+			if (bundleData.getBoolean("saved") || bundleData.getBoolean("favorite")) {
+				currentRecipe = db.getRecipeById(NAMEsave);
+			}else{
+				currentRecipe = db.getRecipeByName(NAMEsave);
+			}
+		}catch (Exception e){
             e.printStackTrace();
         }
 
@@ -191,8 +207,6 @@ public class RecipePage extends BaseActivity {
 			loaded = true;
 		} else if (menubundle.getBoolean("favorite")) {
 			inflater.inflate(R.menu.recipe_page_favorite, menu);
-			Log.w("LimaraPeksege", db.getRecipeByName(NAMEsave).isNoteAdded()
-					+ " is note added");
 			if (currentRecipe.isNoteAdded()) {
 				menu.findItem(R.id.menu_note).setIcon(
 						R.drawable.note_pencil_colored);
@@ -209,12 +223,10 @@ public class RecipePage extends BaseActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		Bundle menubundle = getIntent().getExtras();
-		Log.w("LimaraPeksege", currentRecipe.isNoteAdded()
-				+ "is note added onprepare");
 		if (menubundle.getBoolean("favorite")) {
 			if (currentRecipe.isNoteAdded()) {
 				menu.findItem(R.id.menu_note).setIcon(
-						R.drawable.note_pencil_colored);
+                        R.drawable.note_pencil_colored);
 			} else {
 				menu.findItem(R.id.menu_note).setIcon(R.drawable.note_purple);
 			}
@@ -236,24 +248,38 @@ public class RecipePage extends BaseActivity {
 				saveRecipeToFavorite(item);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_move_recipte_to_favorite));
             } else if (getString(R.string.menu_delete) == item.getTitle()) {
-				dialogBox(RecipePage.this, NAMEsave, isFavoriteRecipe);
+				deleteDialogBox(RecipePage.this, currentRecipe.getRecipeName(), isFavoriteRecipe);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_delete_recipe));
 			} else if (getString(R.string.menu_note) == item.getTitle()) {
 				openNotePadActivity();
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_note_open));
 			} else if(getString(R.string.menu_reading_option) == item.getTitle()){
 				setScreenToReadingMode();
-			}
+			} else if(getString(R.string.menu_share) == item.getTitle()){
+                shareRecipe();
+            }
 		}
 
 		return true;
 	}
 
-	private void saveRecipe(MenuItem item) {
+    private void shareRecipe() {
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(currentRecipe.getRecipeURL()))
+                .setImageUrl(Uri.parse(currentRecipe.getRecipeThumbnailUrl()))
+                .setContentTitle(getString(R.string.app_name) +  " - " + currentRecipe.getRecipeName())
+                .build();
+
+        shareDialog = new ShareDialog(this);
+        shareDialog.show(content);
+
+    }
+
+    private void saveRecipe(MenuItem item) {
 		Log.w("LimaraPeksege", URLsave + NAMEsave);
 		try {
-			new AsyncRecipeSaveClass(RecipePage.this).execute(URLsave,
-					NAMEsave, false);
+			new AsyncRecipeSaveClass(RecipePage.this).execute(currentRecipe, false);
 			item.setIcon(R.drawable.save_colored);
 
 		} catch (Exception e) {
@@ -288,7 +314,7 @@ public class RecipePage extends BaseActivity {
 
 	private void saveRecipeToFavorite(MenuItem item) {
 		File fileSource = new File(Environment.getExternalStorageDirectory()
-				+ GlobalStaticVariables.SAVED_RECIPE_PATH + NAMEsave);
+				+ GlobalStaticVariables.SAVED_RECIPE_PATH + currentRecipe.getId());
 
 		try {
 			if (fileSource.isFile()) {
@@ -296,7 +322,7 @@ public class RecipePage extends BaseActivity {
 				File fileDestination = new File(
 						Environment.getExternalStorageDirectory()
 								+ GlobalStaticVariables.FAVORITE_RECIPE_PATH
-								+ NAMEsave);
+								+ currentRecipe.getId());
 
 				File webpageDirectory = new File(
 						Environment.getExternalStorageDirectory()
@@ -304,15 +330,14 @@ public class RecipePage extends BaseActivity {
 				if (!webpageDirectory.exists())
 					webpageDirectory.mkdirs();
 				AsyncFileCopy asyncFileCopy = new AsyncFileCopy(RecipePage.this);
-				asyncFileCopy.execute(fileSource, fileDestination, NAMEsave);
+				asyncFileCopy.execute(fileSource, fileDestination, currentRecipe.getId());
 				if (asyncFileCopy.get()) {
-					Toast.makeText(this, "Kedvencekhez �thelyezve",
+					Toast.makeText(this, "Kedvencekhez áthelyezve",
 							Toast.LENGTH_LONG).show();
 				}
 			} else {
 				Log.w("LimaraPeksege", "favorite save from url");
-				new AsyncRecipeSaveClass(RecipePage.this).execute(URLsave,
-						NAMEsave, true);
+				new AsyncRecipeSaveClass(RecipePage.this).execute(currentRecipe, true);
 			}
 			item.setIcon(R.drawable.favorite_colored);
 		} catch (Exception e) {
@@ -331,7 +356,7 @@ public class RecipePage extends BaseActivity {
 		}
 		Intent openNotePad = new Intent(RecipePage.this, notePad);
 		Bundle sendName = new Bundle();
-		sendName.putString("name", NAMEsave);
+		sendName.putString("name", currentRecipe.getRecipeName());
 
 		openNotePad.putExtras(sendName);
 
@@ -352,7 +377,7 @@ public class RecipePage extends BaseActivity {
 	}
 
 	private void refreshCurrentRecipe(Recipe currentRecipe) {
-		this.currentRecipe = db.getRecipeByName(currentRecipe.getRecipeName());
+		this.currentRecipe = db.getRecipeById(currentRecipe.getId());
 		Log.w("LimaraPeksege", this.currentRecipe.isNoteAdded()
 				+ " is note added on resume");
 	}
@@ -360,6 +385,7 @@ public class RecipePage extends BaseActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -384,8 +410,8 @@ public class RecipePage extends BaseActivity {
 		return activeNetworkInfo != null;
 	}
 
-	private void dialogBox(Context context, String recipeName,
-			final boolean isFavorite) {
+	private void deleteDialogBox(Context context, String recipeName,
+								 final boolean isFavorite) {
 		AlertDialog.Builder dialogBox = new AlertDialog.Builder(context);
 
 		dialogBox.setTitle(recipeName + " " + getString(R.string.delete_title));
@@ -395,7 +421,7 @@ public class RecipePage extends BaseActivity {
 				new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
-						util.deleteRecipe(NAMEsave, isFavorite);
+						util.deleteRecipe(currentRecipe, isFavorite);
 
 						Intent intent = new Intent(RecipePage.this,
 								SavedRecipes.class);

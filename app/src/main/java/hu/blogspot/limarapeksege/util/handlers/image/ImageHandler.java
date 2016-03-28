@@ -32,8 +32,6 @@ public class ImageHandler {
             if (style.contains("float: left")) {
                 String newStyle = style.replace("float: left;", " ");
                 html = tempHtml.replace(style, newStyle);
-                Log.w(GlobalStaticVariables.LOG_TAG, style);
-                Log.w(GlobalStaticVariables.LOG_TAG, "�J STYLE***" + newStyle);
             }
         }
         return html;
@@ -44,7 +42,7 @@ public class ImageHandler {
 
     public String saveImage(String text, String imageName)
             throws IOException {
-        Log.w("LimaraP�kg�se", "image save");
+        Log.w(GlobalStaticVariables.LOG_TAG, "image save");
         Document document = null;
         int i = 0;
         File storeImage;
@@ -62,10 +60,10 @@ public class ImageHandler {
             File storagePath = Environment.getExternalStorageDirectory();
             storeImage = new File(storagePath
                     + GlobalStaticVariables.SAVED_RECIPE_PATH + "/Images/",
-                    imageName + i + ".jpg");
+                    imageName + "_" + i + ".jpg");
             storageImagePath = storageImagePath + storagePath
                     + GlobalStaticVariables.SAVED_RECIPE_PATH + "/Images/"
-                    + imageName + i + ".jpg";
+                    + imageName  + "_"  + i + ".jpg";
 
             text = text.replace("\"" + temp + "\"", "\"" + storageImagePath
                     + "\"");
@@ -94,37 +92,30 @@ public class ImageHandler {
 
     }
 
-    public void saveImageForRecipeListToLocalPath(String src, String recipeName) {
-        try {
-            URL url = new URL(src);
+    public String replaceImageSrc(String text, String imageName){
+        Log.w(GlobalStaticVariables.LOG_TAG, "image save");
+        Document document = null;
+        int i = 0;
 
-            InputStream io = url.openStream();
+        document = Jsoup.parse(text, "utf-8");
+
+        Elements images = document.select("img");
+        for (Element e : images) {
+            String temp = e.absUrl("src");
+            String storageImagePath = "file://";
 
             File storagePath = Environment.getExternalStorageDirectory();
-            File storeImage = new File(storagePath
-                    + GlobalStaticVariables.SAVED_RECIPE_PATH + "/Images/",
-                    recipeName + "0.jpg");
 
-            if (!storeImage.exists()) {
-                storeImage.mkdirs();
-            }
+            storageImagePath = storageImagePath + storagePath
+                    + GlobalStaticVariables.IMAGES_PATH + "/"
+                    + imageName  + "_"  + i + ".jpg";
 
-            if (storeImage.exists()) {
-                storeImage.delete();
-            }
+            text = text.replace("\"" + temp + "\"", "\"" + storageImagePath
+                    + "\"");
 
-            OutputStream ou = new FileOutputStream(storeImage);
-
-            byte[] buffer = new byte[1024];
-            int bytesRead = 0;
-            while ((bytesRead = io.read(buffer, 0, buffer.length)) >= 0) {
-                ou.write(buffer, 0, bytesRead);
-            }
-            ou.close();
-            io.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            i++;
         }
+        return text;
     }
 
 }

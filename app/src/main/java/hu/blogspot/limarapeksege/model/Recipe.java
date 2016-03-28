@@ -2,7 +2,7 @@ package hu.blogspot.limarapeksege.model;
 
 public class Recipe {
 
-	private int id;
+	private String id;
 	private String recipeURL;
 	private String recipeName;
 	private boolean isSaved;
@@ -37,11 +37,11 @@ public class Recipe {
 		this.recipeName = recipeName;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

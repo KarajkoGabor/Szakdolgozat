@@ -3,11 +3,19 @@ package hu.blogspot.limarapeksege.asyncs;
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.activity.MainPage;
 import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.model.WrongRecipeData;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
 import hu.blogspot.limarapeksege.util.XmlParser;
+import hu.blogspot.limarapeksege.util.handlers.file.FileHandler;
+import hu.blogspot.limarapeksege.util.handlers.image.ImageHandler;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +28,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.WindowManager;
@@ -27,9 +36,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.util.DateTime;
+import com.google.api.client.util.IOUtils;
 
 import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 public class AsyncPrepareRecipeDatas extends AsyncTask {
 
@@ -39,12 +50,14 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
     private TextView splashPercent;
     private Activity activity;
     private SharedPreferences savedSettings;
+    private SqliteHelper db;
 
     public AsyncPrepareRecipeDatas(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
         this.savedSettings = PreferenceManager
                 .getDefaultSharedPreferences(context);
+        this.db = SqliteHelper.getInstance(context);
     }
 
     @Override
@@ -65,12 +78,14 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
         int i = 1;
         int index = 0;
         util = new RecipeActionsHandler(this.context);
-        SqliteHelper db = SqliteHelper.getInstance(context);
+
         long startTime = System.currentTimeMillis();
 
-        if(isFirstRun()){
+//        preparedSavedAndFavoriteRecipes(); //TODO REMOVE!!!
+
+        if (isFirstRun() || !isDownloadedRecipesPrepared()) {
             db.deleteCategoryTable();
-//            db.deleteRecipeTable();
+            db.deleteRecipeTable();
         }
 
         if (isNetworkAvailable() && isThereNewRecipe()) { // ha m�g nincsenek a receptek
@@ -93,7 +108,14 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             }
 
             setLatestUploadDate();
+            publishProgress("Mindjárt kész :)", 95); // 95% of run
+
+
+            if (isFirstRun() || !isDownloadedRecipesPrepared()) {
+                preparedSavedAndFavoriteRecipes();
+            }
             setFirstRunVariable();
+            setDownloadedRecipesPrepared();
 
         }
         long endTime = System.currentTimeMillis();
@@ -101,6 +123,87 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
 
         return null;
     }
+
+    private void setDownloadedRecipesPrepared() {
+        SharedPreferences.Editor editor = savedSettings.edit();
+        editor.putBoolean("downloadedPrepared", true);
+        editor.apply();
+    }
+
+    private boolean isDownloadedRecipesPrepared() {
+        return savedSettings.getBoolean("downloadedPrepared", false);
+    }
+
+    private void preparedSavedAndFavoriteRecipes() {
+
+        FileHandler fileHandler = new FileHandler();
+        ImageHandler imageHandler = new ImageHandler();
+        XmlPullParser xpp = this.context.getResources().getXml(R.xml.wrongrecipes);
+        File[] savedRecipeFiles = fileHandler.getSavedRecipeFiles();
+        String savedRecipePath = Environment.getExternalStorageDirectory() + GlobalStaticVariables.SAVED_RECIPE_PATH;
+        File[] favoriteRecipeFiles = fileHandler.getFavoriteRecipeFiles();
+        String favoriteRecipePath = Environment.getExternalStorageDirectory() + GlobalStaticVariables.FAVORITE_RECIPE_PATH;
+        File[] imageFiles = fileHandler.getImageFiles();
+        String imagesPath = Environment.getExternalStorageDirectory() + GlobalStaticVariables.IMAGES_PATH;
+
+        XmlParser xmlParser = new XmlParser();
+        try {
+            ArrayList<WrongRecipeData> wrongRecipeDatasList = xmlParser.parseWrongRecipesXML(xpp);
+
+            fileHandler.renameFiles(xpp, savedRecipeFiles, this.context, savedRecipePath, wrongRecipeDatasList);
+            fileHandler.renameFiles(xpp, favoriteRecipeFiles, this.context, favoriteRecipePath, wrongRecipeDatasList);
+            fileHandler.renameFiles(xpp, imageFiles, this.context, imagesPath, wrongRecipeDatasList);
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+
+        for (File currentFile : savedRecipeFiles) {
+            Recipe recipe = db.getRecipeById(currentFile.getName());
+
+            StringBuilder text = new StringBuilder();
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                    text.append('\n');
+                }
+                br.close() ;
+                String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                currentFile.delete();
+                fileHandler.writeToFile(finalContent, GlobalStaticVariables.SAVED_RECIPES,
+                        GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        for (File currentFile : favoriteRecipeFiles) {
+            Recipe recipe = db.getRecipeById(currentFile.getName());
+
+            StringBuilder text = new StringBuilder();
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                    text.append('\n');
+                }
+                br.close() ;
+                String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                currentFile.delete();
+                fileHandler.writeToFile(finalContent, GlobalStaticVariables.FAVORITE_RECIPES,
+                        GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+
 
     private void setFirstRunVariable() {
         SharedPreferences.Editor editor = savedSettings.edit();
