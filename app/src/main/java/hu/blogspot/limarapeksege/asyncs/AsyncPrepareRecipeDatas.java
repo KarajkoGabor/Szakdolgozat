@@ -153,9 +153,11 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             fileHandler.renameFiles(xpp, savedRecipeFiles, this.context, savedRecipePath, wrongRecipeDatasList);
             fileHandler.renameFiles(xpp, favoriteRecipeFiles, this.context, favoriteRecipePath, wrongRecipeDatasList);
             fileHandler.renameFiles(xpp, imageFiles, this.context, imagesPath, wrongRecipeDatasList);
-        } catch (XmlPullParserException | IOException e) {
+        } catch (XmlPullParserException | IOException | NullPointerException e ) {
             e.printStackTrace();
         }
+
+        //TODO RECOLLECT FILENAMES
 
         for (File currentFile : savedRecipeFiles) {
             Recipe recipe = db.getRecipeById(currentFile.getName());

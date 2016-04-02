@@ -67,7 +67,7 @@ public class FileHandler {
         Log.w(GlobalStaticVariables.LOG_TAG, "Csv file done");
     }
 
-    public void renameFiles(XmlPullParser xpp, File[] oldFiles, Context context, String path, ArrayList<WrongRecipeData> wrongRecipeDatasList) {
+    public void renameFiles(XmlPullParser xpp, File[] oldFiles, Context context, String path, ArrayList<WrongRecipeData> wrongRecipeDatasList) throws NullPointerException {
 
         Log.w(GlobalStaticVariables.LOG_TAG, "Prepare saved stuff start on path: " + path);
 
