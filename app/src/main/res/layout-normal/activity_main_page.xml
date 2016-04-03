@@ -146,7 +146,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/drawer_container"
+        android:id="@+id/left_drawer_container"
         android:weightSum="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -164,6 +164,27 @@
 
         <ListView
             android:id="@+id/left_drawer"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@color/White"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_drawer_container"
+        android:weightSum="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ListView
+            android:id="@+id/right_drawer"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:background="@color/White"

@@ -33,7 +33,6 @@ public class NavigationDrawerListAdapter extends ArrayAdapter<DrawerListItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Log.w(GlobalStaticVariables.LOG_TAG,"CUSTOM DRAWER");
         DrawerItemHolder drawerHolder;
         View view = convertView;
 
@@ -57,7 +56,6 @@ public class NavigationDrawerListAdapter extends ArrayAdapter<DrawerListItem> {
 
         drawerHolder.icon.setImageDrawable(ContextCompat.getDrawable(context,dItem.getImageID()));
         drawerHolder.ItemName.setText(dItem.getTitle());
-        Log.w(GlobalStaticVariables.LOG_TAG,"Position " + position);
 
         return view;
     }
