@@ -44,9 +44,18 @@ public class MainPage extends BaseActivity implements OnClickListener {
 
 		DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home);
 		DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp);
+		DrawerListItem drawerListItemSavedRecipes = new DrawerListItem("Lementett receptek", R.drawable.ic_sd_card_black_24dp);
+		DrawerListItem drawerListItemFavoriteRecipes = new DrawerListItem("Kedvenc receptek", R.drawable.ic_favorite_black_24dp);
+		DrawerListItem drawerListItemFindRecipes = new DrawerListItem("Recept keresése", R.drawable.ic_search_black_24dp);
+		DrawerListItem drawerListItemLoafMaking = new DrawerListItem("Vekni formázása", R.drawable.loaf_icon);
+
 		List<DrawerListItem> items = new ArrayList<>();
 		items.add(drawerListItemHome);
-		items.add(drawerListItemAbout);
+		items.add(drawerListItemSavedRecipes);
+        items.add(drawerListItemFavoriteRecipes);
+        items.add(drawerListItemFindRecipes);
+        items.add(drawerListItemLoafMaking);
+        items.add(drawerListItemAbout);
 
         super.onCreateDrawer(items, getLocalClassName());
 		List<String> mainMenuList; // men� lista

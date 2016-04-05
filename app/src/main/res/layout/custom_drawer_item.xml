@@ -22,14 +22,16 @@
                 android:id="@+id/drawerIcon"
                 android:gravity="center"
                 android:focusableInTouchMode="false"
-                android:layout_marginLeft="24dp"/>
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:contentDescription="@string/drawerListItemImageDescription" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Drawer List Item"
-                android:gravity="center"
-                android:layout_marginLeft="64dp"
+                android:gravity="start"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
                 android:id="@+id/drawerItemTitle" />
         </LinearLayout>
 

@@ -1,94 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Categories>
 
-    <Item value="leves" name="Levesek">
-        <Name>
-            Levesek
-        </Name>
+    <Item
+        name="Levesek"
+        value="leves">
+        <Name>Levesek</Name>
     </Item>
-    <Item value="saláta" name="Saláták, előételek">
-        <Name>
-            Saláták, előételek
-        </Name>
+    <Item
+        name="Saláták, előételek"
+        value="saláta">
+        <Name>Saláták, előételek</Name>
     </Item>
-    <Item value="hús" name="Húsételek">
-        <Name>
-            Húsételek
-        </Name>
+    <Item
+        name="Húsételek"
+        value="hús">
+        <Name>Húsételek</Name>
     </Item>
-    <Item value="zöldség" name="Zöldségételek">
-        <Name>
-            Zöldségételek
-        </Name>
+    <Item
+        name="Zöldségételek"
+        value="zöldség">
+        <Name>Zöldségételek</Name>
     </Item>
-    <Item value="tészta" name="Tészták">
-        <Name>
-            Tészták
-        </Name>
+    <Item
+        name="Tészták"
+        value="tészta">
+        <Name>Tészták</Name>
     </Item>
-    <Item value="köret" name="Köretek">
-        <Name>
-            Köretek
-        </Name>
+    <Item
+        name="Köretek"
+        value="köret">
+        <Name>Köretek</Name>
     </Item>
-    <Item value="egytálétel" name="Egytálételek">
-        <Name>
-            Egytálételek
-        </Name>
+    <Item
+        name="Egytálételek"
+        value="egytálétel">
+        <Name>Egytálételek</Name>
     </Item>
-    <Item value="kenyér" name="Kenyerek">
-        <Name>
-            Kenyerek
-        </Name>
+    <Item
+        name="Kenyerek"
+        value="kenyér">
+        <Name>Kenyerek</Name>
     </Item>
-    <Item value="péksütemény" name="Péksütemények">
-        <Name>
-            Péksütemények
-        </Name>
+    <Item
+        name="Péksütemények"
+        value="péksütemény">
+        <Name>Péksütemények</Name>
     </Item>
-    <Item value="kalács" name="Kalácsok">
-        <Name>
-            Kalácsok
-        </Name>
+    <Item
+        name="Kalácsok"
+        value="kalács">
+        <Name>Kalácsok</Name>
     </Item>
-    <Item value="kelttészta" name="Kelttészták">
-        <Name>
-            Kelttészták
-        </Name>
+    <Item
+        name="Kelttészták"
+        value="kelttészta">
+        <Name>Kelttészták</Name>
     </Item>
-    <Item value="sós" name="Sósság">
-        <Name>
-            Sósság
-        </Name>
+    <Item
+        name="Sósság"
+        value="sós">
+        <Name>Sósság</Name>
     </Item>
-    <Item value="édes süti" name="Édes sütemények">
-        <Name>
-            Édes sütemények
-        </Name>
+    <Item
+        name="Édes sütemények"
+        value="édes süti">
+        <Name>Édes sütemények</Name>
     </Item>
-    <Item value="édesség" name="Édességek">
-        <Name>
-            Édességek
-        </Name>
+    <Item
+        name="Édességek"
+        value="édesség">
+        <Name>Édességek</Name>
     </Item>
-    <Item value="torta" name="Torták">
-        <Name>
-            Torták
-        </Name>
+    <Item
+        name="Torták"
+        value="torta">
+        <Name>Torták</Name>
     </Item>
-    <Item value="befőzés" name="Befőzés, tartósítás">
-        <Name>
-            Befőzés, tartósítás
-        </Name>
+    <Item
+        name="Befőzés, tartósítás"
+        value="befőzés">
+        <Name>Befőzés, tartósítás</Name>
     </Item>
-    <Item value="ital" name="Italok">
-        <Name>
-            Italok
-        </Name>
+    <Item
+        name="Italok"
+        value="ital">
+        <Name>Italok</Name>
     </Item>
-    <Item value="gluténmentes" name="Gluténmentes ételek">
-        <Name>
-            Gluténmentes ételek
-        </Name>
+    <Item
+        name="Gluténmentes ételek"
+        value="gluténmentes">
+        <Name>Gluténmentes ételek</Name>
     </Item>
 </Categories>

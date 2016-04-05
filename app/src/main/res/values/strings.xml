@@ -161,6 +161,7 @@
     <string name="analytics_category_note">Jegyzet</string>
     <string name="analytics_category_facebook">Facebook</string>
     <string name="analytics_category_choose_nav_drawer">Navdrawer menü elem</string>
+    <string name="drawerListItemImageDescription">Drawer list item image</string>
 
 
 </resources>

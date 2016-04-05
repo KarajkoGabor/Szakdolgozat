@@ -97,6 +97,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
                 categories = (ArrayList<Category>) db.getAllCategories();
             }
 
+
             for (Category category : categories) {
                 if (i % 2 == 1) {
                     publishProgress(loadingMessages.get(index), (100 / categories.size() * i));
@@ -104,6 +105,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
                 }
                 i++;
                 int categoryID = db.getCategoryByName(category.getName()).getId();
+
                 util.gatherRecipeData(category.getLabel(), categoryID, isThereNewRecipe());
             }
 
@@ -158,6 +160,8 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
         }
 
         //TODO RECOLLECT FILENAMES
+        savedRecipeFiles = fileHandler.getSavedRecipeFiles();
+        favoriteRecipeFiles = fileHandler.getFavoriteRecipeFiles();
 
         for (File currentFile : savedRecipeFiles) {
             Recipe recipe = db.getRecipeById(currentFile.getName());

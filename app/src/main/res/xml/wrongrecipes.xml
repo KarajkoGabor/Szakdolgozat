@@ -486,8 +486,28 @@
     <Recipe
         apiName="Csokoládé szuflé gyors hangulatjavításra"
         htmlName="Csokolédé szuflé gyors hangulatjavításra" />
-
     <Recipe
         apiName="Csokis-meggyes tojásmuffin"
         htmlName="csokis-meggyes tojásmuffin" />
+    <Recipe
+        apiName="Mákos linzer"
+        htmlName="Cukormázas muffin kandírozott ibolyával Mákos linzer" />
+    <Recipe
+        apiName="Hokkaido kalács csokilencsével és aszalt áfonyával"
+        htmlName="Hokkaido kalács kenyérsütőgépben" />
+    <Recipe
+        apiName="Juhtúrós pogácsa Luca napra"
+        htmlName="Juhtúrós pogácsa" />
+    <Recipe
+        apiName="Korpás kenyér"
+        htmlName="Korpáskenyér" />
+    <Recipe
+        apiName="Korpás kenyér kenyérsütőgépben"
+        htmlName="Korpáskenyér kenyérsütőgépben" />
+    <Recipe
+        apiName="Túrós batyu"
+        htmlName="Túrósbatyu" />
+    <Recipe
+        apiName="Forralt bor"
+        htmlName="Forraltbor" />
 </WrongRecipes>

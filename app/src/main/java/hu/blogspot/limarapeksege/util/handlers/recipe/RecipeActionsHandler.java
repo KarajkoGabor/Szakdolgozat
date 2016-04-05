@@ -75,7 +75,7 @@ public class RecipeActionsHandler {
 
 		// TODO ez az eg�sz cucc mehet resource fileba is
 
-		ArrayList<Category> categoryList = new ArrayList<Category>(); // v�gs� lista
+		ArrayList<Category> categoryList = new ArrayList<>(); // v�gs� lista
 															// oldal
 		XmlParser parser = new XmlParser();
 		String parseMode = "category";
