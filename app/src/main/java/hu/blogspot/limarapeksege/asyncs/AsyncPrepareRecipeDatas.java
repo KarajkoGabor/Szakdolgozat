@@ -73,15 +73,30 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
     @Override
     protected Boolean doInBackground(Object... params) {
         // TODO Auto-generated method stub
-        ArrayList<Category> categories;
-        ArrayList<String> loadingMessages = setLoadingMessages();
-        int i = 1;
-        int index = 0;
-        util = new RecipeActionsHandler(this.context);
 
         long startTime = System.currentTimeMillis();
 
 //        preparedSavedAndFavoriteRecipes(); //TODO REMOVE!!!
+
+//        downLoadAllRecipes();
+
+        setupApp();
+        long endTime = System.currentTimeMillis();
+        Log.w(GlobalStaticVariables.LOG_TAG, "Eltelt idő " + (endTime - startTime) + " ms");
+
+        return null;
+    }
+
+    private void setupApp() {
+        ArrayList<String> loadingMessages = setLoadingMessages();
+        int i = 1;
+        ArrayList<Category> categories;
+        int index = 0;
+        util = new RecipeActionsHandler(this.context);
+
+        if(isQuickFix()){
+            clearApplicationData();
+        }
 
         if (isFirstRun() || !isDownloadedRecipesPrepared()) {
             db.deleteCategoryTable();
@@ -116,14 +131,28 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             if (isFirstRun() || !isDownloadedRecipesPrepared()) {
                 preparedSavedAndFavoriteRecipes();
             }
-            setFirstRunVariable();
+            setFirstRunVariable(false);
             setDownloadedRecipesPrepared();
+            setQuickFixVariable();
 
         }
-        long endTime = System.currentTimeMillis();
-        Log.w(GlobalStaticVariables.LOG_TAG, "Eltelt idő " + (endTime - startTime) + " ms");
+    }
 
-        return null;
+    private void downLoadAllRecipes() {
+
+        List<Recipe> recipeList = db.getAllRecipes();
+
+        for (Recipe recipe : recipeList) {
+            try {
+                util.saveRecipePage(recipe, false);
+                Log.w(GlobalStaticVariables.LOG_TAG, recipe.getRecipeName() + " has been saved");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.w(GlobalStaticVariables.LOG_TAG, "All recipes have been saved");
+
     }
 
     private void setDownloadedRecipesPrepared() {
@@ -152,69 +181,90 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
         try {
             ArrayList<WrongRecipeData> wrongRecipeDatasList = xmlParser.parseWrongRecipesXML(xpp);
 
-            fileHandler.renameFiles(xpp, savedRecipeFiles, this.context, savedRecipePath, wrongRecipeDatasList);
-            fileHandler.renameFiles(xpp, favoriteRecipeFiles, this.context, favoriteRecipePath, wrongRecipeDatasList);
-            fileHandler.renameFiles(xpp, imageFiles, this.context, imagesPath, wrongRecipeDatasList);
-        } catch (XmlPullParserException | IOException | NullPointerException e ) {
+            if(savedRecipeFiles != null){
+                fileHandler.renameFiles(xpp, savedRecipeFiles, this.context, savedRecipePath, wrongRecipeDatasList);
+            }
+
+            if(favoriteRecipeFiles != null){
+                fileHandler.renameFiles(xpp, favoriteRecipeFiles, this.context, favoriteRecipePath, wrongRecipeDatasList);
+            }
+
+            if(imageFiles != null){
+                fileHandler.renameFiles(xpp, imageFiles, this.context, imagesPath, wrongRecipeDatasList);
+            }
+
+        } catch (XmlPullParserException | IOException | NullPointerException e) {
             e.printStackTrace();
         }
 
         //TODO RECOLLECT FILENAMES
-        savedRecipeFiles = fileHandler.getSavedRecipeFiles();
-        favoriteRecipeFiles = fileHandler.getFavoriteRecipeFiles();
+        if(savedRecipeFiles != null){
+            savedRecipeFiles = fileHandler.getSavedRecipeFiles();
 
-        for (File currentFile : savedRecipeFiles) {
-            Recipe recipe = db.getRecipeById(currentFile.getName());
+            for (File currentFile : savedRecipeFiles) {
+                Recipe recipe = db.getRecipeById(currentFile.getName());
 
-            StringBuilder text = new StringBuilder();
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(currentFile));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    text.append(line);
-                    text.append('\n');
+                StringBuilder text = new StringBuilder();
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
+                    }
+                    br.close();
+                    String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                    currentFile.delete();
+                    fileHandler.writeToFile(finalContent, GlobalStaticVariables.SAVED_RECIPES,
+                            GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                br.close() ;
-                String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
-                currentFile.delete();
-                fileHandler.writeToFile(finalContent, GlobalStaticVariables.SAVED_RECIPES,
-                        GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
-            }catch (IOException e) {
-                e.printStackTrace();
+
             }
 
         }
+        if(favoriteRecipeFiles != null){
+            favoriteRecipeFiles = fileHandler.getFavoriteRecipeFiles();
 
-        for (File currentFile : favoriteRecipeFiles) {
-            Recipe recipe = db.getRecipeById(currentFile.getName());
+            for (File currentFile : favoriteRecipeFiles) {
+                Recipe recipe = db.getRecipeById(currentFile.getName());
 
-            StringBuilder text = new StringBuilder();
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(currentFile));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    text.append(line);
-                    text.append('\n');
+                StringBuilder text = new StringBuilder();
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
+                    }
+                    br.close();
+                    String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                    currentFile.delete();
+                    fileHandler.writeToFile(finalContent, GlobalStaticVariables.FAVORITE_RECIPES,
+                            GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                br.close() ;
-                String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
-                currentFile.delete();
-                fileHandler.writeToFile(finalContent, GlobalStaticVariables.FAVORITE_RECIPES,
-                        GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
 
+            }
         }
 
     }
 
 
+    private void setFirstRunVariable(boolean value) {
+        if(db.getAllCategories() != null && db.getAllCategories().size() > 0){
+            SharedPreferences.Editor editor = savedSettings.edit();
+            editor.putBoolean("firstRun", value);
+            editor.apply();
+        }
+    }
 
-    private void setFirstRunVariable() {
-        SharedPreferences.Editor editor = savedSettings.edit();
-        editor.putBoolean("firstRun", false);
-        editor.apply();
+    private void setQuickFixVariable() {
+            SharedPreferences.Editor editor = savedSettings.edit();
+            editor.putBoolean("quickFix", false);
+            editor.apply();
     }
 
     @Override
@@ -279,5 +329,39 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
     private boolean isFirstRun() {
         return savedSettings.getBoolean("firstRun", true);
     }
+
+    private boolean isQuickFix(){
+        return savedSettings.getBoolean("quickFix", true);
+    }
+
+    private void clearApplicationData() {
+        File cache = this.context.getCacheDir();
+        File appDir = new File(cache.getParent());
+        if (appDir.exists()) {
+            String[] children = appDir.list();
+            for (String s : children) {
+                if (!s.equals("lib")) {
+                    deleteDir(new File(appDir, s));
+                    Log.i(GlobalStaticVariables.LOG_TAG, "**************** File /data/data/APP_PACKAGE/" + s + " DELETED *******************");
+                }
+            }
+        }
+    }
+
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (String aChildren : children) {
+                boolean success = deleteDir(new File(dir, aChildren));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+
+        assert dir != null;
+        return dir.delete();
+    }
+
 
 }
