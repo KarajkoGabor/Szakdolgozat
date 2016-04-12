@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainPage"
+            android:name=".activity.MainActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_main_page"
             android:screenOrientation="portrait">

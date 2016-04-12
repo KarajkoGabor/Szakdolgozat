@@ -1,6 +1,7 @@
 package hu.blogspot.limarapeksege.asyncs;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.activity.MainActivity;
 import hu.blogspot.limarapeksege.activity.MainPage;
 import hu.blogspot.limarapeksege.model.Category;
 import hu.blogspot.limarapeksege.model.Recipe;
@@ -37,7 +38,9 @@ import android.widget.Toast;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.IOUtils;
+import com.google.api.client.util.StringUtils;
 
+import org.jsoup.helper.StringUtil;
 import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -99,6 +102,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
         }
 
         if (isFirstRun() || !isDownloadedRecipesPrepared()) {
+
             db.deleteCategoryTable();
             db.deleteRecipeTable();
         }
@@ -134,6 +138,8 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             setFirstRunVariable(false);
             setDownloadedRecipesPrepared();
             setQuickFixVariable();
+
+            db.closeDatabase();
 
         }
     }
@@ -202,23 +208,25 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             savedRecipeFiles = fileHandler.getSavedRecipeFiles();
 
             for (File currentFile : savedRecipeFiles) {
-                Recipe recipe = db.getRecipeById(currentFile.getName());
+                if(!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName())){
+                    Recipe recipe = db.getRecipeById(currentFile.getName());
 
-                StringBuilder text = new StringBuilder();
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(currentFile));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
+                    StringBuilder text = new StringBuilder();
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                        br.close();
+                        String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                        currentFile.delete();
+                        fileHandler.writeToFile(finalContent, GlobalStaticVariables.SAVED_RECIPES,
+                                GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    br.close();
-                    String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
-                    currentFile.delete();
-                    fileHandler.writeToFile(finalContent, GlobalStaticVariables.SAVED_RECIPES,
-                            GlobalStaticVariables.SAVED_RECIPE_PATH, recipe.getId());
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
 
             }
@@ -228,25 +236,27 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             favoriteRecipeFiles = fileHandler.getFavoriteRecipeFiles();
 
             for (File currentFile : favoriteRecipeFiles) {
-                Recipe recipe = db.getRecipeById(currentFile.getName());
+                if(!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName())) {
+                    Recipe recipe = db.getRecipeById(currentFile.getName());
 
-                StringBuilder text = new StringBuilder();
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(currentFile));
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
+                    StringBuilder text = new StringBuilder();
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(currentFile));
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                        br.close();
+                        String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
+                        currentFile.delete();
+                        fileHandler.writeToFile(finalContent, GlobalStaticVariables.FAVORITE_RECIPES,
+                                GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    br.close();
-                    String finalContent = imageHandler.replaceImageSrc(text.toString(), recipe.getId());
-                    currentFile.delete();
-                    fileHandler.writeToFile(finalContent, GlobalStaticVariables.FAVORITE_RECIPES,
-                            GlobalStaticVariables.FAVORITE_RECIPE_PATH, recipe.getId());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
+                }
             }
         }
 
@@ -273,7 +283,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
         activity.getWindow().clearFlags(
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        Intent intent = new Intent(activity, MainPage.class);
+        Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivity(intent);
         activity.finish();
     }

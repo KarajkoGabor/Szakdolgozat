@@ -112,8 +112,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
     public Category getCategoryById(long category_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM " + TABLE_CATEGORY + " WHERE"
-                + KEY_ID + "=" + category_id;
+        String selectQuery = "SELECT * FROM " + TABLE_CATEGORY + " WHERE "
+                + KEY_ID + " = " + category_id;
 
         Log.w(GlobalStaticVariables.LOG_TAG_SQL, selectQuery);
 
@@ -124,6 +124,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
         }
 
         Category category = new Category();
+        assert c != null;
         category.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         category.setName(c.getString(c.getColumnIndex(KEY_NAME)));
         if (c.getInt(c.getColumnIndex(KEY_IS_DOWNLOADED)) == 1) {
@@ -373,6 +374,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             } else {
                 recipe.setFavorite(false);
             }
+            recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
             recipe.setRecipeURL(c.getString(c.getColumnIndex(KEY_LINK)));
             if (c.getInt(c.getColumnIndex(KEY_IS_NOTE)) == 1) {
                 recipe.setNoteAdded(true);
@@ -380,15 +382,6 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 recipe.setNoteAdded(false);
             }
         }
-//        if(recipe == null){
-//            Log.w(GlobalStaticVariables.GlobalStaticVariables.LOG_TAG_SQL_TAG, "No entry for recipeID " + recipeID);
-//            try {
-//                throw new Exception("There is no recipe in the DB for that name " +  recipeID);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         return recipe;
 
     }

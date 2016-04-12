@@ -130,24 +130,6 @@ public class SavedRecipes extends ListActivity {
 
 	private void setAdapter(ArrayList<String> recipeTitles) {
 
-//		File storagePath = Environment.getExternalStorageDirectory();
-//		String storeImagePath = null;
-//		storeImagePath = storagePath + GlobalStaticVariables.SAVED_RECIPE_PATH
-//				+ "Images/";
-//		for (int i = 0; i < recipeTitles.size(); i++) {
-//			String storeImage = recipeTitles.get(i) + "0" + ".jpg";
-//			storeImage = storeImagePath + storeImage;
-//			Log.w(GlobalStaticVariables.LOG_TAG, storeImage);
-//			try {
-//				Bitmap tempBitmap = BitmapFactory.decodeFile(storeImage);
-//				tempBitmap.recycle();
-//			} catch (Exception e) {
-//				Toast.makeText(this,
-//						"Elfogyott a mem�ria a k�p bet�lt�se k�zben!",
-//						Toast.LENGTH_LONG).show();
-//			}
-//		}
-
 		SavedListAdapter adapter = new SavedListAdapter(this, recipeTitles,
 				 R.layout.list_row_saved);
 		setListAdapter(adapter);

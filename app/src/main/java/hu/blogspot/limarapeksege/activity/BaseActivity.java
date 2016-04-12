@@ -11,10 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -24,13 +26,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.MainPageGridAdapter;
 import hu.blogspot.limarapeksege.adapters.NavigationDrawerListAdapter;
 import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
 import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.model.Recipe;
 import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.handlers.file.FileHandler;
 import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
 public class BaseActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -38,6 +44,8 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
     private ActionBarDrawerToggle right_actionBarDrawerToggle;
     private AnalyticsTracker trackerApp;
     private static String currentClassName;
+    private DrawerLayout drawerLayout;
+    private SqliteHelper db;
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     protected void onCreateDrawer(List<DrawerListItem> leftDrawerItems, String currentClassName) {
@@ -46,8 +54,9 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
         setDrawerContainerWidth(R.id.right_drawer_container);
 
         BaseActivity.currentClassName = currentClassName;
+        db = SqliteHelper.getInstance(this);
 
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         left_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
         right_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
@@ -117,13 +126,13 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
         return new ActionBarDrawerToggle((Activity) this, drawerLayout, 0, 0) {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(R.string.limara);
+//                getActionBar().setTitle(R.string.limara);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_close_nav_drawer), BaseActivity.currentClassName);
             }
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(R.string.limara);
+//                getActionBar().setTitle(R.string.limara);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_open_nav_drawer), BaseActivity.currentClassName);
             }
 
@@ -140,20 +149,23 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int drawerItemPosition, long id) {
-        Intent intent = null;
-        Bundle sendData = new Bundle();
-        if(parent.getId() == R.id.left_drawer){
+
+        if (parent.getId() == R.id.left_drawer) {
+            Intent intent = null;
+            Bundle sendData = new Bundle();
             Log.w(GlobalStaticVariables.LOG_TAG, "Left drawer");
             switch (drawerItemPosition) {
                 case 0:
-                    intent = new Intent(BaseActivity.this, MainPage.class);
+                    intent = new Intent(BaseActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     break;
                 case 1:
-                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
+                    setGridAdapter(collectRecipesBasedOnDirectory(GlobalStaticVariables.SAVED_RECIPE_PATH));
+//                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
                     break;
                 case 2:
-                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
+                    setGridAdapter(collectRecipesBasedOnDirectory(GlobalStaticVariables.FAVORITE_RECIPE_PATH));
+//                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
                     break;
                 case 3:
                     intent = new Intent(BaseActivity.this, RecipeSearch.class);
@@ -169,33 +181,28 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
                     intent = new Intent(BaseActivity.this, MainPage.class); // MainPage as default
                     break;
             }
-        }else if(parent.getId() == R.id.right_drawer){
-            Log.w(GlobalStaticVariables.LOG_TAG, "Right drawer");
-            switch (drawerItemPosition) {
-                case 0:
-                    intent = new Intent(BaseActivity.this, MainPage.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    break;
-                case 1:
-                    intent = new Intent(BaseActivity.this, AboutActivity.class);
-                    break;
 
-                default:
-                    intent = new Intent(BaseActivity.this, MainPage.class); // MainPage as default
-                    break;
+            if(intent != null){
+                sendData.putInt("position", drawerItemPosition);
+                intent.putExtras(sendData);
+
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_choose_nav_drawer), BaseActivity.currentClassName);
+                startActivity(intent);
             }
 
+
+        } else if (parent.getId() == R.id.right_drawer) {
+            Log.w(GlobalStaticVariables.LOG_TAG, "Right drawer");
+
+            DrawerListItem drawerListItem = (DrawerListItem) parent.getItemAtPosition(drawerItemPosition);
+            Category selectedCategory = db.getCategoryById(drawerListItem.getItemId());
+
+            setGridAdapter((ArrayList<Recipe>) db.getRecipesByCategoryID(selectedCategory.getId()));
+
         }
-
-        assert intent != null;
-        sendData.putInt("position", drawerItemPosition);
-        intent.putExtras(sendData);
-
-        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_choose_nav_drawer), BaseActivity.currentClassName);
-        startActivity(intent);
     }
 
-    private List<DrawerListItem> getRightDrawerListItems(){
+    private List<DrawerListItem> getRightDrawerListItems() {
 
         List<DrawerListItem> drawerListItems = new ArrayList<>();
         SqliteHelper db = SqliteHelper.getInstance(BaseActivity.this);
@@ -205,12 +212,36 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
         TypedArray icons = this.getResources().obtainTypedArray(
                 R.array.category_icons);
 
-        for(int i = 0; i < categoryList.size(); i++){
-            DrawerListItem drawerListItem = new DrawerListItem(categoryList.get(i).getName(), icons.getResourceId(i, -1));
+        for (int i = 0; i < categoryList.size(); i++) {
+            DrawerListItem drawerListItem = new DrawerListItem(categoryList.get(i).getName(), icons.getResourceId(i, -1), categoryList.get(i).getId());
             drawerListItems.add(drawerListItem);
         }
 
         return drawerListItems;
+
+    }
+
+
+    private void setGridAdapter(ArrayList<Recipe> recipeList){
+
+        GridViewWithHeaderAndFooter mainGridView = (GridViewWithHeaderAndFooter) findViewById(R.id.mainPageGridView);
+        MainPageGridAdapter adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, recipeList);
+        mainGridView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        drawerLayout.closeDrawers();
+
+    }
+
+    private ArrayList<Recipe> collectRecipesBasedOnDirectory(String directoryPath){
+
+        FileHandler fileHandler = new FileHandler();
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+
+        for(String fileName : fileHandler.getFileNamesFromDirectory(directoryPath)){
+            recipeList.add(db.getRecipeById(fileName));
+        }
+
+        return recipeList;
 
     }
 

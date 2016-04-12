@@ -1,12 +1,5 @@
 package hu.blogspot.limarapeksege.util;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.CategoryPageGridAdapter;
-import hu.blogspot.limarapeksege.model.GridItem;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -14,6 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 import android.widget.GridView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.CategoryPageGridAdapter;
+import hu.blogspot.limarapeksege.model.GridItem;
 
 public class RecipeCategoryGridMaker {
 

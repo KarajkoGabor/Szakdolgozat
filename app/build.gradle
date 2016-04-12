@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "hu.blogspot.limarapeksege"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         multiDexEnabled true
     }
@@ -37,4 +37,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
 }

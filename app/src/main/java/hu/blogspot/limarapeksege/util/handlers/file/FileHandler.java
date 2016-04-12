@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
@@ -127,6 +128,19 @@ public class FileHandler {
                 Environment.getExternalStorageDirectory() + GlobalStaticVariables.IMAGES_PATH);
 
         return imageFiles.listFiles();
+    }
+
+    public ArrayList<String> getFileNamesFromDirectory(String path){
+
+        File filesLocation = new File(Environment.getExternalStorageDirectory() + path);
+
+        List<String> fileNames = new LinkedList<>(Arrays.asList(filesLocation.list()));
+
+        if(fileNames.contains("Images")){
+            fileNames.remove("Images");
+        }
+
+        return new ArrayList<>(fileNames);
     }
 
 

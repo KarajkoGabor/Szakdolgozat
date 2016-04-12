@@ -27,8 +27,8 @@ public class XmlParser {
                     if (mode.equals("category")) {
 
                         Category tempCategory = new Category();
-                        tempCategory.setLabel(xpp.getAttributeValue(0));
-                        tempCategory.setName(xpp.getAttributeValue(1));
+                        tempCategory.setName(xpp.getAttributeValue(0));
+                        tempCategory.setLabel(xpp.getAttributeValue(1));
                         tempResultListCategory.add(tempCategory);
                         resultList = tempResultListCategory;
                         Log.w(GlobalStaticVariables.LOG_TAG, "Category parsed with label " + tempCategory.getLabel() + " and name " + tempCategory.getName());

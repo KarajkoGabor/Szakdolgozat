@@ -510,8 +510,6 @@
     <Recipe
         apiName="Forralt bor"
         htmlName="Forraltbor" />
-<<<<<<< HEAD
-=======
     <Recipe
         apiName="Bosch dícsérete-piskótatészta pillanatok alatt"
         htmlName="Joghurttorta" />
@@ -677,5 +675,8 @@
         apiName="Humusz, baba ganoush"
         htmlName="Hummusz és baba ganoush" />
 
->>>>>>> master
+    <Recipe
+        apiName="Fahéjas rózsakalács"
+        htmlName="fahéjas rózsakalács" />
+
 </WrongRecipes>
