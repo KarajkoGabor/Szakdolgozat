@@ -2,6 +2,7 @@ package hu.blogspot.limarapeksege.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,11 +14,14 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,7 @@ import in.srain.cube.views.GridViewWithHeaderAndFooter;
 public class MainActivity extends BaseActivity{
 
     private AnalyticsTracker trackerApp;
+    private MainPageGridAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +78,8 @@ public class MainActivity extends BaseActivity{
         View headerView = layoutInflater.inflate(R.layout.grid_header_layout, null, false);
         GridViewWithHeaderAndFooter mainGridView = (GridViewWithHeaderAndFooter) findViewById(R.id.mainPageGridView);
 
-        MainPageGridAdapter adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, (ArrayList<Recipe>) db.getAllRecipes());
+        adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, (ArrayList<Recipe>) db.getAllRecipes());
         mainGridView.addHeaderView(headerView);
-        mainGridView.setAdapter(adapter);
         mainGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -85,6 +89,7 @@ public class MainActivity extends BaseActivity{
             }
 
         });
+        mainGridView.setAdapter(adapter);
 
         db.closeDatabase();
     }
@@ -114,8 +119,60 @@ public class MainActivity extends BaseActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.recipe_list, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        searchManager.setOnCancelListener(new SearchManager.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                Log.w(GlobalStaticVariables.LOG_TAG, "cancel");
+            }
+        });
+
+        searchView.setSubmitButtonEnabled(false);
+
+        searchView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe_list), getString(R.string.analytics_use_of_search_bar));
+                return false;
+            }
+        });
+
+        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                adapter.getFilter().filter(query);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextSubmit " + query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+//                lv.setFilterText(newText);
+
+                adapter.getFilter().filter(newText);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextChange " + newText);
+
+                return true;
+            }
+
+
+        };
+
+        searchView.setOnQueryTextListener(textListener);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -2,7 +2,9 @@ package hu.blogspot.limarapeksege.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +26,6 @@ import hu.blogspot.limarapeksege.asyncs.AsyncRecipeSaveClass;
 import hu.blogspot.limarapeksege.model.Recipe;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
 public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.OnClickListener {
@@ -34,7 +33,8 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
     private Context context;
     private int resource;
     private ArrayList<Recipe> recipeList;
-    private int currentSize;
+    private int itemHeightPixels;
+    private int itemWidthPixels;
     private SqliteHelper db;
 //    Category currentCategory;
 
@@ -81,10 +81,10 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
         tempHolder.gridItemCategoryTitle.setText(db.getCategoryById(currentRecipe.getCategory_id()).getName());
         tempHolder.gridFavoriteButton.setOnClickListener(this);
         tempHolder.gridSaveButton.setOnClickListener(this);
-        tempHolder.gridSaveButton.setOnClickListener(this);
         tempHolder.gridSaveButton.setTag(currentRecipe);
         tempHolder.gridFavoriteButton.setTag(currentRecipe);
-        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).fitCenter().into(tempHolder.gridItemIcon);
+
+        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).into(tempHolder.gridItemIcon);
 //        tempHolder.gridItemIcon.setImageBitmap(actualRecipe.getRecipeThumbnailUrl());
 
         return gridView;
@@ -108,25 +108,36 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
 
         DisplayMetrics metrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(metrics);
-        int heightPixels = metrics.heightPixels;
-        this.currentSize = heightPixels / 4;
+
+        itemHeightPixels = metrics.heightPixels / 4;
+        itemWidthPixels = metrics.widthPixels / 2;
 
         if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             Log.w(GlobalStaticVariables.LOG_TAG, "large");
-            this.currentSize = heightPixels / 4;
+            itemHeightPixels= metrics.heightPixels / 4;
+            itemWidthPixels = metrics.widthPixels/ 2;
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
             Log.w(GlobalStaticVariables.LOG_TAG, "xlarge");
-            this.currentSize = heightPixels / 6;
+            itemHeightPixels= metrics.heightPixels / 6;
+            itemWidthPixels = metrics.widthPixels / 3;
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
             Log.w(GlobalStaticVariables.LOG_TAG, "normall");
-            this.currentSize = heightPixels / 4;
+            itemHeightPixels= metrics.heightPixels / 3;
+            itemWidthPixels = metrics.widthPixels / 2;
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
             Log.w(GlobalStaticVariables.LOG_TAG, "small");
-            this.currentSize = heightPixels / 3;
+            itemHeightPixels= metrics.heightPixels / 3;
+            itemWidthPixels = metrics.widthPixels / 2;
         }
 
-        gridView.setMinimumHeight(this.currentSize);
-        gridView.setMinimumWidth(this.currentSize);
+//        ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
+//        layoutParams.height = itemHeightPixels;
+//        layoutParams.width = itemWidthPixels-50;
+//
+//        gridView.setLayoutParams(layoutParams);
+
+        gridView.setMinimumHeight(itemHeightPixels);
+        gridView.setMinimumWidth(itemWidthPixels);
 
     }
 

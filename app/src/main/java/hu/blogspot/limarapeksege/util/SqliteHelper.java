@@ -291,7 +291,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 } else {
                     recipe.setNoteAdded(false);
                 }
-
+                recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+                recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
                 recipes.add(recipe);
             } while (c.moveToNext());
         }
@@ -338,7 +339,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
                     recipe.setNoteAdded(false);
                 }
 
-//				recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+				recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+                recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
+
                 recipes.add(recipe);
             } while (c.moveToNext());
         }
@@ -376,6 +379,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
             }
             recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
             recipe.setRecipeURL(c.getString(c.getColumnIndex(KEY_LINK)));
+            recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
+
             if (c.getInt(c.getColumnIndex(KEY_IS_NOTE)) == 1) {
                 recipe.setNoteAdded(true);
             } else {
@@ -404,6 +409,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
             recipe.setId(c.getString(c.getColumnIndex(KEY_ID)));
             recipe.setRecipeName(c.getString(c.getColumnIndex(KEY_NAME)));
             recipe.setRecipeThumbnailUrl(c.getString(c.getColumnIndex(KEY_IMG_THUMBNAIL)));
+            recipe.setCategory_id(c.getInt(c.getColumnIndex(KEY_CATEGORY_ID)));
+
             if (c.getInt(c.getColumnIndex(KEY_IS_SAVED)) == 1) {
                 recipe.setSaved(true);
             } else {

@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId "hu.blogspot.limarapeksege"
         minSdkVersion 17
-        targetSdkVersion 22
+        targetSdkVersion 23
         multiDexEnabled true
     }
     buildTypes {

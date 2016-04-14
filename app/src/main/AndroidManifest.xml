@@ -36,7 +36,11 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+            <meta-data
+                android:name="searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".activity.RecipeCategory"

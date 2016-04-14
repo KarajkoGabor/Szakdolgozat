@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_page_grid_item_selector"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/recipeThumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/main_page_icon_descp" />
+        android:contentDescription="@string/main_page_icon_descp"
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/recipeTitle"
@@ -19,9 +21,9 @@
         android:layout_marginTop="1dp"
         android:gravity="start"
         android:lines="1"
+        android:paddingEnd="2dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        android:paddingEnd="2dp"
         android:paddingStart="2dp"
         android:textColor="#9C27B0"
         android:textSize="14sp" />
@@ -48,9 +50,11 @@
             android:id="@+id/saveGridButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:gravity="center"
             android:layout_height="wrap_content"
             android:contentDescription="save button on main grid"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
             android:src="@drawable/ic_file_download_black_24dp"
             android:text="@string/recipe_save" />
 
@@ -58,9 +62,11 @@
             android:id="@+id/favoriteGridButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:gravity="center"
             android:layout_height="wrap_content"
             android:contentDescription="favorite button on main grid"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
             android:src="@drawable/ic_favorite_black_24dp"
             android:text="@string/menu_favorite" />
     </LinearLayout>

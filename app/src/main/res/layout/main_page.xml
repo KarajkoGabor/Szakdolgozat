@@ -12,6 +12,7 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:descendantFocusability="blocksDescendants"
         android:fadingEdge="vertical"
         android:focusable="false"
         android:horizontalSpacing="5dp"
