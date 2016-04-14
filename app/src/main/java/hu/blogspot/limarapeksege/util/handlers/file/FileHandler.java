@@ -18,6 +18,7 @@ import java.util.List;
 import android.content.Context;
 import android.os.Environment;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.opencsv.CSVWriter;
@@ -27,6 +28,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public class FileHandler {
+
+    private static final String SEGITSUTI = "Csokis rugelach - Segítsüti 2013";
+    private static final String ADVENTI_2013 = "Adventi koszorú 2013";
+    private static final String MEZESKALACS_2010 = "Mézeskalács adventi koszorú 2010";
+
 
     public void writeToFile(String textToWrite, String recipTypeToSave,
                             String folderPathToSave, String outputFileName) {
@@ -78,9 +84,9 @@ public class FileHandler {
 
         for (File currentFile : oldFiles) {
 
-            if(currentFile.getName().matches(regexWrongFile)){
+            if (currentFile.getName().matches(regexWrongFile)) {
                 currentFile.delete();
-            } else if(!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName()) && !StringUtil.isNumeric(currentFile.getName().split("_")[0])){
+            } else if (!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName()) && !StringUtil.isNumeric(currentFile.getName().split("_")[0])) {
 
                 WrongRecipeData tempWrongRecipeData = new WrongRecipeData();
                 tempWrongRecipeData.setHtmlName(currentFile.getName());
@@ -88,14 +94,35 @@ public class FileHandler {
 
                 if (wrongRecipeDatasList.contains(tempWrongRecipeData)) {
                     newFileName = db.getRecipeByName(wrongRecipeDatasList.get(wrongRecipeDatasList.indexOf(tempWrongRecipeData)).getApiName()).getId();
-                }else if(currentFile.getName().matches(regexForImages)){
+                } else if (currentFile.getName().matches(regexForImages)) {
                     String[] splittedFileName = currentFile.getName().split("(?<=\\d)|(?=\\d)");
-                    tempWrongRecipeData.setHtmlName(splittedFileName[0]);
+                    int splitSize = splittedFileName.length;
+                    String beforeLastSplittedElement = splittedFileName[splitSize - 1];
+                    String twoBeforeLastSplittedElement = splittedFileName[splitSize - 2];
+                    String threeBeforeLastSplittedElement = splittedFileName[splitSize - 3];
+                    String numbersAtEndOfImageFile = "";
+                    String recipeName = "";
+                    if (!StringUtil.isNumeric(beforeLastSplittedElement) && StringUtil.isNumeric(twoBeforeLastSplittedElement) && StringUtil.isNumeric(threeBeforeLastSplittedElement)
+                            && !SEGITSUTI.contains(splittedFileName[0])
+                            && !ADVENTI_2013.contains(splittedFileName[0])
+                            && !MEZESKALACS_2010.contains(splittedFileName[0])) { //kétjegyű szám
+                        numbersAtEndOfImageFile = "_" + splittedFileName[splitSize - 3] + splittedFileName[splitSize - 2] + splittedFileName[splitSize - 1]; //kétjegyű szám
+                        for (int i = 0; i < splitSize - 3; i++) {
+                            recipeName += splittedFileName[i];
+                        }
+                    } else {
+                        numbersAtEndOfImageFile = "_" + splittedFileName[splitSize - 2] + splittedFileName[splitSize - 1];
+                        for (int i = 0; i < splitSize - 2; i++) {
+                            recipeName += splittedFileName[i];
+                        }
+                    }
+
+                    tempWrongRecipeData.setHtmlName(recipeName);
                     if (wrongRecipeDatasList.contains(tempWrongRecipeData)) {
                         String tempRecipeId = db.getRecipeByName(wrongRecipeDatasList.get(wrongRecipeDatasList.indexOf(tempWrongRecipeData)).getApiName()).getId();
-                        newFileName ="/" + tempRecipeId + "_" + splittedFileName[1] + splittedFileName[2];
-                    }else{
-                        newFileName ="/" + db.getRecipeByName(splittedFileName[0]).getId() + "_" + splittedFileName[1] + splittedFileName[2]; //TODO kétszámjegyű
+                        newFileName = "/" + tempRecipeId + numbersAtEndOfImageFile; //kétjegyű szám
+                    } else {
+                        newFileName = "/" + db.getRecipeByName(recipeName).getId() + numbersAtEndOfImageFile; //TODO kétszámjegyű
                     }
                 } else {
                     newFileName = db.getRecipeByName(currentFile.getName()).getId();
