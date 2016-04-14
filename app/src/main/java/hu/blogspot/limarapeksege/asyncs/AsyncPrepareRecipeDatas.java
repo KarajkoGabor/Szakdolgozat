@@ -96,9 +96,8 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
 
         if(isQuickFix()){
             clearApplicationData();
-        }
+        }else if (isFirstRun() || !isDownloadedRecipesPrepared()) {
 
-        if (isFirstRun() || !isDownloadedRecipesPrepared()) {
             db.deleteCategoryTable();
             db.deleteRecipeTable();
         }

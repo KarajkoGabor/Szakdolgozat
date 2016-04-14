@@ -2,39 +2,42 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 22
+    signingConfigs {
+    }
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
-
     compileOptions.encoding = 'utf-8'
-
     repositories {
         mavenCentral()
     }
-
     defaultConfig {
         applicationId "hu.blogspot.limarapeksege"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 22
         multiDexEnabled true
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    useLibrary 'org.apache.http.legacy'
+    productFlavors {
+    }
 }
 
 dependencies {
-//    compile files('libs/android-support-v13.jar')
+    //    compile files('libs/android-support-v13.jar')
     compile files('libs/jsoup-1.7.1.jar')
     compile files('libs/opencsv-3.4.jar')
     compile 'com.google.apis:google-api-services-blogger:v3-rev48-1.20.0'
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:support-v4:22.0.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.facebook.android:facebook-android-sdk:4.8.0'
+    compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
 }
