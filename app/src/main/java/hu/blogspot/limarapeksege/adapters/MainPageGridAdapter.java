@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -84,7 +85,7 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
         tempHolder.gridSaveButton.setTag(currentRecipe);
         tempHolder.gridFavoriteButton.setTag(currentRecipe);
 
-        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).into(tempHolder.gridItemIcon);
+        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).override(300,itemHeightPixels).into(tempHolder.gridItemIcon);
 //        tempHolder.gridItemIcon.setImageBitmap(actualRecipe.getRecipeThumbnailUrl());
 
         return gridView;
@@ -130,14 +131,14 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
             itemWidthPixels = metrics.widthPixels / 2;
         }
 
-//        ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
-//        layoutParams.height = itemHeightPixels;
-//        layoutParams.width = itemWidthPixels-50;
-//
-//        gridView.setLayoutParams(layoutParams);
+        ViewGroup.LayoutParams layoutParams = gridView.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        layoutParams.width = 300;
 
-        gridView.setMinimumHeight(itemHeightPixels);
-        gridView.setMinimumWidth(itemWidthPixels);
+        gridView.setLayoutParams(layoutParams);
+
+//        gridView.setMinimumHeight(300);
+//        gridView.setMinimumWidth(400);
 
     }
 
