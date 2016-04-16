@@ -32,7 +32,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation"
-            android:label="@string/title_activity_main_page"
+            android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

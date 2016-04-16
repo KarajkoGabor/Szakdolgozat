@@ -5,21 +5,29 @@
     android:layout_height="fill_parent">
 
 
-    <in.srain.cube.views.GridViewWithHeaderAndFooter
+    <!--<in.srain.cube.views.GridViewWithHeaderAndFooter-->
+    <!--android:id="@+id/mainPageGridView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:descendantFocusability="blocksDescendants"-->
+    <!--android:fadingEdge="vertical"-->
+    <!--android:focusable="false"-->
+    <!--android:horizontalSpacing="5dp"-->
+    <!--android:scrollbarStyle="outsideOverlay"-->
+    <!--android:scrollbars="vertical"-->
+    <!--android:stretchMode="columnWidth"-->
+    <!--android:verticalSpacing="5dp" />-->
+    <com.etsy.android.grid.StaggeredGridView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mainPageGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:descendantFocusability="blocksDescendants"
-        android:fadingEdge="vertical"
-        android:focusable="false"
-        android:horizontalSpacing="5dp"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        app:column_count="2"
+        app:item_margin="8dp" />
 
     <LinearLayout
         android:id="@+id/left_drawer_container"

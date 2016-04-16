@@ -8,6 +8,7 @@
         <item name="actionBarStyle">@style/ThemeActionBar</item>
         <item name="windowActionBarOverlay">true</item>
 
+        <item name="logo">@android:color/transparent</item>
     </style>
 
     <style name="CodeFont" parent="@android:style/TextAppearance.Medium">

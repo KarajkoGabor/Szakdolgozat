@@ -20,8 +20,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.SearchView;
+
+import com.etsy.android.grid.StaggeredGridView;
+import com.manuelpeinado.fadingactionbar.extras.actionbarcompat.FadingActionBarHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +80,7 @@ public class MainActivity extends BaseActivity{
         SqliteHelper db = SqliteHelper.getInstance(this);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View headerView = layoutInflater.inflate(R.layout.grid_header_layout, null, false);
-        GridViewWithHeaderAndFooter mainGridView = (GridViewWithHeaderAndFooter) findViewById(R.id.mainPageGridView);
+        StaggeredGridView mainGridView = (StaggeredGridView) findViewById(R.id.mainPageGridView);
 
         adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, (ArrayList<Recipe>) db.getAllRecipes());
         mainGridView.addHeaderView(headerView);
@@ -84,12 +88,15 @@ public class MainActivity extends BaseActivity{
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Recipe selectedRecipe = (Recipe) parent.getItemAtPosition(position+2);
-                startNewActivity(selectedRecipe);
+                if(position > 0) {
+                    Recipe selectedRecipe = (Recipe) parent.getItemAtPosition(position);
+                    startNewActivity(selectedRecipe);
+                }
             }
 
         });
         mainGridView.setAdapter(adapter);
+
 
         db.closeDatabase();
     }

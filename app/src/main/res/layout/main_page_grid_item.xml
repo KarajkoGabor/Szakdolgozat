@@ -7,13 +7,19 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
-    <ImageView
+    <com.etsy.android.grid.util.DynamicHeightImageView
         android:id="@+id/recipeThumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:contentDescription="@string/main_page_icon_descp" />
+    <!--<ImageView-->
+    <!--android:id="@+id/recipeThumbnail"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:contentDescription="@string/main_page_icon_descp" />-->
 
-    <TextView
+    <com.etsy.android.grid.util.DynamicHeightTextView
         android:id="@+id/recipeTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +33,7 @@
         android:textColor="#9C27B0"
         android:textSize="14sp" />
 
-    <TextView
+    <com.etsy.android.grid.util.DynamicHeightTextView
         android:id="@+id/recipeCategoryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

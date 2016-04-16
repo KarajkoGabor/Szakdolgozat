@@ -224,7 +224,7 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
 
     private void setGridAdapter(ArrayList<Recipe> recipeList){
 
-        GridViewWithHeaderAndFooter mainGridView = (GridViewWithHeaderAndFooter) findViewById(R.id.mainPageGridView);
+        StaggeredGridView mainGridView = (StaggeredGridView) findViewById(R.id.mainPageGridView);
         MainPageGridAdapter adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, recipeList);
         mainGridView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.etsy.android.grid.StaggeredGridView;
+import com.etsy.android.grid.util.DynamicHeightImageView;
+import com.etsy.android.grid.util.DynamicHeightTextView;
 
 import java.util.ArrayList;
 
@@ -34,8 +37,8 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
     private Context context;
     private int resource;
     private ArrayList<Recipe> recipeList;
-    private int itemHeightPixels;
-    private int itemWidthPixels;
+    private int itemHeightPixels = 400;
+    private int itemWidthPixels = 400;
     private SqliteHelper db;
 //    Category currentCategory;
 
@@ -61,13 +64,13 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
 
             setGridViewItemSizeBasedOnDisplaySize((LinearLayout) gridView);
 
-            setNumberOfColumns((GridViewWithHeaderAndFooter) parent);
+            setNumberOfColumns((StaggeredGridView) parent);
 
-            tempHolder.gridItemIcon = (ImageView) gridView
+            tempHolder.gridItemIcon = (DynamicHeightImageView) gridView
                     .findViewById(R.id.recipeThumbnail);
-            tempHolder.gridItemTitle = (TextView) gridView
+            tempHolder.gridItemTitle = (DynamicHeightTextView) gridView
                     .findViewById(R.id.recipeTitle);
-            tempHolder.gridItemCategoryTitle = (TextView) gridView.findViewById(R.id.recipeCategoryTitle);
+            tempHolder.gridItemCategoryTitle = (DynamicHeightTextView) gridView.findViewById(R.id.recipeCategoryTitle);
             tempHolder.gridSaveButton = (ImageButton) gridView.findViewById(R.id.saveGridButton);
             tempHolder.gridFavoriteButton = (ImageButton) gridView.findViewById(R.id.favoriteGridButton);
 
@@ -85,21 +88,25 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
         tempHolder.gridSaveButton.setTag(currentRecipe);
         tempHolder.gridFavoriteButton.setTag(currentRecipe);
 
-        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).override(300,itemHeightPixels).into(tempHolder.gridItemIcon);
+        Glide.with(this.context).load(currentRecipe.getRecipeThumbnailUrl()).override(400,itemHeightPixels).fitCenter().into(tempHolder.gridItemIcon);
 //        tempHolder.gridItemIcon.setImageBitmap(actualRecipe.getRecipeThumbnailUrl());
 
         return gridView;
     }
 
-    private void setNumberOfColumns(GridViewWithHeaderAndFooter gridView) {
+    private void setNumberOfColumns(StaggeredGridView gridView) {
         if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
-            gridView.setNumColumns(3);
+//            gridView.setNumColumns(3);
+            gridView.setColumnCount(3);
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
-            gridView.setNumColumns(4);
+//            gridView.setNumColumns(4);
+            gridView.setColumnCount(4);
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
-            gridView.setNumColumns(2);
+//            gridView.setNumColumns(2);
+            gridView.setColumnCount(2);
         } else if ((this.context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
-            gridView.setNumColumns(2);
+//            gridView.setNumColumns(2);
+            gridView.setColumnCount(2);
         }
     }
 
@@ -157,9 +164,9 @@ public class MainPageGridAdapter extends ArrayAdapter<Recipe> implements View.On
     }
 
     static class TempHolder {
-        TextView gridItemTitle;
-        TextView gridItemCategoryTitle;
-        ImageView gridItemIcon;
+        DynamicHeightTextView gridItemTitle;
+        DynamicHeightTextView gridItemCategoryTitle;
+        DynamicHeightImageView gridItemIcon;
         ImageButton gridSaveButton;
         ImageButton gridFavoriteButton;
     }
