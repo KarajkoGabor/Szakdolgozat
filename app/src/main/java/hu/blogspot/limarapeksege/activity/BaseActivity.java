@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.etsy.android.grid.StaggeredGridView;
+
 import org.jsoup.Connection;
 
 import java.util.ArrayList;
