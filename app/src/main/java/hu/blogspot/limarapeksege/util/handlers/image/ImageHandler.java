@@ -1,22 +1,21 @@
 package hu.blogspot.limarapeksege.util.handlers.image;
 
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import android.os.Environment;
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.os.Environment;
-import android.util.Log;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 
 public class ImageHandler {
 

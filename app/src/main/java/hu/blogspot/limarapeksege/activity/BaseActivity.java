@@ -2,27 +2,39 @@ package hu.blogspot.limarapeksege.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
-
-import org.jsoup.Connection;
+import com.google.api.client.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +49,8 @@ import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 import hu.blogspot.limarapeksege.util.SqliteHelper;
 import hu.blogspot.limarapeksege.util.handlers.file.FileHandler;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
 
-public class BaseActivity extends Activity implements AdapterView.OnItemClickListener {
+public class BaseActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ActionBarDrawerToggle left_actionBarDrawerToggle;
     private ActionBarDrawerToggle right_actionBarDrawerToggle;
@@ -48,55 +58,185 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
     private static String currentClassName;
     private DrawerLayout drawerLayout;
     private SqliteHelper db;
+    private Toolbar toolbar;
+    private MainPageGridAdapter adapter;
+    private StaggeredGridView mainGridView;
+    private boolean doubleBackToExitPressedOnce = false;
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    protected void onCreateDrawer(List<DrawerListItem> leftDrawerItems, String currentClassName) {
+    protected void onCreateDrawer(String currentClassName) {
+
+        initToolBar();
 
         setDrawerContainerWidth(R.id.left_drawer_container);
-        setDrawerContainerWidth(R.id.right_drawer_container);
 
         BaseActivity.currentClassName = currentClassName;
         db = SqliteHelper.getInstance(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        left_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
-        right_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
-
-        drawerLayout.addDrawerListener(left_actionBarDrawerToggle);
-        drawerLayout.addDrawerListener(right_actionBarDrawerToggle);
+        prepareLeftDrawer(drawerLayout);
+        if(!GlobalStaticVariables.RECIPE_PAGE_CLASS.contains(currentClassName)){
+            setDrawerContainerWidth(R.id.right_drawer_container);
+            prepareRightDrawer(drawerLayout);
+        }
 
         trackerApp = (AnalyticsTracker) getApplication();
 
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    private void prepareLeftDrawer(DrawerLayout drawerLayout){
+        left_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
+        drawerLayout.addDrawerListener(left_actionBarDrawerToggle);
         ListView leftDrawerList = (ListView) findViewById(R.id.left_drawer);
-        ListView rightDrawerList = (ListView) findViewById(R.id.right_drawer);
 
-        NavigationDrawerListAdapter leftDrawerAdapter = new NavigationDrawerListAdapter(this, leftDrawerItems, R.layout.custom_drawer_item);
-        NavigationDrawerListAdapter rightDrawerAdapter = new NavigationDrawerListAdapter(this, getRightDrawerListItems(), R.layout.custom_drawer_item);
+        NavigationDrawerListAdapter leftDrawerAdapter = new NavigationDrawerListAdapter(this, getLeftDrawerListItems(), R.layout.custom_drawer_item);
 
+        assert leftDrawerList != null;
         leftDrawerList.setAdapter(leftDrawerAdapter);
         leftDrawerList.setOnItemClickListener(this);
+    }
+    private void prepareRightDrawer(DrawerLayout drawerLayout){
+        right_actionBarDrawerToggle = setActionBarDrawerToggle(drawerLayout);
+        drawerLayout.addDrawerListener(right_actionBarDrawerToggle);
+        ListView rightDrawerList = (ListView) findViewById(R.id.right_drawer);
 
+        NavigationDrawerListAdapter rightDrawerAdapter = new NavigationDrawerListAdapter(this, getRightDrawerListItems(), R.layout.custom_drawer_item);
+
+        assert rightDrawerList != null;
         rightDrawerList.setAdapter(rightDrawerAdapter);
         rightDrawerList.setOnItemClickListener(this);
+    }
 
+    public void initToolBar() {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbarTitle("Összes recept");
+
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        drawerLayout.openDrawer(findViewById(R.id.left_drawer_container));
+                    }
+                }
+
+        );
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         left_actionBarDrawerToggle.syncState();
-        right_actionBarDrawerToggle.syncState();
+        if(!GlobalStaticVariables.RECIPE_PAGE_CLASS.contains(currentClassName)){
+            right_actionBarDrawerToggle.syncState();
+        }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_base, menu);
+
+        prepareSearchMenu(menu);
+        prepareMoreCategoriesMenu(menu);
+
         return true;
+    }
+
+    private void prepareMoreCategoriesMenu(Menu menu){
+
+        menu.findItem(R.id.moreCategories).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                drawerLayout.openDrawer(findViewById(R.id.right_drawer_container));
+                return false;
+            }
+        });
+
+    }
+
+
+    private void prepareSearchMenu(Menu menu) {
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        searchManager.setOnCancelListener(new SearchManager.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                Log.w(GlobalStaticVariables.LOG_TAG, "cancel");
+            }
+        });
+
+        searchView.setSubmitButtonEnabled(true);
+
+        searchView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe_list), getString(R.string.analytics_use_of_search_bar));
+                return false;
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int colorId = ContextCompat.getColor(BaseActivity.this, R.color.dark_primary_color);
+                int red = Color.red(colorId);
+                int green = Color.green(colorId);
+                int blue = Color.blue(colorId);
+
+                toolbar.setBackgroundColor(Color.rgb(red, green, blue));
+            }
+        });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    int colorId = ContextCompat.getColor(BaseActivity.this, R.color.dark_primary_color);
+                    int red = Color.red(colorId);
+                    int green = Color.green(colorId);
+                    int blue = Color.blue(colorId);
+
+                    toolbar.setBackgroundColor(Color.rgb(red, green, blue));
+                }
+            }
+        });
+
+        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                adapter.getFilter().filter(query);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextSubmit " + query);
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(BaseActivity.this.getCurrentFocus().getWindowToken(), 0);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                mainGridView.setFilterText(newText);
+
+                adapter.getFilter().filter(newText);
+                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextChange " + newText);
+
+                return true;
+            }
+
+
+        };
+
+        searchView.setOnQueryTextListener(textListener);
     }
 
     @Override
@@ -112,7 +252,9 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         left_actionBarDrawerToggle.onConfigurationChanged(newConfig);
-        right_actionBarDrawerToggle.onConfigurationChanged(newConfig);
+        if(!GlobalStaticVariables.RECIPE_PAGE_CLASS.contains(currentClassName)){
+            right_actionBarDrawerToggle.onConfigurationChanged(newConfig);
+        }
     }
 
     private void setDrawerContainerWidth(int viewId) {
@@ -128,13 +270,11 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
         return new ActionBarDrawerToggle((Activity) this, drawerLayout, 0, 0) {
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onDrawerClosed(View view) {
-//                getActionBar().setTitle(R.string.limara);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_close_nav_drawer), BaseActivity.currentClassName);
             }
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public void onDrawerOpened(View drawerView) {
-//                getActionBar().setTitle(R.string.limara);
                 trackerApp.sendTrackerEvent(getString(R.string.analytics_open_nav_drawer), BaseActivity.currentClassName);
             }
 
@@ -162,29 +302,30 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     break;
                 case 1:
+                    setContentView(R.layout.main_page);
+                    onCreateDrawer(GlobalStaticVariables.RECIPE_PAGE_CLASS);
                     setGridAdapter(collectRecipesBasedOnDirectory(GlobalStaticVariables.SAVED_RECIPE_PATH));
-//                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
+                    setToolbarTitle(getString(R.string.title_saved_recipes));
                     break;
                 case 2:
+                    setContentView(R.layout.main_page);
+                    onCreateDrawer(GlobalStaticVariables.RECIPE_PAGE_CLASS);
                     setGridAdapter(collectRecipesBasedOnDirectory(GlobalStaticVariables.FAVORITE_RECIPE_PATH));
-//                    intent = new Intent(BaseActivity.this, SavedRecipes.class);
+                    setToolbarTitle(getString(R.string.title_favorite_recipes));
                     break;
                 case 3:
-                    intent = new Intent(BaseActivity.this, RecipeSearch.class);
-                    break;
-                case 4:
                     intent = new Intent(BaseActivity.this, LoafMakingActivity.class);
                     break;
-                case 5:
+                case 4:
                     intent = new Intent(BaseActivity.this, AboutActivity.class);
                     break;
 
                 default:
-                    intent = new Intent(BaseActivity.this, MainPage.class); // MainPage as default
+                    intent = new Intent(BaseActivity.this, MainActivity.class);
                     break;
             }
 
-            if(intent != null){
+            if (intent != null) {
                 sendData.putInt("position", drawerItemPosition);
                 intent.putExtras(sendData);
 
@@ -200,8 +341,10 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
             Category selectedCategory = db.getCategoryById(drawerListItem.getItemId());
 
             setGridAdapter((ArrayList<Recipe>) db.getRecipesByCategoryID(selectedCategory.getId()));
+            setToolbarTitle(selectedCategory.getName());
 
         }
+        view.setSelected(true);
     }
 
     private List<DrawerListItem> getRightDrawerListItems() {
@@ -223,28 +366,174 @@ public class BaseActivity extends Activity implements AdapterView.OnItemClickLis
 
     }
 
+    private List<DrawerListItem> getLeftDrawerListItems() {
 
-    private void setGridAdapter(ArrayList<Recipe> recipeList){
+        DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home, 0);
+        DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp, 1);
+        DrawerListItem drawerListItemSavedRecipes = new DrawerListItem("Lementett receptek", R.drawable.ic_sd_card_black_24dp, 2);
+        DrawerListItem drawerListItemFavoriteRecipes = new DrawerListItem("Kedvenc receptek", R.drawable.ic_favorite_black_24dp, 3);
+        DrawerListItem drawerListItemLoafMaking = new DrawerListItem("Vekni formázása", R.drawable.loaf_icon, 4);
 
-        StaggeredGridView mainGridView = (StaggeredGridView) findViewById(R.id.mainPageGridView);
-        MainPageGridAdapter adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, recipeList);
-        mainGridView.setAdapter(adapter);
+        List<DrawerListItem> items = new ArrayList<>();
+        items.add(drawerListItemHome);
+        items.add(drawerListItemSavedRecipes);
+        items.add(drawerListItemFavoriteRecipes);
+        items.add(drawerListItemLoafMaking);
+        items.add(drawerListItemAbout);
+
+        return items;
+
+    }
+
+
+    protected void setGridAdapter(ArrayList<Recipe> recipeList) {
+
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View headerView = layoutInflater.inflate(R.layout.grid_header_layout, null, false);
+        mainGridView = (StaggeredGridView) findViewById(R.id.mainPageGridView);
+
+        assert mainGridView != null;
+
+        adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, recipeList);
         adapter.notifyDataSetChanged();
+
+        mainGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+
+                int colorId = ContextCompat.getColor(BaseActivity.this, R.color.dark_primary_color);
+                int red = Color.red(colorId);
+                int green = Color.green(colorId);
+                int blue = Color.blue(colorId);
+
+                int scrollPos = Math.abs(((StaggeredGridView) view).getDistanceToTop());
+                float bound = 1;
+                if (view.getChildAt(0) != null) {
+                    bound = view.getChildAt(0).getHeight();
+                }
+                float ratio = (float) (scrollPos / bound);
+
+                if (toolbar.getMenu().hasVisibleItems() && toolbar.getMenu().getItem(0).getActionView().hasFocus()) {
+                    ratio = 1;
+                }
+
+                if (scrollPos < bound) {
+                    toolbar.setBackgroundColor(Color.argb((int) (ratio * 255), red, green, blue));
+                }
+
+            }
+
+        });
+
+
+        if (mainGridView.getHeaderViewsCount() == 0) {
+            mainGridView.addHeaderView(headerView);
+        }
+
+
+        mainGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    Recipe selectedRecipe = (Recipe) parent.getItemAtPosition(position);
+                    startNewActivity(selectedRecipe);
+                }
+            }
+
+        });
+
+        mainGridView.setAdapter(adapter);
         drawerLayout.closeDrawers();
 
     }
 
-    private ArrayList<Recipe> collectRecipesBasedOnDirectory(String directoryPath){
+    private ArrayList<Recipe> collectRecipesBasedOnDirectory(String directoryPath) {
 
         FileHandler fileHandler = new FileHandler();
         ArrayList<Recipe> recipeList = new ArrayList<>();
 
-        for(String fileName : fileHandler.getFileNamesFromDirectory(directoryPath)){
+        for (String fileName : fileHandler.getFileNamesFromDirectory(directoryPath)) {
             recipeList.add(db.getRecipeById(fileName));
         }
 
         return recipeList;
 
+    }
+
+    private void startNewActivity(Recipe recipe) {
+        Bundle bundleData = new Bundle();
+        Log.w(GlobalStaticVariables.LOG_TAG, "Selected recipe " + recipe.getRecipeName());
+
+        Class<?> selectedRecipePage = null;
+
+        try {
+            selectedRecipePage = Class.forName(GlobalStaticVariables.RECIPE_PAGE_CLASS);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Intent openRecipe = new Intent(BaseActivity.this, selectedRecipePage);
+
+        if (toolbar.getTitle().equals(getString(R.string.title_saved_recipes))) {
+            bundleData.putBoolean("saved", true);
+        } else if (toolbar.getTitle().equals(getString(R.string.title_favorite_recipes))) {
+            bundleData.putBoolean("favorite", true);
+        } else {
+            bundleData.putBoolean("online", true);
+        }
+
+        bundleData.putString("id", recipe.getId());
+
+        openRecipe.putExtras(bundleData);
+        if ((bundleData.getBoolean("online") && isNetworkAvailable())
+                || bundleData.getBoolean("saved")
+                || bundleData.getBoolean("favorite")) {
+            Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
+            trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_recipe));
+            startActivity(openRecipe);
+        } else {
+            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    protected void setToolbarTitle(String title) {
+        toolbar.setTitle(title);
+    }
+
+    protected boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager
+                .getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Kilépéshez nyomja meg még egyszer a VISSZA gombot", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }

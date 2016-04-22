@@ -1,24 +1,22 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.adapters.LoafMakingPageAdapter;
-import hu.blogspot.limarapeksege.util.AnalyticsTracker;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.XmlParser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
-import com.google.android.gms.analytics.Tracker;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.adapters.LoafMakingPageAdapter;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.XmlParser;
 
 public class LoafMakingActivity extends Activity {
 
@@ -41,8 +39,7 @@ public class LoafMakingActivity extends Activity {
                 R.drawable.loaf5, R.drawable.loaf7, R.drawable.loaf9,
                 R.drawable.loaf10};
 
-        texts = new ArrayList<String>();
-        XmlParser parser = new XmlParser();
+        texts = new ArrayList<>();
         XmlPullParser xpp = getResources().getXml(R.xml.loafmaking);
         try {
             while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
@@ -50,7 +47,7 @@ public class LoafMakingActivity extends Activity {
                     if (xpp.getName().equals("description")) {
                         if (xpp.next() == XmlPullParser.TEXT) {
                             texts.add(xpp.getText());
-                            Log.w("LimaraP?ks?ge", xpp.getText());
+                            Log.w(GlobalStaticVariables.LOG_TAG, xpp.getText());
                             xpp.nextTag();
                         }
 
@@ -60,7 +57,6 @@ public class LoafMakingActivity extends Activity {
                 xpp.next();
             }
 
-//            texts = (ArrayList<String>) parser.parseXml(xpp, "loaf_making");
         } catch (XmlPullParserException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

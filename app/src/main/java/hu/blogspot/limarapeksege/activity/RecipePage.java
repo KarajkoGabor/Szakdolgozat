@@ -11,6 +11,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +31,6 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
@@ -48,28 +50,25 @@ import hu.blogspot.limarapeksege.util.ourWebViewClient;
 
 @SuppressLint("NewApi")
 public class RecipePage extends BaseActivity {
+
     private RecipeActionsHandler util;
-    private static String URLsave;
-    private static String NAMEsave;
     private Recipe currentRecipe;
     private SqliteHelper db;
     private Bundle bundleData;
     private static boolean isFavoriteRecipe;
     private AnalyticsTracker trackerApp;
-
     private CallbackManager callbackManager;
-    private ShareDialog shareDialog;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
         setContentView(R.layout.activity_recipe_page);
 
-        super.onCreateDrawer(preparedDrawerListItems(), getLocalClassName());
+        super.onCreateDrawer(getLocalClassName());
 
+        setToolbarForRecipePage();
         bundleData = getIntent().getExtras();
 
         setClassVariables(bundleData);
@@ -77,8 +76,6 @@ public class RecipePage extends BaseActivity {
 
         trackerApp = (AnalyticsTracker) getApplication();
         trackerApp.sendScreen(getString(R.string.analytics_screen_recipe));
-
-        setTitle(currentRecipe.getRecipeName());
 
         trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), currentRecipe.getRecipeName());
 
@@ -95,14 +92,12 @@ public class RecipePage extends BaseActivity {
 
     }
 
-    private List<DrawerListItem> preparedDrawerListItems() {
-        DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home, 0);
-        DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp, 1);
-        List<DrawerListItem> items = new ArrayList<>();
-        items.add(drawerListItemHome);
-        items.add(drawerListItemAbout);
+    private void setToolbarForRecipePage() {
 
-        return items;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        super.setToolbarTitle("");
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_primary_color));
+
     }
 
     private void setWebViewClient() {
@@ -144,20 +139,13 @@ public class RecipePage extends BaseActivity {
 
         util = new RecipeActionsHandler(getApplicationContext());
 
-        URLsave = bundleData.getString("href");
-        NAMEsave = bundleData.getString("name");
-
+        String recipeId = bundleData.getString("id");
         try {
+
             isFavoriteRecipe = bundleData.getBoolean("favorite");
 
             db = SqliteHelper.getInstance(RecipePage.this);
-
-
-            if (bundleData.getBoolean("saved") || bundleData.getBoolean("favorite")) {
-                currentRecipe = db.getRecipeById(NAMEsave);
-            } else {
-                currentRecipe = db.getRecipeByName(NAMEsave);
-            }
+            currentRecipe = db.getRecipeById(recipeId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,57 +154,60 @@ public class RecipePage extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+//        super.onCreateOptionsMenu(menu);
         Bundle menubundle = getIntent().getExtras();
         MenuInflater inflater = getMenuInflater();
         boolean loaded = false;
 
-        if (!menubundle.getBoolean("saved")
-                && !menubundle.getBoolean("favorite")) {
-            inflater.inflate(R.menu.recipe_page_online, menu);
-            if (currentRecipe.isSaved()) {
-                menu.findItem(R.id.menu_save).setIcon(R.drawable.save_colored);
-            } else {
-                menu.findItem(R.id.menu_save).setIcon(R.drawable.save);
+        if (((Toolbar) findViewById(R.id.toolbar)).getTitle().equals("")) {
+
+            if (!menubundle.getBoolean("saved")
+                    && !menubundle.getBoolean("favorite")) {
+                inflater.inflate(R.menu.recipe_page_online, menu);
+                if (currentRecipe.isSaved()) {
+                    menu.findItem(R.id.menu_save).setIcon(R.drawable.save_colored);
+                } else {
+                    menu.findItem(R.id.menu_save).setIcon(R.drawable.save);
+                }
+
+                if (currentRecipe.isFavorite()) {
+                    menu.findItem(R.id.menu_favorite).setIcon(
+                            R.drawable.favorite_colored);
+                } else {
+                    menu.findItem(R.id.menu_favorite).setIcon(R.drawable.favorite);
+                }
+
+                loaded = true;
+            } else if (menubundle.getBoolean("saved")) {
+                inflater.inflate(R.menu.recipe_page_saved, menu);
+
+                if (currentRecipe.isFavorite()) {
+                    menu.findItem(R.id.menu_favorite).setIcon(
+                            R.drawable.favorite_colored);
+                } else {
+                    menu.findItem(R.id.menu_favorite).setIcon(R.drawable.favorite);
+                }
+
+                if (currentRecipe.isNoteAdded()) {
+                    menu.findItem(R.id.menu_note).setIcon(
+                            R.drawable.note_pencil_colored);
+                } else {
+                    menu.findItem(R.id.menu_note).setIcon(R.drawable.note_purple);
+                }
+
+                loaded = true;
+            } else if (menubundle.getBoolean("favorite")) {
+                inflater.inflate(R.menu.recipe_page_favorite, menu);
+                if (currentRecipe.isNoteAdded()) {
+                    menu.findItem(R.id.menu_note).setIcon(
+                            R.drawable.note_pencil_colored);
+                } else {
+                    menu.findItem(R.id.menu_note).setIcon(R.drawable.note_purple);
+                }
+                loaded = true;
             }
 
-            if (currentRecipe.isFavorite()) {
-                menu.findItem(R.id.menu_favorite).setIcon(
-                        R.drawable.favorite_colored);
-            } else {
-                menu.findItem(R.id.menu_favorite).setIcon(R.drawable.favorite);
-            }
-
-            loaded = true;
-        } else if (menubundle.getBoolean("saved")) {
-            inflater.inflate(R.menu.recipe_page_saved, menu);
-
-            if (currentRecipe.isFavorite()) {
-                menu.findItem(R.id.menu_favorite).setIcon(
-                        R.drawable.favorite_colored);
-            } else {
-                menu.findItem(R.id.menu_favorite).setIcon(R.drawable.favorite);
-            }
-
-            if (currentRecipe.isNoteAdded()) {
-                menu.findItem(R.id.menu_note).setIcon(
-                        R.drawable.note_pencil_colored);
-            } else {
-                menu.findItem(R.id.menu_note).setIcon(R.drawable.note_purple);
-            }
-
-            loaded = true;
-        } else if (menubundle.getBoolean("favorite")) {
-            inflater.inflate(R.menu.recipe_page_favorite, menu);
-            if (currentRecipe.isNoteAdded()) {
-                menu.findItem(R.id.menu_note).setIcon(
-                        R.drawable.note_pencil_colored);
-            } else {
-                menu.findItem(R.id.menu_note).setIcon(R.drawable.note_purple);
-            }
-            loaded = true;
         }
-
         return loaded;
     }
 
@@ -239,7 +230,7 @@ public class RecipePage extends BaseActivity {
     @SuppressLint("NewApi")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
+//        super.onOptionsItemSelected(item);
 
         if (!item.hasSubMenu()) {
             if (getString(R.string.menu_save) == item.getTitle()) {
@@ -272,13 +263,12 @@ public class RecipePage extends BaseActivity {
                 .setContentTitle(getString(R.string.app_name) + " - " + currentRecipe.getRecipeName())
                 .build();
 
-        shareDialog = new ShareDialog(this);
+        ShareDialog shareDialog = new ShareDialog(this);
         shareDialog.show(content);
 
     }
 
     private void saveRecipe(MenuItem item) {
-        Log.w("LimaraPeksege", URLsave + NAMEsave);
         try {
             new AsyncRecipeSaveClass(RecipePage.this).execute(currentRecipe, false);
             item.setIcon(R.drawable.save_colored);
@@ -404,13 +394,6 @@ public class RecipePage extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
-    private boolean isNetworkAvailable() { // ellen�rizz�k van-e internet el�r�s
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager
-                .getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
-
     private void deleteDialogBox(Context context, String recipeName,
                                  final boolean isFavorite) {
         AlertDialog.Builder dialogBox = new AlertDialog.Builder(context);
@@ -425,7 +408,7 @@ public class RecipePage extends BaseActivity {
                         util.deleteRecipe(currentRecipe, isFavorite);
 
                         Intent intent = new Intent(RecipePage.this,
-                                SavedRecipes.class);
+                                MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtras(bundleData);
                         startActivity(intent);
@@ -442,6 +425,11 @@ public class RecipePage extends BaseActivity {
 
         AlertDialog dialog = dialogBox.create();
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
 }

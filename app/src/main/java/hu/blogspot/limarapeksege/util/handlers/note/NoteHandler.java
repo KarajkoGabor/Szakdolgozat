@@ -1,19 +1,18 @@
 package hu.blogspot.limarapeksege.util.handlers.note;
 
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
 
 public class NoteHandler {
 	

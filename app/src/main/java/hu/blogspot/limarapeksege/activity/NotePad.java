@@ -1,13 +1,5 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.util.AnalyticsTracker;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.handlers.note.NoteHandler;
-
-import java.io.File;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,7 +9,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.Tracker;
+import java.io.File;
+import java.io.IOException;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.handlers.note.NoteHandler;
 
 public class NotePad extends Activity {
 

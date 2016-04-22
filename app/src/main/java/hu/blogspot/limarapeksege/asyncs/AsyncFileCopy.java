@@ -1,19 +1,18 @@
 package hu.blogspot.limarapeksege.asyncs;
 
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.util.Log;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
 
 public class AsyncFileCopy extends AsyncTask<Object, Integer, Boolean> {
 

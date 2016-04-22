@@ -2,7 +2,6 @@ package hu.blogspot.limarapeksege.activity;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -10,24 +9,17 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.SearchView;
-
-import com.etsy.android.grid.StaggeredGridView;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.MainPageGridAdapter;
-import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
 import hu.blogspot.limarapeksege.model.Recipe;
 import hu.blogspot.limarapeksege.util.AnalyticsTracker;
 import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
@@ -42,150 +34,36 @@ public class MainActivity extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_page);
 
-//        setFullScreen();
+            setContentView(R.layout.main_page);
+            super.onCreateDrawer(getLocalClassName());
 
-        DrawerListItem drawerListItemHome = new DrawerListItem(getString(R.string.nav_drawer_item_kezdolap), R.drawable.ic_menu_home, 0);
-        DrawerListItem drawerListItemAbout = new DrawerListItem(getString(R.string.nav_drawer_item_about), R.drawable.ic_info_black_24dp, 1);
-        DrawerListItem drawerListItemSavedRecipes = new DrawerListItem("Lementett receptek", R.drawable.ic_sd_card_black_24dp, 2);
-        DrawerListItem drawerListItemFavoriteRecipes = new DrawerListItem("Kedvenc receptek", R.drawable.ic_favorite_black_24dp, 3);
-        DrawerListItem drawerListItemFindRecipes = new DrawerListItem("Recept keresése", R.drawable.ic_search_black_24dp, 4);
-        DrawerListItem drawerListItemLoafMaking = new DrawerListItem("Vekni formázása", R.drawable.loaf_icon, 5);
-
-        List<DrawerListItem> items = new ArrayList<>();
-        items.add(drawerListItemHome);
-        items.add(drawerListItemSavedRecipes);
-        items.add(drawerListItemFavoriteRecipes);
-        items.add(drawerListItemFindRecipes);
-        items.add(drawerListItemLoafMaking);
-        items.add(drawerListItemAbout);
-
-        super.onCreateDrawer(items, getLocalClassName());
-
-        trackerApp = (AnalyticsTracker) getApplication();
-
-        prepareMainView();
+            trackerApp = (AnalyticsTracker) getApplication();
+            prepareMainView();
 
     }
 
     private void prepareMainView() {
 
         SqliteHelper db = SqliteHelper.getInstance(this);
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View headerView = layoutInflater.inflate(R.layout.grid_header_layout, null, false);
-        StaggeredGridView mainGridView = (StaggeredGridView) findViewById(R.id.mainPageGridView);
 
-        adapter = new MainPageGridAdapter(this, R.layout.main_page_grid_item, (ArrayList<Recipe>) db.getAllRecipes());
-        mainGridView.addHeaderView(headerView);
-        mainGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ArrayList<Recipe> allRecipes = (ArrayList<Recipe>) db.getAllRecipes();
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position > 0) {
-                    Recipe selectedRecipe = (Recipe) parent.getItemAtPosition(position);
-                    startNewActivity(selectedRecipe);
-                }
-            }
+        Collections.shuffle(allRecipes);
 
-        });
-        mainGridView.setAdapter(adapter);
-
+        super.setGridAdapter(allRecipes);
 
         db.closeDatabase();
     }
 
-    private void startNewActivity(Recipe recipe) {
-        Bundle b2 = new Bundle();
-        Log.w(GlobalStaticVariables.LOG_TAG, "Selected recipe " + recipe.getRecipeName());
-
-        b2.putString("href", recipe.getRecipeURL());
-        Class<?> selectedRecipePage = null;
-
-        try {
-            selectedRecipePage = Class.forName(GlobalStaticVariables.RECIPE_PAGE_CLASS);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        Intent openRecipe = new Intent(MainActivity.this, selectedRecipePage);
-        b2.putString("name", recipe.getRecipeName());
-
-        openRecipe.putExtras(b2);
-        Log.w(GlobalStaticVariables.LOG_TAG, "new activity starting");
-        trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe), getString(R.string.analytics_open_recipe));
-        startActivity(openRecipe);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.recipe_list, menu);
-
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        searchManager.setOnCancelListener(new SearchManager.OnCancelListener() {
-            @Override
-            public void onCancel() {
-                Log.w(GlobalStaticVariables.LOG_TAG, "cancel");
-            }
-        });
-
-        searchView.setSubmitButtonEnabled(false);
-
-        searchView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                trackerApp.sendTrackerEvent(getString(R.string.analytics_category_recipe_list), getString(R.string.analytics_use_of_search_bar));
-                return false;
-            }
-        });
-
-        SearchView.OnQueryTextListener textListener = new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                adapter.getFilter().filter(query);
-                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextSubmit " + query);
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-//                lv.setFilterText(newText);
-
-                adapter.getFilter().filter(newText);
-                Log.w(GlobalStaticVariables.LOG_TAG, "onQueryTextChange " + newText);
-
-                return true;
-            }
-
-
-        };
-
-        searchView.setOnQueryTextListener(textListener);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    private boolean isNetworkAvailable() { // ellen�rizz�k van-e internet el�r�s
-        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager
-                .getActiveNetworkInfo();
-        return activeNetworkInfo != null;
     }
 
     @Override
@@ -213,20 +91,6 @@ public class MainActivity extends BaseActivity{
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    private void setFullScreen() {
-        if (Build.VERSION.SDK_INT < 16) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-            ActionBar actionBar = getActionBar();
-            assert actionBar != null;
-            actionBar.hide();
-        }
     }
 
 }

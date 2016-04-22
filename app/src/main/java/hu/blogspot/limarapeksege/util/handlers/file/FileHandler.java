@@ -1,10 +1,13 @@
 package hu.blogspot.limarapeksege.util.handlers.file;
 
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.model.WrongRecipeData;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.XmlParser;
+import android.content.Context;
+import android.os.Environment;
+import android.util.Log;
+
+import com.opencsv.CSVWriter;
+
+import org.jsoup.helper.StringUtil;
+import org.xmlpull.v1.XmlPullParser;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,20 +15,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.content.Context;
-import android.os.Environment;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.opencsv.CSVWriter;
-
-import org.jsoup.helper.StringUtil;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.model.WrongRecipeData;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
 
 public class FileHandler {
 
@@ -161,11 +158,16 @@ public class FileHandler {
 
         File filesLocation = new File(Environment.getExternalStorageDirectory() + path);
 
-        List<String> fileNames = new LinkedList<>(Arrays.asList(filesLocation.list()));
+        List<String> fileNames = Collections.EMPTY_LIST;
 
-        if(fileNames.contains("Images")){
-            fileNames.remove("Images");
+        if(filesLocation.exists()){
+            fileNames = new LinkedList<>(Arrays.asList(filesLocation.list()));
+            if(fileNames.contains("Images")){
+                fileNames.remove("Images");
+            }
         }
+
+
 
         return new ArrayList<>(fileNames);
     }

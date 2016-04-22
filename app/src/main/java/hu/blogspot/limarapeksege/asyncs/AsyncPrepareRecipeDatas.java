@@ -1,28 +1,6 @@
 package hu.blogspot.limarapeksege.asyncs;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.activity.MainActivity;
-import hu.blogspot.limarapeksege.activity.MainPage;
-import hu.blogspot.limarapeksege.model.Category;
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.model.WrongRecipeData;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.XmlParser;
-import hu.blogspot.limarapeksege.util.handlers.file.FileHandler;
-import hu.blogspot.limarapeksege.util.handlers.image.ImageHandler;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,14 +14,29 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.client.util.IOUtils;
-import com.google.api.client.util.StringUtils;
-
 import org.jsoup.helper.StringUtil;
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.activity.MainActivity;
+import hu.blogspot.limarapeksege.model.Category;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.model.WrongRecipeData;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.XmlParser;
+import hu.blogspot.limarapeksege.util.handlers.file.FileHandler;
+import hu.blogspot.limarapeksege.util.handlers.image.ImageHandler;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 public class AsyncPrepareRecipeDatas extends AsyncTask {
 
@@ -209,6 +202,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             for (File currentFile : savedRecipeFiles) {
                 if(!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName())){
                     Recipe recipe = db.getRecipeById(currentFile.getName());
+                    db.updateRecipeIsSaved(recipe.getId(), 1);
 
                     StringBuilder text = new StringBuilder();
                     try {
@@ -226,6 +220,9 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }else if(!currentFile.isDirectory()){
+                    Recipe recipe = db.getRecipeById(currentFile.getName());
+                    db.updateRecipeIsSaved(recipe.getId(), 1);
                 }
 
             }
@@ -237,6 +234,7 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
             for (File currentFile : favoriteRecipeFiles) {
                 if(!currentFile.isDirectory() && !StringUtil.isNumeric(currentFile.getName())) {
                     Recipe recipe = db.getRecipeById(currentFile.getName());
+                    db.updateRecipeIsFavorite(recipe.getId(), 1);
 
                     StringBuilder text = new StringBuilder();
                     try {
@@ -255,6 +253,9 @@ public class AsyncPrepareRecipeDatas extends AsyncTask {
                         e.printStackTrace();
                     }
 
+                }else if(!currentFile.isDirectory()){
+                    Recipe recipe = db.getRecipeById(currentFile.getName());
+                    db.updateRecipeIsFavorite(recipe.getId(), 1);
                 }
             }
         }

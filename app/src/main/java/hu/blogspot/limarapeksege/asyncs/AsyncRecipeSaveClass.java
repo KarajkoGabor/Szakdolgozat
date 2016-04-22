@@ -1,11 +1,12 @@
 package hu.blogspot.limarapeksege.asyncs;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 public class AsyncRecipeSaveClass extends AsyncTask<Object, Integer, Void> {
 
@@ -28,7 +29,6 @@ public class AsyncRecipeSaveClass extends AsyncTask<Object, Integer, Void> {
 	protected Void doInBackground(Object... params) {
 		try {
 			Recipe recipe = (Recipe) params[0];
-//			String recipeID = params[1].toString();
 			Boolean isFavorite = (Boolean) params[1];
 			RecipeActionsHandler util = new RecipeActionsHandler(context);
 

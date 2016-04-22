@@ -1,14 +1,13 @@
 package hu.blogspot.limarapeksege.util;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.util.Log;
+import java.io.IOException;
+import java.util.ArrayList;
 
-import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.model.Category;
 import hu.blogspot.limarapeksege.model.WrongRecipeData;
 

@@ -3,7 +3,6 @@ package hu.blogspot.limarapeksege.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.adapters.items.DrawerListItem;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
 
 public class NavigationDrawerListAdapter extends ArrayAdapter<DrawerListItem> {
 

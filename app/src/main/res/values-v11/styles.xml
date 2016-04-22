@@ -1,5 +1,34 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light" />
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <!-- colorPrimary is used for coloring the Toolbar -->
+        <!--<item name="colorPrimary">@android:color/transparent</item>-->
+        <item name="colorPrimary">@color/primary_text_color</item>
+        <!-- colorPrimaryDark is used for coloring the status bar -->
+        <!--<item name="colorPrimaryDark">@android:color/transparent</item>-->
+        <item name="colorPrimaryDark">@color/primary_text_color</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+             which is used to tint widgets -->
+        <item name="colorAccent">#FFAB40</item>
+    </style>
+
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
 
 </resources>

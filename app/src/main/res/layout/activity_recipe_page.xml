@@ -5,85 +5,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:titleTextColor="#ffffff" />
 
-        <WebView
+
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <WebView
                 android:id="@+id/recipeWv"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:clickable="false"
                 android:fitsSystemWindows="true" />
 
-        <TextView
-            android:id="@+id/reading_mode_textView"
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:text="Olvasó módban a képernyő nem kapcsol ki"
-            android:background="@color/Black"
-            android:textColor="@color/White"
-            android:typeface="serif"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal|bottom"
-            android:textSize="15sp"
-            android:gravity="center"
-            />
+            <TextView
+                android:id="@+id/reading_mode_textView"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@color/Black"
+                android:gravity="center"
+                android:text="Olvasó módban a képernyő nem kapcsol ki"
+                android:textColor="@color/White"
+                android:textSize="15sp"
+                android:typeface="serif"
+                android:visibility="gone" />
 
-        <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
 
-    </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/left_drawer_container"
-        android:weightSum="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:weightSum="1">
 
         <ImageView
-            android:id="@id/headerPicture"
+            android:id="@+id/headerPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:contentDescription="@string/imageString"
-            android:src="@drawable/logo"
-            android:background="@color/white"/>
+            android:src="@drawable/logo" />
 
         <ListView
             android:id="@+id/left_drawer"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
             android:background="@color/White"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
-            android:dividerHeight="8dp"
-            android:layout_marginTop="16dp"/>
+            android:dividerHeight="8dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/right_drawer_container"
-        android:weightSum="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:weightSum="1">
 
         <ListView
             android:id="@+id/right_drawer"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
             android:background="@color/White"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
-            android:dividerHeight="8dp"
-            android:layout_marginTop="16dp"/>
+            android:dividerHeight="8dp" />
 
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

@@ -1,12 +1,13 @@
 package hu.blogspot.limarapeksege.util;
 
-import hu.blogspot.limarapeksege.R;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import hu.blogspot.limarapeksege.R;
 
 public class ourWebViewClient extends WebViewClient {
 
@@ -24,11 +25,11 @@ public class ourWebViewClient extends WebViewClient {
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-		Log.w("LimaraPeksege", currentUrl + "currentUrl");
-		Log.w("LimaraPeksege", url + "loaded url");
+		Log.w(GlobalStaticVariables.LOG_TAG, currentUrl + "currentUrl");
+		Log.w(GlobalStaticVariables.LOG_TAG, url + "loaded url");
 		if (url.contains(currentUrl+"?m=1")) {
 			view.loadUrl(url);
-			Log.w("LimaraPeksege", "url load");
+			Log.w(GlobalStaticVariables.LOG_TAG, "url load");
 
 		}
 		return true;

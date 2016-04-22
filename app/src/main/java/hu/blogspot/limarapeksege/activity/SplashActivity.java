@@ -6,13 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
 import java.io.File;
-import java.util.Date;
 
 import hu.blogspot.limarapeksege.R;
 import hu.blogspot.limarapeksege.asyncs.AsyncPrepareRecipeDatas;
@@ -24,7 +22,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setFullScreen();
+//        setFullScreen();
 
         setContentView(R.layout.activity_splash);
 //        setLatestUploadDate();

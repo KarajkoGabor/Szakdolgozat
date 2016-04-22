@@ -1,15 +1,5 @@
 package hu.blogspot.limarapeksege.activity;
 
-import hu.blogspot.limarapeksege.R;
-import hu.blogspot.limarapeksege.model.Recipe;
-import hu.blogspot.limarapeksege.util.AnalyticsTracker;
-import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
-import hu.blogspot.limarapeksege.util.SqliteHelper;
-import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +18,16 @@ import android.widget.ListView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import hu.blogspot.limarapeksege.R;
+import hu.blogspot.limarapeksege.model.Recipe;
+import hu.blogspot.limarapeksege.util.AnalyticsTracker;
+import hu.blogspot.limarapeksege.util.GlobalStaticVariables;
+import hu.blogspot.limarapeksege.util.SqliteHelper;
+import hu.blogspot.limarapeksege.util.handlers.recipe.RecipeActionsHandler;
 
 public class RecipeSearch extends ListActivity {
 

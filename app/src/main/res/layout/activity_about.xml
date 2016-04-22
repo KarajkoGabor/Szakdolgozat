@@ -11,7 +11,9 @@
         android:src="@drawable/logo"
         android:layout_above="@+id/about_credits"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="false"
+        android:contentDescription="" />
 
     <TextView
         android:id="@+id/about_credits"
@@ -21,11 +23,23 @@
         android:lineSpacingExtra="8dip"
         android:paddingTop="20dip"
         android:text="@string/about_text"
-        android:textColor="#803a3a"
+        android:textColor="@color/primary_text_color"
         android:textSize="20sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="42dp" />
+
+    <TextView
+        android:id="@+id/version_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="8dip"
+        android:paddingTop="20dip"
+        android:textColor="@color/primary_text_color"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

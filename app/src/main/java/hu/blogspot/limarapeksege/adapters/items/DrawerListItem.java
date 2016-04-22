@@ -1,7 +1,5 @@
 package hu.blogspot.limarapeksege.adapters.items;
 
-import android.graphics.Bitmap;
-
 public class DrawerListItem {
 
     private String title;

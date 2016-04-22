@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.blogspot.limarapeksege"
     android:installLocation="auto"
-    android:versionCode="17"
-    android:versionName="1.9.8">
+    android:versionCode="23"
+    android:versionName="2.3">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -36,27 +36,12 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data
-                android:name="searchable"
-                android:resource="@xml/searchable" />
-        </activity>
-        <activity
-            android:name=".activity.RecipeCategory"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:label="@string/title_activity_recipe_category"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.RecipeList"
+            android:name=".activity.BaseActivity"
             android:configChanges="orientation"
-            android:exported="false"
-            android:label="@string/title_activity_recipe_list"
+            android:label=""
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -71,15 +56,6 @@
             android:configChanges="orientation"
             android:exported="false"
             android:label="@string/title_activity_recipe_page"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.SavedRecipes"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_saved_recipes"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -129,9 +105,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
 
-        <activity
-            android:name=".activity.BaseActivity"
-            android:label="@string/title_activity_base"></activity>
+        <!--<activity-->
+            <!--android:name=".activity.BaseActivity"-->
+            <!--android:label="@string/title_activity_base"></activity>-->
         <activity
             android:name=".activity.AboutActivity"
             android:configChanges="orientation"
